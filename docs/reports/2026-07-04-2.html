@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 生产力雷达 · 2026-07-04（第 2 期）</title>
+<style>
+  :root{--bg:#f7f7f5;--card:#ffffff;--text:#1a1a1a;--muted:#6b6b6b;--border:#e4e4e0;--accent:#0f6b52;--noise:#8a5a00;--warn:#b85c00;}
+  @media (prefers-color-scheme: dark){:root{--bg:#161618;--card:#212124;--text:#ecece8;--muted:#9a9a94;--border:#37373b;--accent:#4fc99f;--noise:#d9a94a;--warn:#e8924a;}}
+  :root[data-theme="light"]{--bg:#f7f7f5;--card:#ffffff;--text:#1a1a1a;--muted:#6b6b6b;--border:#e4e4e0;--accent:#0f6b52;--noise:#8a5a00;--warn:#b85c00;}
+  :root[data-theme="dark"]{--bg:#161618;--card:#212124;--text:#ecece8;--muted:#9a9a94;--border:#37373b;--accent:#4fc99f;--noise:#d9a94a;--warn:#e8924a;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.75;padding:24px 16px;max-width:820px;margin:0 auto}
+  header{margin-bottom:28px}
+  h1{font-size:1.45rem;margin-bottom:4px}
+  .date{color:var(--muted);font-size:.95rem}
+  .prev-link{display:inline-block;margin-top:8px;font-size:.88rem;color:var(--accent);text-decoration:none;padding:3px 10px;border:1px solid var(--border);border-radius:6px}
+  .prev-link:hover{border-color:var(--accent)}
+  h2{font-size:1.1rem;margin:36px 0 14px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+  h2.noise{border-color:var(--noise)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:16px}
+  .card h3{font-size:1.02rem;margin-bottom:10px;line-height:1.5}
+  .badge{display:inline-block;font-size:.78rem;padding:1px 9px;border-radius:20px;border:1px solid var(--border);margin-left:6px;vertical-align:middle;white-space:nowrap}
+  .badge-preview{border-color:var(--warn);color:var(--warn)}
+  .field{margin:7px 0;font-size:.94rem}
+  .field b{color:var(--accent)}
+  .action{margin-top:12px;padding:8px 12px;border-left:3px solid var(--accent);background:rgba(15,107,82,.06);font-size:.94rem;border-radius:0 6px 6px 0}
+  .action.watch{border-color:var(--warn);background:rgba(184,92,0,.06)}
+  @media (prefers-color-scheme: dark){.action{background:rgba(79,201,159,.08)}.action.watch{background:rgba(232,146,74,.08)}}
+  :root[data-theme="dark"] .action{background:rgba(79,201,159,.08)}
+  :root[data-theme="dark"] .action.watch{background:rgba(232,146,74,.08)}
+  .links{margin-top:10px;font-size:.88rem}
+  .links a{color:var(--accent);text-decoration:none;margin-right:14px}
+  .links a:hover{text-decoration:underline}
+  .ext li{margin-bottom:12px;font-size:.94rem}
+  .ext{padding-left:20px}
+  .noise-card{border-left:3px solid var(--noise)}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+  code{font-size:.88em;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px}
+  @media (prefers-color-scheme: dark){code{background:rgba(255,255,255,.1)}}
+  :root[data-theme="dark"] code{background:rgba(255,255,255,.1)}
+  table{width:100%;border-collapse:collapse;font-size:.9rem;margin:10px 0}
+  th{text-align:left;padding:6px 10px;border-bottom:2px solid var(--border);color:var(--muted);font-weight:600}
+  td{padding:6px 10px;border-bottom:1px solid var(--border)}
+  td:first-child{font-weight:500}
+</style>
+</head>
+<body>
+<header>
+  <h1>📡 AI 生产力雷达</h1>
+  <div class="date">2026-07-04（周六）第 2 期 · 精选 3 条 · 扩展 2 条 · 噪音过滤 2 条</div>
+  <a class="prev-link" href="2026-07-04.html">← 今日第 1 期（2.1.200 破坏性变更 · Fable 5 分类器踩坑）</a>
+</header>
+
+<h2>今日精选（补充）</h2>
+
+<div class="card">
+  <h3>1. API 限速全面提升：Sonnet/Haiku 现与 Opus 齐平，使用层级从 4 层并为 3 层<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>2026-06-26，Anthropic 重构 API 使用限制体系：① 使用层级从 4 个精简为 3 个（Start / Build / Scale），有更高需求可联系销售申请 Custom；② Claude Sonnet 和 Haiku 的 RPM、ITPM、OTPM 限制全面对齐 Opus，同层级内三族模型限速相同；③ 所有模型（Haiku 3.5 除外）的缓存读取 token 不再计入 ITPM，只有未缓存的新输入 token 和缓存写入才计入。<b>所有现有账号不降速，多数被自动升到更高层。</b></div>
+  <div class="field"><b>对你的价值：</b>如果你的日常工作流（行研采集、文案批处理、竞对扫描）用的是 Sonnet 而不是 Opus，此前你的 RPM 上限可能显著低于 Opus——现在不再如此。具体影响：相同预算下，可以并发更多任务而不触发 429 错误；使用提示词缓存后，缓存读取部分不再消耗速率配额，多轮长文档对话的吞吐量大幅提升。</div>
+  <div class="field"><b>怎么部署：</b>① 登录 platform.claude.com → Settings → Limits 确认当前层级和新限速数字；② 如果你的自动化脚本有手动限速逻辑（如 sleep 控制并发），可以相应调整；③ 启用提示词缓存的工作流现在可以放心扩规模，缓存命中不消耗 ITPM。</div>
+  <div class="field"><b>坑：</b>层级是按月累计消费自动晋升，新账号仍从 Start 开始。若你之前的脚本有针对旧限速写死的延迟时间，实际限速已提升但脚本还在人为降速，记得检查。</div>
+  <div class="action">🎯 行动建议：<b>今天就查</b>——登录控制台确认新层级和限速数字，同时检查自动化脚本里的 rate limit 配置是否仍贴合实际。</div>
+  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/about-claude/pricing">官方定价与限速文档</a><a href="https://docs.anthropic.com/en/release-notes/api">API Release Notes</a></div>
+</div>
+
+<div class="card">
+  <h3>2. Claude for Chrome 实战边界：LinkedIn 招商线索每条省 10-15 分钟，但这 3 类场景会失败<span class="badge">🔶 可复现</span></h3>
+  <div class="field"><b>是什么：</b>Claude for Chrome 已正式 GA（见今日第 1 期扩展区），本条汇总社区实测数据，重点是"实际能干什么、哪里会翻车"。核心结论：对<b>低风险、重复性、界面稳定</b>的浏览器任务效果显著；对复杂动态 UI（自定义日期选择器、大量 JavaScript）或需要判断语义而非视觉的任务会系统性出错。</div>
+  <div class="field"><b>对你的价值（招商 + Marketing 直接对应）：</b>
+    <table>
+      <tr><th>场景</th><th>实测结论</th><th>是否推荐</th></tr>
+      <tr><td>LinkedIn 候选加盟商研究</td><td>10-15 分钟/人 → 秒级提取现职、背景摘要</td><td>✅ 今天就试</td></tr>
+      <tr><td>竞对官网巡检 + 文字提取</td><td>稳定界面效果好，能标注"新增内容"</td><td>✅ 适合</td></tr>
+      <tr><td>广告后台读取 + 报告</td><td>能读 dashboard 并输出摘要，但复杂 UI 时会点错</td><td>⚠️ 监督运行</td></tr>
+      <tr><td>表单批量填写</td><td>低风险重复表单可行，涉及支付或权限操作绝对不用</td><td>⚠️ 限定范围</td></tr>
+    </table>
+  </div>
+  <div class="field"><b>系统性失败点：</b>① 复杂 JS 驱动的 UI（每步需截图确认，速度慢 3-5×）；② 需要理解语义而非看图的任务（如"改价格为去年同期的 1.1 倍"）；③ 任何有权限/财务后果的操作。</div>
+  <div class="field"><b>怎么部署：</b>安装 Claude for Chrome（需 Claude 账号），确保 claude.ai 已登录；从 LinkedIn 招商场景入手——提示词示例：<code>打开这 5 个 LinkedIn 主页，提取姓名/现职/所在城市/与 EV 充电或能源行业的关联，输出为表格</code>。</div>
+  <div class="action">🎯 行动建议：<b>今天就试</b>——LinkedIn 招商线索研究是你最直接的 ROI 场景。用 5 个候选加盟商档案做测试，测量实际节省时间。</div>
+  <div class="links">🔗 <a href="https://code.claude.com/docs/en/chrome">官方 Chrome 集成文档</a><a href="https://www.mindstudio.ai/blog/multi-agent-chrome-automation-claude-code">MindStudio 多 agent 实测</a><a href="https://dev.to/minatoplanb/i-tested-every-browser-automation-tool-for-claude-code-heres-my-final-verdict-3hb7">浏览器自动化工具横测</a></div>
+</div>
+
+<div class="card">
+  <h3>3. Claude Managed Agents 自托管沙箱 GA + MCP 内网隧道（研究预览）<span class="badge">✅ 已证实</span><span class="badge badge-preview">MCP 隧道：研究预览</span></h3>
+  <div class="field"><b>是什么：</b>两个新能力打包上线：① <b>自托管沙箱（GA）</b>——Managed Agents 的编排逻辑仍在 Anthropic 侧，但工具执行（bash、文件读写、代码运行）可以移到你自己的服务器或 Serverless 环境（支持 AWS Lambda、Vercel、Modal、E2B 等）；② <b>MCP Tunnels（研究预览）</b>——可以将 Claude 连接到你私有网络里的 MCP 服务器，无需把内部系统暴露到公网。</div>
+  <div class="field"><b>对你的价值：</b>目前你是一人团队，多数工作流还在公共 API 层，这两个功能的直接刚需不高。但以下情形值得注意：① 如果未来你要处理加盟商的敏感协议数据或财务数据，自托管沙箱可以确保数据不离开你的服务器；② 如果你有内部 CRM 或私有数据库，MCP 隧道可以让 Claude 直接对接而无需数据外传。</div>
+  <div class="field"><b>怎么部署（先决条件）：</b>自托管沙箱需要已使用 Claude Managed Agents（API / Claude Platform on AWS 均支持）；MCP Tunnels 目前是研究预览，需申请访问权限。两者均有详细 provider 指南（Vercel/Modal 入门门槛最低）。</div>
+  <div class="action watch">🎯 行动建议：<b>观望</b>——现阶段对一人团队不是紧迫项。收藏留档，等业务规模需要数据合规隔离时再评估。MCP Tunnels 研究预览期间稳定性未知，不建议接入核心工作流。</div>
+  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes">自托管沙箱官方文档</a><a href="https://dev.to/akaranjkar08/claude-managed-agents-self-hosted-sandboxes-and-mcp-tunnels-setup-guide-4ha4">DEV.to 完整安装指南</a><a href="https://venturebeat.com/orchestration/claude-agents-can-finally-connect-to-enterprise-apis-without-leaking-credentials">VentureBeat 分析</a></div>
+</div>
+
+<h2>扩展区</h2>
+<ul class="ext">
+  <li><b>Marketing Skills for Claude Code（GitHub 社区插件库）</b>（🔶 可复现）——社区维护的 Marketing 专属 Skill 集合，覆盖 CRO、文案、SEO、增长工程，可直接安装到 Claude Code。对招商文案、落地页优化场景有直接价值。质量参差不齐，使用前先看每个 Skill 的 README 和 star 数。<a href="https://github.com/coreyhaines31/marketingskills">GitHub 链接</a></li>
+  <li><b>Claude Code Computer Use 8 个业务实战场景（MindStudio 深度评测）</b>（🔶）——包含竞对调研、广告优化、客户研究等场景的详细实操步骤，比官方文档更贴近一人团队的实际工作流，可作为 Claude for Chrome 上手前的预习材料。<a href="https://www.mindstudio.ai/blog/claude-code-computer-use-business-use-cases">原文</a></li>
+</ul>
+
+<h2 class="noise">今日噪音（已过滤）</h2>
+<div class="card noise-card">
+  <div class="field">🚫 <b>"AI 将彻底颠覆加盟商招募体系，传统 BD 团队即将消亡"类标题文章</b>——多篇 franchise 行业媒体蹭 AI agent 热度，以"77% higher success rates"等统计数字制造紧迫感，但来源指向付费白皮书，无可验证的 A/B 测试数据。<b>过滤理由：T3 无可复现操作细节，数字来源不可查，与今日精选第 2 条的实测边界数据直接矛盾。</b></div>
+  <div class="field">🚫 <b>"2026 最佳 AI 营销工具 TOP 15"类汇总推荐文</b>——将 Jasper、Copy.ai、HubSpot AI 等混列，无评测标准、无成本对比、无场景细分，典型 SEO 内容农场产出。<b>过滤理由：T3 无方法论，不可复现，纳入白名单第 2 条（可部署实操）未达标。</b></div>
+</div>
+
+<footer>
+  AI Productivity Radar · 本期规则版本 <b>ROUTINE v1</b> · 生成于 2026-07-04（正式运行第 2 期）<br>
+  本期与第 1 期内容不重叠。第 1 期见：<a href="2026-07-04.html" style="color:var(--accent)">2026-07-04.html</a><br>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
+</footer>
+</body>
+</html>
