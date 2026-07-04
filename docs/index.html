@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>AI Productivity Radar</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Productivity Radar</title>
+<style>
+  :root{--bg:#f7f7f5;--card:#ffffff;--text:#1a1a1a;--muted:#6b6b6b;--border:#e4e4e0;--accent:#0f6b52;}
+  @media (prefers-color-scheme: dark){:root{--bg:#161618;--card:#212124;--text:#ecece8;--muted:#9a9a94;--border:#37373b;--accent:#4fc99f;}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:32px 16px;max-width:720px;margin:0 auto}
+  h1{font-size:1.5rem;margin-bottom:6px}
+  .sub{color:var(--muted);margin-bottom:28px;font-size:.95rem}
+  ul{list-style:none}
+  li a{display:block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;color:var(--text);text-decoration:none}
+  li a:hover{border-color:var(--accent)}
+  li a b{color:var(--accent)}
+  footer{margin-top:32px;color:var(--muted);font-size:.85rem}
+</style>
 </head>
 <body>
-  <h1>AI Productivity Radar</h1>
-  <p>每日报告索引（自动更新）</p>
-  <ul id="reports"></ul>
+<h1>📡 AI Productivity Radar</h1>
+<p class="sub">面向一人团队的每日 AI 能力情报 · 交叉验证 · 宁缺毋滥</p>
+<ul id="reports">
+  <li><a href="reports/2026-07-04.html"><b>2026-07-04</b> · Sonnet 5 发布与 tokenizer 计费坑 · 后台 subagent 编排 · 降幻觉 Playbook</a></li>
+</ul>
+<footer>规则版本见仓库 ROUTINE.md · 每日 UTC+8 08:00 前更新</footer>
 </body>
 </html>
