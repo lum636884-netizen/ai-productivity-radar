@@ -4,32 +4,106 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Productivity Radar</title>
-<style>
-  :root{--bg:#f7f7f5;--card:#ffffff;--text:#1a1a1a;--muted:#6b6b6b;--border:#e4e4e0;--accent:#0f6b52;}
-  @media (prefers-color-scheme: dark){:root{--bg:#161618;--card:#212124;--text:#ecece8;--muted:#9a9a94;--border:#37373b;--accent:#4fc99f;}}
-  :root[data-theme="light"]{--bg:#f7f7f5;--card:#ffffff;--text:#1a1a1a;--muted:#6b6b6b;--border:#e4e4e0;--accent:#0f6b52;}
-  :root[data-theme="dark"]{--bg:#161618;--card:#212124;--text:#ecece8;--muted:#9a9a94;--border:#37373b;--accent:#4fc99f;}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:32px 16px;max-width:720px;margin:0 auto}
-  h1{font-size:1.5rem;margin-bottom:6px}
-  .sub{color:var(--muted);margin-bottom:28px;font-size:.95rem}
-  ul{list-style:none}
-  li a{display:block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;color:var(--text);text-decoration:none}
-  li a:hover{border-color:var(--accent)}
-  li a b{color:var(--accent)}
-  .meta{display:block;font-size:.85rem;color:var(--muted);margin-top:4px}
-  .tag{display:inline-block;font-size:.75rem;padding:1px 7px;border-radius:10px;border:1px solid var(--border);margin-left:6px;vertical-align:middle}
-  footer{margin-top:32px;color:var(--muted);font-size:.85rem}
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<h1>📡 AI Productivity Radar</h1>
-<p class="sub">面向一人团队的每日 AI 能力情报 · 交叉验证 · 宁缺毋滥</p>
-<ul id="reports">
-  <li><a href="reports/2026-07-05.html"><b>2026-07-05</b><span class="tag">周日 · 含本周复盘</span> · Managed Agents 定时调度 · Opus 4.1 截止 8/5 · WhatsApp 招商机器人 · Claude for Small Business<span class="meta">精选 4 条 · 本日采集 2 次（ROUTINE v2 追加制）</span></a></li>
-  <li><a href="reports/2026-07-04-2.html"><b>2026-07-04</b><span class="tag">第 2 期</span> · API 限速统一 · Chrome 实战边界 · 自托管沙箱 GA<span class="meta">正式运行第 2 期 · 精选 3 条 · 与第 1 期内容不重叠</span></a></li>
-  <li><a href="reports/2026-07-04.html"><b>2026-07-04</b><span class="tag">第 1 期</span> · 2.1.200 破坏性变更 · Fable 5 分类器踩坑 · Opus 4.7 截止迁移 · 叠加 Skill<span class="meta">正式运行第 1 期 · 精选 4 条</span></a></li>
-</ul>
-<footer>规则版本见仓库 ROUTINE.md · 每日 UTC+8 08:00 前更新</footer>
+<header>
+  <h1>📡 AI Productivity Radar</h1>
+  <p class="sub">面向一人团队的每日 AI 生产力信息 · 交叉验证 · 宁缺毋滥</p>
+</header>
+
+<section>
+  <h2 class="pin">📌 过去 30 天最值得关注</h2>
+  <div id="picksList"></div>
+</section>
+
+<section>
+  <h2 class="noise">🔥 近期热词</h2>
+  <div class="hotwrap" id="hotList"></div>
+</section>
+
+<section>
+  <h2>🔍 全部话题</h2>
+  <input id="q" type="search" placeholder="搜索标题 / 摘要 / 标签…">
+  <div class="chips" id="chips"></div>
+  <div id="topicList"></div>
+</section>
+
+<section>
+  <h2>📅 每日报告</h2>
+  <div id="days"></div>
+</section>
+
+<footer>规则版本见仓库 ROUTINE.md · 每日 UTC+8 08:00 前更新 · 本页由 data/topics.json 驱动</footer>
+
+<script>
+(function(){
+  var D=null,state={q:'',cat:null,hot:null};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function topicUrl(t){if(t.url)return t.url;if(t.links&&t.links.length)return t.links[0].u;return '#';}
+  function daysLeft(d){if(!d)return null;var diff=Math.ceil((new Date(d+'T23:59:59+08:00')-new Date())/86400000);return diff;}
+  function renderPicks(){
+    var h='';
+    D.picks.forEach(function(p){
+      h+='<a class="pick" href="'+esc(p.url)+'"><b>'+esc(D.categories[p.cat]||'')+'</b> '+esc(p.conf)+' '+esc(p.title)+'<span class="why">'+esc(p.why)+'</span></a>';
+    });
+    document.getElementById('picksList').innerHTML=h;
+  }
+  function renderHot(){
+    var h='';
+    D.hot.forEach(function(x,i){
+      var left=daysLeft(x.expire);
+      if(left!==null&&left<0)return; /* 过期热词不展示 */
+      h+='<button class="hotchip'+(state.hot===i?' on':'')+'" data-i="'+i+'" title="'+esc(x.note)+'">'+esc(x.tag)+' <span class="n">×'+x.topicIds.length+(left!==null?' · 剩'+left+'天':'')+'</span></button>';
+    });
+    document.getElementById('hotList').innerHTML=h||'<span class="empty">当前无高热话题</span>';
+    Array.prototype.forEach.call(document.querySelectorAll('.hotchip'),function(b){
+      b.onclick=function(){var i=+b.getAttribute('data-i');state.hot=(state.hot===i?null:i);state.cat=null;renderAll();};
+    });
+  }
+  function renderChips(){
+    var h='<button class="chip'+(state.cat===null&&state.hot===null?' on':'')+'" data-c="">全部</button>';
+    Object.keys(D.categories).forEach(function(k){
+      h+='<button class="chip'+(state.cat===k?' on':'')+'" data-c="'+k+'">'+esc(D.categories[k])+'</button>';
+    });
+    document.getElementById('chips').innerHTML=h;
+    Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(b){
+      b.onclick=function(){var c=b.getAttribute('data-c');state.cat=c||null;state.hot=null;renderAll();};
+    });
+  }
+  function renderTopics(){
+    var q=state.q.toLowerCase(),hotIds=state.hot!==null?D.hot[state.hot].topicIds:null;
+    var list=D.topics.filter(function(t){
+      if(state.cat&&t.cat!==state.cat)return false;
+      if(hotIds&&hotIds.indexOf(t.id)<0)return false;
+      if(q){var hay=(t.title+' '+t.brief+' '+t.tags.join(' ')).toLowerCase();if(hay.indexOf(q)<0)return false;}
+      return true;
+    });
+    list.sort(function(a,b){return (b.date+b.batch).localeCompare(a.date+a.batch);});
+    var h='';
+    list.forEach(function(t){
+      var left=daysLeft(t.deadline);
+      h+='<a class="t'+(t.tier==='extended'?' tier-ext':'')+'" href="'+esc(topicUrl(t))+'">'
+        +'<span class="ti">'+esc(t.conf)+' '+esc(t.title)+'</span>'
+        +(left!==null&&left>=0?'<span class="deadline-badge">⏰ 剩 '+left+' 天</span>':'')
+        +'<span class="meta">'+esc(t.date)+' · '+esc(D.categories[t.cat]||'')+' · '+(t.tier==='featured'?'精选':'扩展')+(t.act?' · 🎯 '+esc(t.act):'')+'</span>'
+        +'<span class="meta">'+esc(t.brief)+'</span>'
+        +'<span class="tags">'+t.tags.map(function(g){return '<span class="tag">'+esc(g)+'</span>';}).join('')+'</span>'
+        +'</a>';
+    });
+    document.getElementById('topicList').innerHTML=h||'<div class="empty">没有匹配的话题——换个关键词或清除筛选试试</div>';
+  }
+  function renderDays(){
+    var h='';
+    D.days.forEach(function(d){h+='<a href="'+esc(d.url)+'"><b>'+esc(d.date)+'</b><span class="meta">'+esc(d.label)+'</span></a>';});
+    document.getElementById('days').innerHTML=h;
+  }
+  function renderAll(){renderPicks();renderHot();renderChips();renderTopics();renderDays();}
+  document.getElementById('q').addEventListener('input',function(e){state.q=e.target.value;renderTopics();});
+  fetch('data/topics.json').then(function(r){return r.json();}).then(function(j){D=j;renderAll();}).catch(function(e){
+    document.getElementById('topicList').innerHTML='<div class="empty">数据加载失败：'+esc(e.message)+'</div>';
+  });
+})();
+</script>
 </body>
 </html>
