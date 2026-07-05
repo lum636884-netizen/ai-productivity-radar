@@ -49,7 +49,7 @@
 <body>
 <header>
   <h1>📡 AI 生产力雷达</h1>
-  <div class="date" id="stats">2026-07-05（周日）· 精选 3 条 · 扩展 2 条 · 噪音过滤 2 条 · 本日已采集 1 次</div>
+  <div class="date" id="stats">2026-07-05（周日）· 精选 4 条 · 扩展 5 条 · 噪音过滤 3 条 · 本日已采集 2 次</div>
 </header>
 
 <h2>今日精选</h2>
@@ -86,16 +86,34 @@
   <div class="links">🔗 <a href="https://helo.ai/resources/blog/whatsapp-lead-generation">WhatsApp 线索捕获策略</a><a href="https://chatzy.ai/blogs/automating-whatsapp-lead-generation-ai">2026 自动化实操指南</a><a href="https://www.marketing-interactive.com/next-in-digital-indonesia-s-marketers-brace-for-ai-led-discovery-and-owned-channel-revival">印尼市场趋势（Marketing-Interactive）</a></div>
 </div>
 
+<div class="batch-sep">── 第 2 次采集 · 11:20（UTC+8）──</div>
+
+<div class="card">
+  <h3>4. Claude for Small Business：Pro/Max 计划内免费开关，15 个开箱即用的小企业工作流<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>Anthropic 于 5 月 13 日推出的 Claude Cowork 内置开关（非新付费档位）：Pro/Max/Team 计划免费启用，含 <b>15 个 agentic 工作流</b>（覆盖财务、运营、销售、营销、HR、客服）+ 15 个可复用 Skill + 直连 QuickBooks、PayPal、HubSpot、Canva、DocuSign、Google Workspace、Microsoft 365 的连接器。典型工作流：发票催收、线索分诊（lead triage）、合同审查、营销活动创建、现金流监控、business pulse 报告。每个工作流执行前需你确认计划，熟悉后可放行端到端自动跑。<i>注：5 月发布，非本周新闻——按"一人团队可部署实操"白名单纳入，此前未覆盖。</i></div>
+  <div class="field"><b>对你的价值：</b>这基本是给你这类业务形态定制的能力包。最直接可用的三个：① <b>线索分诊</b>——加盟咨询自动分类打分（与今日第 3 条 WhatsApp 机器人是同一漏斗的不同环节，这个在 Claude 内、零搭建成本）；② <b>发票催收</b>——对加盟商的定期收款跟进；③ <b>营销活动创建</b>——接 Canva 连接器直接产出物料。如果你已付费 Pro/Max，边际成本为零。</div>
+  <div class="field"><b>怎么部署：</b>Claude Cowork 内打开 Small Business 开关 → 连接你在用的工具（Google Workspace 起步即可）→ 从单个工作流试起（建议先跑 lead triage）。配套有免费的 AI Fluency for Small Business 课程（与 PayPal 合作）。</div>
+  <div class="field"><b>坑与验证：</b>连接器以美国主流 SaaS 为中心（QuickBooks/PayPal），印尼本地工具（如本地银行、Xendit）需绕道 Google Sheets 或 API 中转；工作流是模板，首次运行务必逐步确认而非直接放行端到端。</div>
+  <div class="action">🎯 行动建议：<b>今天就开</b>——你已有付费计划的话开关免费，先用 lead triage 工作流对照你现有的加盟咨询处理流程跑一次对比。</div>
+  <div class="links">🔗 <a href="https://www.anthropic.com/news/claude-for-small-business">官方公告</a><a href="https://the-decoder.com/anthropic-launches-claude-for-small-business-to-embed-ai-into-the-tools-you-forgot-you-pay-for/">The Decoder 报道</a><a href="https://karozieminski.substack.com/p/claude-for-small-business-decision-tree-workflows">15 个工作流决策树拆解</a><a href="https://findskill.ai/blog/claude-for-small-business-pricing-explained/">定价说明（免费开关而非新档位）</a></div>
+</div>
+
 <h2>扩展区</h2>
 <ul class="ext">
   <li><b>社区 Skill 精选实测："试了 100+ 个 Claude Skills，留下来的是这 15 个"</b>（🔶 待细验）——X 上流传的长文，按场景归类实测过的 Skill 并给出弃用理由。对你筛选 Marketing/研究类 Skill 有参考价值，但单一作者主观性强，用前对照自己场景验证。<a href="https://x.com/VaibhavSisinty/article/2063290847723192610">原文</a></li>
   <li><b>Reddit 社区共识：多 agent 分工模式（主会话 Opus + 子任务 Sonnet）+ 短会话策略</b>（🔶）——高赞实践：自主任务开跑前先 commit 一个检查点，结果不对直接回滚；长会话拆短、按任务聚焦。与上期"后台 subagent 编排"形成互补的操作纪律。<a href="https://www.morphllm.com/claude-code-reddit">Reddit 实践汇总</a></li>
+  <li style="list-style:none;margin-left:-20px"><div class="batch-sep">── 第 2 次采集 ──</div></li>
+  <li><b>后续更新：Fable 5 分类器误报有了反馈通道与实操绕行指南</b>（✅ 昨日精选②的进展）——Anthropic 承诺"尽快收窄"分类器并明确以 <code>/feedback</code> 误报上报驱动改进（遇到误杀就报，真的在用）；社区已出实操指南（如何组织提示词减少触发误判：避免安全类术语开场、明确声明合法上下文）。维持"观望一周"结论不变，但受影响用户现在有事可做了。<a href="https://byteiota.com/claude-fable-5s-safety-filter-is-blocking-your-code/">byteiota 分析</a> · <a href="https://wavect.io/blog/coding-with-claude-fable-5/">Wavect 绕行实操</a></li>
+  <li><b>Claude 移动端 + 桌面端 Computer Use（Pro/Max 免配置）</b>（✅）——Pro/Max 用户可让 Claude 直接操作电脑（打开文件、点击、导航），移动 app 支持交互式图表与可分享资产。对你意味着 Chrome 之外多了一条桌面自动化路径，但同样适用上期结论：低风险重复任务先行，财务权限操作禁入。<a href="https://support.claude.com/en/articles/12138966-release-notes">官方 Release Notes</a></li>
+  <li><b>降幻觉评估新框架：四类失效模式（事实/接地/引用/推理）分开检测</b>（🔶）——对上期"分层降幻觉 Playbook"的补充：不同幻觉类型需要不同检测器，并行打分；对模型使用者（非训练者），可落地的是 best-of-N 重排（生成多个候选，用轻量事实性指标选最忠实的一个）。适合你的行研结论验证工作流。<a href="https://futureagi.com/blog/llm-hallucination-deep-dive-2026/">架构深拆</a> · <a href="https://www.lakera.ai/blog/guide-to-hallucinations-in-large-language-models">Lakera 2026 指南</a></li>
 </ul>
 
 <h2 class="noise">今日噪音（已过滤）</h2>
 <div class="card noise-card">
   <div class="field">🚫 <b>"印尼 TOP 10 AI 营销代理商完全指南"类文章</b>——代理商目录型内容，由其中一家代理商的内容团队撰写，排名标准不透明。<b>过滤理由：利益相关方自评，T3 不可回溯，与"可部署实操"白名单不符。</b></div>
   <div class="field">🚫 <b>"AI 正在改变社交媒体营销的 10 种方式（2026版）"类文章</b>——年度模板文改日期重发，10 条建议均无工具名、无步骤、无成本数据。<b>过滤理由：T3 无实操细节，SEO 内容农场特征明显。</b></div>
+  <div class="batch-sep">── 第 2 次采集 ──</div>
+  <div class="field">🚫 <b>"Fable 5 被削弱了吗？（Is Claude Fable 5 Nerfed?）"类标题内容</b>——把分类器误判问题包装成"模型变笨"叙事博点击，与实际机制（请求被路由到 Opus 4.8，模型本身未变）不符。<b>过滤理由：T3 误导性归因，扩展区的后续更新条目已提供准确机制与应对方式。</b></div>
 </div>
 
 <h2 class="review">本周复盘（07-04 ~ 07-05，第 1 周）</h2>
@@ -104,7 +122,7 @@
   <table class="review-table">
     <tr><th>行动建议</th><th>期号</th><th>当前状态</th></tr>
     <tr><td>验证 2.1.200 无人值守不卡住</td><td>07-04 ①</td><td>建议仍有效，等待你反馈实测结果</td></tr>
-    <tr><td>Fable 5 分类器 → 观望一周</td><td>07-04 ①</td><td>观望中，官方无修复 ETA，下周复查</td></tr>
+    <tr><td>Fable 5 分类器 → 观望一周</td><td>07-04 ①</td><td>观望中；已开放 /feedback 误报通道 + 社区绕行指南（见第 2 次采集扩展区）</td></tr>
     <tr><td>Opus 4.7 fast mode 迁移</td><td>07-04 ①</td><td>截止 7/24，剩 19 天，未过期</td></tr>
     <tr><td>Sonnet 5 tokenizer 自测计数</td><td>07-04（试）</td><td>促销期至 8/31，建议窗口内有效</td></tr>
     <tr><td>LinkedIn 招商线索 Chrome 实测</td><td>07-04 ②</td><td>等待你反馈实际节省时间</td></tr>
