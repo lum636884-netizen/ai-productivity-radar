@@ -9,7 +9,7 @@
 <body>
 <header>
   <h1>📡 AI 生产力雷达</h1>
-  <div class="date" id="stats">2026-07-05（周日）· 精选 7 条 · 扩展 7 条 · 噪音过滤 5 条 · 本日已采集 3 次</div>
+  <div class="date" id="stats">2026-07-05（周日）· 精选 8 条 · 扩展 8 条 · 噪音过滤 6 条 · 本日已采集 4 次</div>
   <a class="prev-link" href="../index.html">← 返回首页</a>
 </header>
 
@@ -98,6 +98,18 @@
   <div class="links">🔗 <a href="https://www.anthropic.com/news/claude-for-small-business">官方公告</a><a href="https://the-decoder.com/anthropic-launches-claude-for-small-business-to-embed-ai-into-the-tools-you-forgot-you-pay-for/">The Decoder 报道</a><a href="https://karozieminski.substack.com/p/claude-for-small-business-decision-tree-workflows">15 个工作流决策树拆解</a><a href="https://findskill.ai/blog/claude-for-small-business-pricing-explained/">定价说明（免费开关而非新档位）</a></div>
 </div>
 
+<div class="batch-sep">── 第 4 次采集 · 11:52（UTC+8）──</div>
+
+<div class="card" id="prompt-caching-batch">
+  <h3>8. 降本利器：Prompt Caching（读取 0.1×）+ Batch API（5 折）叠加，输入成本最高省 ~95%<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>两个官方降本杠杆可叠加：① <b>Prompt Caching</b>——缓存<b>读取仅 0.1×</b> 基础输入价，5 分钟写入 1.25×、1 小时写入 2×；稳定内容（system prompt、工具定义、知识包）首次之后省 70-90%。② <b>Batch API</b>——异步批处理，输入输出<b>各打 5 折</b>。两者叠加时缓存读取在 batch 下有效低至 <b>0.05×</b>。以 Opus 4.8 为例：基础输入 $5/MTok，缓存读取降至 $0.50，叠加 batch 后约 $0.25。</div>
+  <div class="field"><b>对你的价值：</b>直接压低你两类长期成本。① 本雷达系统 + 行研工作流有大量<b>固定不变的规则文档、知识包、system prompt</b>，正是缓存的理想对象——这些内容每次运行原样重发，加缓存后从第二次起省 90%。② 招商话术批量生成、竞对批量摘要这类<b>不要求实时</b>的任务走 Batch API，直接砍半。两者对一人团队的月度 API 账单影响显著。</div>
+  <div class="field"><b>怎么部署：</b>① 缓存：在稳定前缀（system prompt / 规则文档 / 知识包）末尾加 <code>"cache_control": {"type": "ephemeral"}</code>；间隔较长的跟进用 <code>"ttl": "1h"</code>。② 批处理：非实时任务改走 <code>/v1/messages/batches</code>。③ 组合：批处理请求里同样可带 cache_control。</div>
+  <div class="field"><b>坑与验证：</b>① <b>最小可缓存长度 512-4096 token（因模型而异）</b>，短 prompt 不会缓存；② 缓存写入有成本（1.25×/2×），只对<b>高频复用</b>内容划算，一次性内容别加；③ 2026-02 起缓存隔离改为 <b>workspace 级</b>，多 workspace 不共享缓存前缀。验证：对比加缓存前后账单的 <code>cache_read_input_tokens</code> 字段。</div>
+  <div class="action">🎯 行动建议：<b>今天就试</b>——把你雷达/行研工作流里那份固定不变的规则文档或知识包加上 <code>cache_control</code>，跑两次看第二次的 <code>cache_read_input_tokens</code>，确认省下 90% 输入成本。</div>
+  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">官方 Prompt Caching 文档</a><a href="https://platform.claude.com/docs/en/about-claude/pricing">官方定价（含 Batch）</a><a href="https://www.aimagicx.com/blog/prompt-caching-claude-api-cost-optimization-2026">生产实测：省 60-90%</a></div>
+</div>
+
 <h2>扩展区</h2>
 <div class="batch-sep">── 第 1 次采集 ──</div>
 <ul class="ext">
@@ -115,6 +127,10 @@
   <li><b>Claude 移动端 + 桌面端 Computer Use（Pro/Max 免配置）</b>（✅）——Pro/Max 用户可让 Claude 直接操作电脑（打开文件、点击、导航），移动 app 支持交互式图表与可分享资产。对你意味着 Chrome 之外多了一条桌面自动化路径，但同样适用实战边界结论：低风险重复任务先行，财务权限操作禁入。<a href="https://support.claude.com/en/articles/12138966-release-notes">官方 Release Notes</a></li>
   <li><b>降幻觉评估新框架：四类失效模式（事实/接地/引用/推理）分开检测</b>（🔶）——对"分层降幻觉 Playbook"的补充：不同幻觉类型需要不同检测器，并行打分；对模型使用者（非训练者），可落地的是 best-of-N 重排（生成多个候选，用轻量事实性指标选最忠实的一个）。适合你的行研结论验证工作流。<a href="https://futureagi.com/blog/llm-hallucination-deep-dive-2026/">架构深拆</a> · <a href="https://www.lakera.ai/blog/guide-to-hallucinations-in-large-language-models">Lakera 2026 指南</a></li>
 </ul>
+<div class="batch-sep">── 第 4 次采集 ──</div>
+<ul class="ext">
+  <li><b>Agent Skills / Plugin Marketplace 生态持续扩张</b>（🔶 待细验）——社区 Skill/插件市场（agentskills.io 等开放标准，跨 Claude Code/Cursor/Copilot 通用）条目数快速增长。<b>数字存疑并标注</b>：各来源统计差异极大（从 1,520 到 21,600+ Skills 不等，口径不一），说明缺乏权威计数，<b>不可作为决策依据</b>，仅提示"可复用 Skill 的供给在变多"。对你的意义：招商文案、SEO、CRO 类现成 Skill 越来越多，但质量参差，务必按上期原则——看每个 Skill 的 README 与实测，对照自己场景验证后再用。<a href="https://github.com/netresearch/claude-code-marketplace">开放标准 marketplace</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">官方 Agent Skills 文档</a></li>
+</ul>
 
 <h2 class="noise">今日噪音（已过滤）</h2>
 <div class="card noise-card">
@@ -125,6 +141,8 @@
   <div class="field">🚫 <b>"AI 正在改变社交媒体营销的 10 种方式（2026版）"类文章</b>——年度模板文改日期重发，10 条建议均无工具名、无步骤、无成本数据。<b>过滤理由：T3 无实操细节，SEO 内容农场特征明显。</b></div>
   <div class="batch-sep">── 第 3 次采集 ──</div>
   <div class="field">🚫 <b>"Fable 5 被削弱了吗？（Is Claude Fable 5 Nerfed?）"类标题内容</b>——把分类器误判问题包装成"模型变笨"叙事博点击，与实际机制（请求被路由到 Opus 4.8，模型本身未变）不符。<b>过滤理由：T3 误导性归因，扩展区的后续更新条目已提供准确机制与应对方式。</b></div>
+  <div class="batch-sep">── 第 4 次采集 ──</div>
+  <div class="field">🚫 <b>"这个 Prompt Caching 技巧帮我省了 90% API 费用！"类单点夸大标题文</b>——只喊"省 90%"这一个数字，回避最小可缓存长度（短 prompt 根本不缓存）、缓存写入成本（1.25×/2×）、workspace 级隔离等真实约束，容易让人以为无脑加缓存就省钱。<b>过滤理由：T3 选择性呈现，与今日精选第 8 条给出的完整机制（含三条坑）相比是残缺信息，照做易踩坑。</b></div>
 </div>
 
 <h2 class="review">本周复盘（07-04 ~ 07-05，第 1 周）</h2>
@@ -143,7 +161,7 @@
 </div>
 
 <footer>
-  AI Productivity Radar · 本期规则版本 <b>ROUTINE v2→v3</b> · 2026-07-05<br>
+  AI Productivity Radar · 本期规则版本 <b>ROUTINE v3</b> · 2026-07-05<br>
   注：本页第 1 次采集（07:42）内容原误标为 2026-07-04 第 2 期，已按 UTC+8 日期规则归并至本页。<br>
   反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
 </footer>
