@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-05T11:55+08:00",
+  "updated": "2026-07-06T10:40+08:00",
   "categories": {
     "model": "🧠 模型能力",
     "tools": "🛠 工具与工作流",
@@ -35,12 +35,12 @@
     {"id":"fable5-followup","date":"2026-07-05","batch":"11:20","tier":"extended","cat":"pitfall","conf":"✅","act":null,"deadline":null,"title":"后续更新：Fable 5 分类器误报有了 /feedback 通道与绕行指南","brief":"官方承诺尽快收窄，误报请上报；社区绕行：避免安全术语开场、声明合法上下文。维持观望结论。","tags":["Fable 5","分类器误判"],"url":"reports/2026-07-05.html","links":[]},
     {"id":"mobile-computer-use","date":"2026-07-05","batch":"11:20","tier":"extended","cat":"tools","conf":"✅","act":null,"deadline":null,"title":"Claude 移动端 + 桌面端 Computer Use（Pro/Max 免配置）","brief":"Chrome 之外的桌面自动化路径；同样低风险任务先行、财务权限禁入。","tags":["Computer Use","移动端"],"url":"reports/2026-07-05.html","links":[]},
     {"id":"hallu-4types","date":"2026-07-05","batch":"11:20","tier":"extended","cat":"reliability","conf":"🔶","act":null,"deadline":null,"title":"降幻觉四类失效检测框架 + best-of-N 重排","brief":"事实/接地/引用/推理分开检测；模型使用者可落地 best-of-N 重排，适合行研结论验证。","tags":["降幻觉","评估","行研验证"],"url":"reports/2026-07-05.html","links":[]},
-    {"id":"prompt-caching-batch","date":"2026-07-05","batch":"11:52","tier":"featured","cat":"cost","conf":"✅","act":"今天就试","deadline":null,"title":"Prompt Caching（读取 0.1×）+ Batch API（5 折）叠加，输入成本最高省 ~95%","brief":"稳定内容（system prompt/规则文档/知识包）加 cache_control，首次后省 70-90%；非实时任务走 Batch 再砍半。注意最小可缓存 512-4096 token、写入有成本、workspace 级隔离。","tags":["Prompt Caching","Batch API","降本","API 成本"],"url":"reports/2026-07-05.html#prompt-caching-batch","links":[]},
-    {"id":"skills-ecosystem","date":"2026-07-05","batch":"11:52","tier":"extended","cat":"tools","conf":"🔶","act":null,"deadline":null,"title":"Agent Skills / Plugin Marketplace 生态持续扩张（数字存疑）","brief":"跨 Claude Code/Cursor/Copilot 的开放标准 Skill 市场增长快，但各源计数差异极大（1520~21600+），不可作决策依据。招商/SEO 类现成 Skill 变多，用前实测。","tags":["Skill","Marketplace","生态"],"url":"reports/2026-07-05.html","links":[{"t":"开放标准 marketplace","u":"https://github.com/netresearch/claude-code-marketplace"}]}
+    {"id":"prompt-caching-batch","date":"2026-07-06","batch":"10:34","tier":"featured","cat":"cost","conf":"✅","act":"今天就试","deadline":null,"title":"Prompt Caching（读取 0.1×）+ Batch API（5 折）叠加，输入成本最高省 ~95%","brief":"稳定内容（system prompt/规则文档/知识包）加 cache_control，首次后省 70-90%；非实时任务走 Batch 再砍半。注意最小可缓存 512-4096 token、写入有成本、workspace 级隔离。","tags":["Prompt Caching","Batch API","降本","API 成本"],"url":"reports/2026-07-06.html#prompt-caching-batch","links":[]},
+    {"id":"skills-ecosystem","date":"2026-07-06","batch":"10:34","tier":"extended","cat":"tools","conf":"🔶","act":null,"deadline":null,"title":"Agent Skills / Plugin Marketplace 生态持续扩张（数字存疑）","brief":"跨 Claude Code/Cursor/Copilot 的开放标准 Skill 市场增长快，但各源计数差异极大（1520~21600+），不可作决策依据。招商/SEO 类现成 Skill 变多，用前实测。","tags":["Skill","Marketplace","生态"],"url":"reports/2026-07-06.html","links":[{"t":"开放标准 marketplace","u":"https://github.com/netresearch/claude-code-marketplace"}]}
   ],
   "picks": [
     {"title":"模型退役双截止：7/24 Opus 4.7 Fast Mode · 8/5 Opus 4.1","why":"一次全局模型 ID 体检同时清零两个硬错误风险，顺带 Fast Mode 降本 3×。最不该拖的一件事。","cat":"pitfall","conf":"✅","url":"reports/2026-07-05.html#opus41-retire","topicIds":["opus47-fast","opus41-retire"]},
-    {"title":"API 降本组合：Prompt Caching 0.1× + Batch API 5 折，输入省 ~95%","why":"本雷达/行研工作流有大量固定不变的规则文档与知识包每次原样重发，加 cache_control 从第二次起省 90%；直接压低运营成本。","cat":"cost","conf":"✅","url":"reports/2026-07-05.html#prompt-caching-batch","topicIds":["prompt-caching-batch","rate-limits"]},
+    {"title":"API 降本组合：Prompt Caching 0.1× + Batch API 5 折，输入省 ~95%","why":"本雷达/行研工作流有大量固定不变的规则文档与知识包每次原样重发，加 cache_control 从第二次起省 90%；直接压低运营成本。","cat":"cost","conf":"✅","url":"reports/2026-07-06.html#prompt-caching-batch","topicIds":["prompt-caching-batch","rate-limits"]},
     {"title":"Sonnet 5 tokenizer 计费坑：同文本多计 ~30% token","why":"影响你所有常驻工作流的模型选型决策；促销价（至 8/31）掩盖了真实成本，9 月前必须重估。","cat":"cost","conf":"🔶","url":"https://simonwillison.net/2026/Jun/30/claude-sonnet-5/","topicIds":["sonnet5-tokenizer","sonnet5-launch"]},
     {"title":"2.1.200 破坏性变更：默认 Manual 模式，无人值守会静默卡住","why":"不报错、只静止——最隐蔽的一类故障。所有定时/夜间任务升级后必须回归验证一次。","cat":"pitfall","conf":"✅","url":"reports/2026-07-04.html#manual-mode","topicIds":["manual-mode"]},
     {"title":"Fable 5 分类器误伤（进展中）：请求被静默降级至 Opus 4.8","why":"付 Fable 5 价格可能收到 Opus 4.8 结果；已开 /feedback 误报通道。用 Fable 5 的工作流本周先验证实际命中模型。","cat":"pitfall","conf":"🔶","url":"reports/2026-07-04.html#fable5-classifier","topicIds":["fable5-classifier","fable5-followup"]},
@@ -58,7 +58,8 @@
     {"tag":"Sonnet 5 计费","note":"tokenizer +30%，促销至 8/31","topicIds":["sonnet5-tokenizer","sonnet5-launch"],"expire":"2026-08-31"}
   ],
   "days": [
-    {"date":"2026-07-05","url":"reports/2026-07-05.html","label":"周日 · 4 次采集 · 精选 8 条 · 含本周复盘"},
+    {"date":"2026-07-06","url":"reports/2026-07-06.html","label":"周一 · 精选 1 条（Prompt Caching 降本）"},
+    {"date":"2026-07-05","url":"reports/2026-07-05.html","label":"周日 · 3 次采集 · 精选 7 条 · 含本周复盘"},
     {"date":"2026-07-04","url":"reports/2026-07-04.html","label":"精选 4 条 ·（试运行版同日首刊，Sonnet 5 系列见 30 天精选）"}
   ]
 }
