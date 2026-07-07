@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T07:37+08:00",
+  "updated": "2026-07-08T07:37+08:00",
   "categories": {
     "model": "🧠 模型能力",
     "tools": "🛠 工具与工作流",
@@ -723,6 +723,130 @@
       ],
       "url": "reports/2026-07-07.html#sea-agentic-marketing",
       "links": []
+    },
+    {
+      "id": "cc-v2-1-199",
+      "date": "2026-07-08",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "今天就升",
+      "deadline": null,
+      "title": "Claude Code v2.1.199（7/2）：后台代理稳定性修复 + 多技能一次全加载",
+      "brief": "修复 Linux 后台代理守护进程非正常关闭后每~50s 自杀并杀掉所有代理；流式中途 overloaded 时保留已产出部分；叠加式 /a /b 现加载全部前置技能(≤5)。是昨天'子代理默认后台'的稳定性地基。",
+      "tags": [
+        "Claude Code",
+        "v2.1.199",
+        "后台代理",
+        "稳定性",
+        "stacked skills"
+      ],
+      "url": "reports/2026-07-08.html#cc-v2-1-199",
+      "links": []
+    },
+    {
+      "id": "cache-diagnostics",
+      "date": "2026-07-08",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "下次调缓存就用",
+      "deadline": null,
+      "title": "【补录】Cache Diagnostics：一行参数定位缓存为何没命中",
+      "brief": "beta header cache-diagnosis-2026-04-07（4/7 公测·补录）。传 diagnostics.previous_message_id，API 返回 cache_miss_reason 精确指出前缀分叉点(system_changed/tools_changed)。仅 Claude API。补齐缓存降本排障闭环。",
+      "tags": [
+        "Cache Diagnostics",
+        "Prompt Caching",
+        "降本",
+        "缓存排障",
+        "API"
+      ],
+      "url": "reports/2026-07-08.html#cache-diagnostics",
+      "links": []
+    },
+    {
+      "id": "marketing-skills-workflow",
+      "date": "2026-07-08",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "marketing",
+      "conf": "🔶",
+      "act": "本周做",
+      "deadline": null,
+      "title": "招商/Marketing 可部署：共享 product-marketing-context + 技能链",
+      "brief": "可复现组织模式：把产品/受众/定位写成单个 product-marketing-context 文件供所有技能引用，再把 趋势研究→文案→改写→UGC→排期 链成技能链。星标≠质量，逐个 README+实测甄别。先写 context 文件+接1技能验证。",
+      "tags": [
+        "Skills",
+        "营销",
+        "招商",
+        "product-marketing-context",
+        "SEO",
+        "技能链"
+      ],
+      "url": "reports/2026-07-08.html#marketing-skills-workflow",
+      "links": []
+    },
+    {
+      "id": "ma-output-spill",
+      "date": "2026-07-08",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "了解",
+      "deadline": null,
+      "title": "Managed Agents：工具大输出自动溢写文件 + 自托管沙箱",
+      "brief": "agent_toolset/MCP 工具输出超 100K token 自动溢写沙箱文件，模型收截断预览+可 read 全文，不撑爆上下文；自托管沙箱可用。长采集/大批量代理更稳。",
+      "tags": [
+        "Managed Agents",
+        "溢写文件",
+        "自托管沙箱",
+        "上下文"
+      ],
+      "url": "reports/2026-07-08.html#ma-output-spill",
+      "links": []
+    },
+    {
+      "id": "websearch-sec",
+      "date": "2026-07-08",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "忽略",
+      "deadline": null,
+      "title": "Web Search 工具返回更丰富 SEC 备案数据",
+      "brief": "便于财务研究/尽调代理提供带引用的一手财报。对充电场站招商用途有限，仅备档；做美股供应商/合作方背景核查时可用。",
+      "tags": [
+        "Web Search",
+        "SEC",
+        "尽调",
+        "财务研究"
+      ],
+      "url": "reports/2026-07-08.html#websearch-sec",
+      "links": []
+    },
+    {
+      "id": "cowork-expansion",
+      "date": "2026-07-08",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "观望一周",
+      "deadline": null,
+      "title": "Claude Cowork 扩展到 Web + 移动端",
+      "brief": "桌面端 Cowork 本周起上 Web/移动，Max 先行、其余陆续。Pro 计划暂需等放量，关注即可暂不投入。",
+      "tags": [
+        "Cowork",
+        "Web",
+        "移动端",
+        "Max"
+      ],
+      "url": "reports/2026-07-08.html#cowork-expansion",
+      "links": []
     }
   ],
   "picks": [
@@ -737,6 +861,17 @@
       ],
       "url": "reports/2026-07-07.html#cc-subagent-bg",
       "why": "一次升级拿到并行后台子代理、浏览器自动化 GA、两个 hook 隐性 bug 修复——一人团队并行度与排障体验的直接提升。"
+    },
+    {
+      "cat": "cost",
+      "conf": "✅",
+      "title": "Cache Diagnostics：一行参数定位缓存为何没命中（补齐降本闭环）",
+      "topicIds": [
+        "cache-diagnostics",
+        "prompt-caching-batch"
+      ],
+      "url": "reports/2026-07-08.html#cache-diagnostics",
+      "why": "把'加了 cache_control 却 cache_read=0'的排障从肉眼 diff 变成 API 直接点名分叉点——缓存降本能真正落地的关键工具。"
     },
     {
       "title": "模型退役双截止：7/24 Opus 4.7 Fast Mode · 8/5 Opus 4.1",
@@ -822,28 +957,17 @@
       "topicIds": [
         "whatsapp-leads"
       ]
-    },
-    {
-      "title": "浏览器/桌面自动化实战边界（Chrome + Computer Use）",
-      "why": "LinkedIn 招商研究省 10-15 分钟/人是可立即验证的 ROI；同时明确三类不要碰的场景，避免踩坑。",
-      "cat": "marketing",
-      "conf": "🔶",
-      "url": "reports/2026-07-05.html#chrome-frontier",
-      "topicIds": [
-        "chrome-frontier",
-        "computeruse-cases",
-        "mobile-computer-use"
-      ]
     }
   ],
   "hot": [
     {
       "tag": "Claude Code 后台代理",
-      "note": "子代理默认后台+Chrome GA+Hook 修复",
+      "note": "子代理后台+Chrome GA+v2.1.199稳定性修复",
       "topicIds": [
         "cc-subagent-bg",
         "claude-chrome-ga",
-        "hook-silent-fail"
+        "hook-silent-fail",
+        "cc-v2-1-199"
       ],
       "expire": null
     },
@@ -862,7 +986,8 @@
       "topicIds": [
         "prompt-caching-batch",
         "rate-limits",
-        "refusal-no-bill"
+        "refusal-no-bill",
+        "cache-diagnostics"
       ],
       "expire": null
     },
@@ -882,7 +1007,8 @@
         "whatsapp-leads",
         "chrome-frontier",
         "small-business",
-        "marketing-skills"
+        "marketing-skills",
+        "marketing-skills-workflow"
       ],
       "expire": null
     },
@@ -907,6 +1033,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-08",
+      "label": "周三 · 精选 3 条（CC v2.1.199 稳定性 + Cache Diagnostics 补录 + 营销技能链）",
+      "url": "reports/2026-07-08.html"
+    },
     {
       "date": "2026-07-07",
       "label": "周二 · 精选 4 条（Claude Code 7/1 大更新 + Sonnet 5 默认）",
