@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-08T07:37+08:00",
+  "updated": "2026-07-09T07:37+08:00",
   "categories": {
     "model": "🧠 模型能力",
     "tools": "🛠 工具与工作流",
@@ -847,6 +847,132 @@
       ],
       "url": "reports/2026-07-08.html#cowork-expansion",
       "links": []
+    },
+    {
+      "id": "sonnet5-token-cost",
+      "date": "2026-07-09",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "本周做",
+      "deadline": null,
+      "title": "【自我修正】Sonnet 5 成默认后：多步 agentic 下 token 偏高，可能贵过 Opus",
+      "brief": "多源(MindStudio/Finout/SitePoint/Cursor)证实 Sonnet 5 约多用30% token+倾向更长推理，agentic 多步下单任务成本可能反超 Opus 4.8。修正07-07判断：简单任务省、重 agentic 未必省。降本：按任务分级选模型、分类/摘要关 thinking、叠 Caching+Batch、低 effort。实测账单再定。",
+      "tags": [
+        "Sonnet 5",
+        "token 成本",
+        "effort",
+        "降本",
+        "agentic",
+        "自我修正"
+      ],
+      "url": "reports/2026-07-09.html#sonnet5-token-cost",
+      "links": []
+    },
+    {
+      "id": "cc-v2-1-203",
+      "date": "2026-07-09",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "今天就升",
+      "deadline": null,
+      "title": "Claude Code v2.1.203（7/7，37项）：后台会话/子代理可靠性三修 + 登录过期预警",
+      "brief": "修复:返回agents静默停子代理并从头重跑(现工作延续)、后台会话 token 过期永久无响应(现自动恢复)、macOS 切后台会话卡15-20s(2.1.196回归);新增登录过期预警(后台会话中断前重认证)。延续07-07/08后台代理可靠性线。",
+      "tags": [
+        "Claude Code",
+        "v2.1.203",
+        "后台代理",
+        "子代理",
+        "可靠性",
+        "登录预警"
+      ],
+      "url": "reports/2026-07-09.html#cc-v2-1-203",
+      "links": []
+    },
+    {
+      "id": "connectors-directory",
+      "date": "2026-07-09",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "marketing",
+      "conf": "🔶",
+      "act": "观望到可试",
+      "deadline": null,
+      "title": "官方 Claude Connectors 目录已 554 个（经审核）——接 WhatsApp+CRM 的可信货架",
+      "brief": "7/2 官方目录 554 个经审核 MCP 集成:WhatsApp(gaviwhatsapp/TimelinesAI)、CRM(Attio/Clarify)。把07-05 WhatsApp线索打法落地的可信元件:WhatsApp收线索→CRM建档打标→跟进。审核≠适配,先测试账号跑最小闭环,只用官方目录别碰无审核海量目录。",
+      "tags": [
+        "Connectors",
+        "MCP",
+        "WhatsApp",
+        "CRM",
+        "招商",
+        "线索"
+      ],
+      "url": "reports/2026-07-09.html#connectors-directory",
+      "links": []
+    },
+    {
+      "id": "sonnet5-service-blip",
+      "date": "2026-07-09",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "reliability",
+      "conf": "✅",
+      "act": "了解",
+      "deadline": null,
+      "title": "Sonnet 5 两日短暂服务抖动（已恢复）",
+      "brief": "7/7、7/8 官方状态页记录 Sonnet 5/部分模型短暂错误率升高、均已恢复。新默认模型磨合期,关键任务留意重试/降级路径,别把唯一链路押单模型单时段。",
+      "tags": [
+        "Sonnet 5",
+        "服务抖动",
+        "可靠性",
+        "状态页"
+      ],
+      "url": "reports/2026-07-09.html#sonnet5-service-blip",
+      "links": []
+    },
+    {
+      "id": "alberta-case",
+      "date": "2026-07-09",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "reliability",
+      "conf": "✅",
+      "act": "借鉴",
+      "deadline": null,
+      "title": "Alberta 省政府用 Claude Code 20 小时扫 4.66 亿行代码修漏洞",
+      "brief": "7/6 案例:大规模 agentic 代码审计能力信号。一人团队可迁移思路:让 agent 做大范围扫描+定位+修复建议,把人力从逐行检查解放。",
+      "tags": [
+        "Claude Code",
+        "代码审计",
+        "agentic",
+        "案例"
+      ],
+      "url": "reports/2026-07-09.html#alberta-case",
+      "links": []
+    },
+    {
+      "id": "claude-science",
+      "date": "2026-07-09",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "忽略",
+      "deadline": null,
+      "title": "Claude Science 上线（beta）",
+      "brief": "面向科研的 AI 工作台(集成科研工具/可审计工件/弹性算力),Pro/Max/Team/Enterprise beta。备档:与充电场站招商/Marketing 无关,不建议投入。",
+      "tags": [
+        "Claude Science",
+        "科研",
+        "beta",
+        "备档"
+      ],
+      "url": "reports/2026-07-09.html#claude-science",
+      "links": []
     }
   ],
   "picks": [
@@ -861,6 +987,17 @@
       ],
       "url": "reports/2026-07-07.html#cc-subagent-bg",
       "why": "一次升级拿到并行后台子代理、浏览器自动化 GA、两个 hook 隐性 bug 修复——一人团队并行度与排障体验的直接提升。"
+    },
+    {
+      "cat": "cost",
+      "conf": "✅",
+      "title": "Sonnet 5 成本真相：简单任务省、重 agentic 可能贵过 Opus——实测账单再定",
+      "topicIds": [
+        "sonnet5-token-cost",
+        "sonnet5-cc-default"
+      ],
+      "url": "reports/2026-07-09.html#sonnet5-token-cost",
+      "why": "'单价对等'≠总价对等:Sonnet 5 token 量更大,多步代理链可能反超 Opus。按任务分级选模型、分类摘要关thinking、叠 Caching+Batch,别凭直觉。"
     },
     {
       "cat": "cost",
@@ -947,27 +1084,18 @@
       "topicIds": [
         "small-business"
       ]
-    },
-    {
-      "title": "WhatsApp AI 招商线索机器人（印尼场景）",
-      "why": "三段式漏斗成熟 + Bahasa 本地化差异点；资格判定环节直接节省人工，渠道与印尼商业习惯天然匹配。",
-      "cat": "marketing",
-      "conf": "🔶",
-      "url": "reports/2026-07-05.html#whatsapp-leads",
-      "topicIds": [
-        "whatsapp-leads"
-      ]
     }
   ],
   "hot": [
     {
       "tag": "Claude Code 后台代理",
-      "note": "子代理后台+Chrome GA+v2.1.199稳定性修复",
+      "note": "后台子代理可靠性:07-01→v2.1.199→v2.1.203",
       "topicIds": [
         "cc-subagent-bg",
         "claude-chrome-ga",
         "hook-silent-fail",
-        "cc-v2-1-199"
+        "cc-v2-1-199",
+        "cc-v2-1-203"
       ],
       "expire": null
     },
@@ -1008,7 +1136,8 @@
         "chrome-frontier",
         "small-business",
         "marketing-skills",
-        "marketing-skills-workflow"
+        "marketing-skills-workflow",
+        "connectors-directory"
       ],
       "expire": null
     },
@@ -1023,16 +1152,22 @@
     },
     {
       "tag": "Sonnet 5 计费",
-      "note": "tokenizer +30%，促销至 8/31",
+      "note": "tokenizer+30%,agentic可能贵过Opus,促销至8/31",
       "topicIds": [
         "sonnet5-tokenizer",
         "sonnet5-launch",
-        "sonnet5-cc-default"
+        "sonnet5-cc-default",
+        "sonnet5-token-cost"
       ],
       "expire": "2026-08-31"
     }
   ],
   "days": [
+    {
+      "date": "2026-07-09",
+      "label": "周四 · 精选 3 条（Sonnet 5 成本自我修正 + CC v2.1.203 + 官方连接器货架）",
+      "url": "reports/2026-07-09.html"
+    },
     {
       "date": "2026-07-08",
       "label": "周三 · 精选 3 条（CC v2.1.199 稳定性 + Cache Diagnostics 补录 + 营销技能链）",
