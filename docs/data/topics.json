@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-09T07:37+08:00",
+  "updated": "2026-07-10T07:37+08:00",
   "categories": {
     "model": "🧠 模型能力",
     "tools": "🛠 工具与工作流",
@@ -973,6 +973,134 @@
       ],
       "url": "reports/2026-07-09.html#claude-science",
       "links": []
+    },
+    {
+      "id": "cc-permission-safety",
+      "date": "2026-07-10",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "pitfall",
+      "conf": "✅",
+      "act": "今天就查",
+      "deadline": null,
+      "title": "Claude Code 权限安全：默认已改「手动批准」+ auto 模式真实风险与正确用法",
+      "brief": "v2.1.200(7/3)默认权限从Auto改Manual;v2.1.205加auto防篡改transcript;背景:微软发现CC GitHub Action可被prompt注入泄CI/CD密钥、4月有会话误删文件致生产宕机。AI层防护非确定性(Willison只信OS沙箱)。保持Manual、关键仓库上OS级隔离、破坏性命令留人工确认。",
+      "tags": [
+        "Claude Code",
+        "权限",
+        "auto模式",
+        "安全",
+        "沙箱",
+        "prompt注入"
+      ],
+      "url": "reports/2026-07-10.html#cc-permission-safety",
+      "links": []
+    },
+    {
+      "id": "marketing-mcp-live",
+      "date": "2026-07-10",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "marketing",
+      "conf": "🔶",
+      "act": "本周可试",
+      "deadline": null,
+      "title": "招商/Marketing：用 MCP 让 Claude 直连广告平台/CRM 实时数据",
+      "brief": "与07-08静态技能链不同层:MCP让Claude直调广告/CRM API拉实时数据(投放表现/预算/搜索词),免导CSV。配Marketing Operations技能做线索生命周期。只读起步+最小权限+看合规,叠product-marketing-context统一口径。",
+      "tags": [
+        "MCP",
+        "营销",
+        "招商",
+        "广告平台",
+        "CRM",
+        "实时数据"
+      ],
+      "url": "reports/2026-07-10.html#marketing-mcp-live",
+      "links": []
+    },
+    {
+      "id": "api-rate-tiers",
+      "date": "2026-07-10",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "了解+按需调",
+      "deadline": null,
+      "title": "API 限速统一 + 用量分级简化为三档（Start/Build/Scale）",
+      "brief": "开发者平台提高API限速:Sonnet/Haiku各档限速对齐Opus;用量档收敛为Start/Build/Scale三档。批量采集/摘要不再被Sonnet/Haiku低限速卡,之前被拆的批量活可合并重跑,配Batch+缓存进一步降本降限流。",
+      "tags": [
+        "API",
+        "限速",
+        "用量分级",
+        "批量",
+        "吞吐"
+      ],
+      "url": "reports/2026-07-10.html#api-rate-tiers",
+      "links": []
+    },
+    {
+      "id": "cc-v2-1-205-fixes",
+      "date": "2026-07-10",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "了解",
+      "deadline": null,
+      "title": "Claude Code v2.1.204/205（7/8）其他修复：/doctor + headless hook 修复",
+      "brief": "新增/doctor安装体检;修复headless会话中SessionStart hook不流式导致远程worker中途回收(与本仓库远程hook相关);修复--json-schema非法schema静默失败、--max-turns到顶消息静默丢弃、后台代理SendMessage恢复后状态错误。",
+      "tags": [
+        "Claude Code",
+        "v2.1.205",
+        "doctor",
+        "headless",
+        "hook",
+        "修复"
+      ],
+      "url": "reports/2026-07-10.html#cc-v2-1-205-fixes",
+      "links": []
+    },
+    {
+      "id": "artifacts-dashboards",
+      "date": "2026-07-10",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "备档",
+      "deadline": null,
+      "title": "Claude Code Artifacts：live 共享仪表盘（Team/Enterprise 限定）",
+      "brief": "把CC会话产出变成随工作实时更新的可分享HTML页(仪表盘/PR讲解/发布清单),持久存储20MB、直连API、MCP集成。限Team/Enterprise,Pro/Free暂无。你的雷达站本身即同类live dashboard,思路可自建。",
+      "tags": [
+        "Claude Code",
+        "Artifacts",
+        "仪表盘",
+        "Team/Enterprise"
+      ],
+      "url": "reports/2026-07-10.html#artifacts-dashboards",
+      "links": []
+    },
+    {
+      "id": "claude-reflect",
+      "date": "2026-07-10",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "忽略",
+      "deadline": null,
+      "title": "Claude 月度回顾 + 专注设置（Reflect，7/9）",
+      "brief": "设置>Reflect显示用时话题/最活跃日/高峰时段+休息提醒+免打扰;beta需开memory。个人效率向,与招商业务工作流关系弱,仅备档。",
+      "tags": [
+        "Reflect",
+        "月度回顾",
+        "专注",
+        "memory",
+        "个人效率"
+      ],
+      "url": "reports/2026-07-10.html#claude-reflect",
+      "links": []
     }
   ],
   "picks": [
@@ -987,6 +1115,17 @@
       ],
       "url": "reports/2026-07-07.html#cc-subagent-bg",
       "why": "一次升级拿到并行后台子代理、浏览器自动化 GA、两个 hook 隐性 bug 修复——一人团队并行度与排障体验的直接提升。"
+    },
+    {
+      "cat": "pitfall",
+      "conf": "✅",
+      "title": "Claude Code 权限安全：默认已改手动批准，别急着全开 auto",
+      "topicIds": [
+        "cc-permission-safety",
+        "hook-silent-fail"
+      ],
+      "url": "reports/2026-07-10.html#cc-permission-safety",
+      "why": "auto模式'不是安全、只是比dangerous安全些':已有prompt注入泄密钥、误删致宕机的真实案例。保持Manual+关键仓库上OS级沙箱,别把安全押在AI判断上。"
     },
     {
       "cat": "cost",
@@ -1074,28 +1213,20 @@
         "scheduled-agents",
         "self-hosted-sandbox"
       ]
-    },
-    {
-      "title": "Claude for Small Business：免费开关 + lead triage 工作流",
-      "why": "加盟咨询自动预筛零搭建成本；已付费 Pro/Max 边际成本为零，今天就能开。",
-      "cat": "marketing",
-      "conf": "✅",
-      "url": "reports/2026-07-05.html#small-business",
-      "topicIds": [
-        "small-business"
-      ]
     }
   ],
   "hot": [
     {
       "tag": "Claude Code 后台代理",
-      "note": "后台子代理可靠性:07-01→v2.1.199→v2.1.203",
+      "note": "后台代理可靠性+权限安全:v2.1.199/203/205+默认Manual",
       "topicIds": [
         "cc-subagent-bg",
         "claude-chrome-ga",
         "hook-silent-fail",
         "cc-v2-1-199",
-        "cc-v2-1-203"
+        "cc-v2-1-203",
+        "cc-permission-safety",
+        "cc-v2-1-205-fixes"
       ],
       "expire": null
     },
@@ -1115,7 +1246,8 @@
         "prompt-caching-batch",
         "rate-limits",
         "refusal-no-bill",
-        "cache-diagnostics"
+        "cache-diagnostics",
+        "api-rate-tiers"
       ],
       "expire": null
     },
@@ -1137,7 +1269,8 @@
         "small-business",
         "marketing-skills",
         "marketing-skills-workflow",
-        "connectors-directory"
+        "connectors-directory",
+        "marketing-mcp-live"
       ],
       "expire": null
     },
@@ -1163,6 +1296,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-10",
+      "label": "周五 · 精选 3 条（CC 权限安全 + Marketing MCP 实时数据 + API 限速统一）",
+      "url": "reports/2026-07-10.html"
+    },
     {
       "date": "2026-07-09",
       "label": "周四 · 精选 3 条（Sonnet 5 成本自我修正 + CC v2.1.203 + 官方连接器货架）",
