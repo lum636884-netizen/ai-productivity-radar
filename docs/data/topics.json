@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10T07:37+08:00",
+  "updated": "2026-07-11T07:37+08:00",
   "categories": {
     "model": "🧠 模型能力",
     "tools": "🛠 工具与工作流",
@@ -1101,6 +1101,114 @@
       ],
       "url": "reports/2026-07-10.html#claude-reflect",
       "links": []
+    },
+    {
+      "id": "gpt56-ga",
+      "date": "2026-07-11",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "model",
+      "conf": "✅",
+      "act": "了解为主",
+      "deadline": null,
+      "title": "OpenAI GPT-5.6 正式 GA（Luna/Terra/Sol）——竞品价格与编码能力锚点",
+      "brief": "7/9 GA三档:Sol旗舰$5/$30、Terra均衡$2.50/$15、Luna最便宜$1/$6。编码Index:Sol80/Terra77/Luna75。Sol在CC每任务比Opus4.8(max)约低~10%,Terra输入端压过Sonnet4.6。工作流深绑Claude不建议整体迁,当批量/低风险任务备选降本池,主力别动,用真实任务实测。",
+      "tags": [
+        "GPT-5.6",
+        "OpenAI",
+        "定价",
+        "竞品",
+        "编码基准",
+        "模型选择"
+      ],
+      "url": "reports/2026-07-11.html#gpt56-ga",
+      "links": []
+    },
+    {
+      "id": "gemini-agents",
+      "date": "2026-07-11",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "观望",
+      "deadline": null,
+      "title": "Google Gemini 3.5 Flash GA + Gemini Managed Agents 公测（Google 托管沙箱）",
+      "brief": "Gemini 3.5 Flash转GA(3.5 Pro因推理/编码问题滑到7月);Gemini Managed Agents公测,Google托管隔离Linux沙箱跑有状态自主代理,与Anthropic MA同类。agentic平台同质化。已在Claude侧用代理则无迁移必要,仅Google生态刚需时评估。",
+      "tags": [
+        "Gemini",
+        "Google",
+        "Managed Agents",
+        "托管沙箱",
+        "竞品",
+        "agentic"
+      ],
+      "url": "reports/2026-07-11.html#gemini-agents",
+      "links": []
+    },
+    {
+      "id": "model-routing-decision",
+      "date": "2026-07-11",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "本周做",
+      "deadline": "2026-08-31",
+      "title": "对一人团队的落点：8/31 成本拐点将至，现在怎么定你的模型路由",
+      "brief": "Sonnet 5促销$2/$10到8/31到期后回$3/$15,届时Terra($2.50/$15)输入更便宜、Luna($1/$6)最低。8/31是成本拐点。按价值分级路由:核心/高风险留Opus4.8/Sonnet5;日常量产促销期用满Sonnet5+low effort+关thinking+Caching+Batch;超大批量测Luna/Terra备选。日历标8/31,别为单价频繁切模型(隐性成本)。",
+      "tags": [
+        "模型路由",
+        "成本拐点",
+        "8-31",
+        "Sonnet 5",
+        "分级",
+        "降本"
+      ],
+      "url": "reports/2026-07-11.html#model-routing-decision",
+      "links": []
+    },
+    {
+      "id": "opus47-fast-deadline",
+      "date": "2026-07-11",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "pitfall",
+      "conf": "✅",
+      "act": "没用则忽略",
+      "deadline": "2026-07-24",
+      "title": "倒计时：Opus 4.7 Fast Mode 将于 7/24 移除",
+      "brief": "移除后Opus4.7 fast请求直接报错不回退,须迁到Opus4.8 fast mode。没显式用则无需动作。此为07-05已推截止项临近提醒,未到≤3天再入选阈值,仅扩展区注明。",
+      "tags": [
+        "Opus 4.7",
+        "Fast Mode",
+        "截止",
+        "7-24",
+        "迁移"
+      ],
+      "url": "reports/2026-07-11.html#opus47-fast-deadline",
+      "links": []
+    },
+    {
+      "id": "admin-analytics",
+      "date": "2026-07-11",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "备档",
+      "deadline": null,
+      "title": "Claude 管理员分析看板：按 skills/connectors/artifacts 显示成本",
+      "brief": "管理面板按组/用户显示用量成本,并把artifacts/编辑文件/skills/connectors与成本并排。面向组织/Enterprise,一人团队非该场景仅备档;但'按能力维度归集成本'思路可用于自建账单核算。",
+      "tags": [
+        "管理分析",
+        "成本可观测",
+        "Enterprise",
+        "skills",
+        "connectors"
+      ],
+      "url": "reports/2026-07-11.html#admin-analytics",
+      "links": []
     }
   ],
   "picks": [
@@ -1115,6 +1223,18 @@
       ],
       "url": "reports/2026-07-07.html#cc-subagent-bg",
       "why": "一次升级拿到并行后台子代理、浏览器自动化 GA、两个 hook 隐性 bug 修复——一人团队并行度与排障体验的直接提升。"
+    },
+    {
+      "cat": "cost",
+      "conf": "✅",
+      "title": "8/31 成本拐点：现在定你的模型分级路由，把涨价变主动优化",
+      "topicIds": [
+        "model-routing-decision",
+        "gpt56-ga",
+        "sonnet5-token-cost"
+      ],
+      "url": "reports/2026-07-11.html#model-routing-decision",
+      "why": "Sonnet 5促销8/31到期+GPT-5.6三档重排价格。按价值分级路由(核心留Opus/Sonnet5、量产用满促销、超大批量测Luna/Terra),日历标8/31,别为单价频繁切模型。"
     },
     {
       "cat": "pitfall",
@@ -1202,20 +1322,19 @@
         "fable5-classifier",
         "fable5-followup"
       ]
-    },
-    {
-      "title": "Managed Agents 定时调度 + Vault 凭证：例行 agent 官方托管",
-      "why": "每日巡检/周报类任务的标准解法，密钥零暴露。本雷达这类系统的原生载体。",
-      "cat": "tools",
-      "conf": "✅",
-      "url": "reports/2026-07-05.html#scheduled-agents",
-      "topicIds": [
-        "scheduled-agents",
-        "self-hosted-sandbox"
-      ]
     }
   ],
   "hot": [
+    {
+      "tag": "竞品与模型选择",
+      "note": "GPT-5.6 GA/Gemini代理/8-31成本拐点",
+      "topicIds": [
+        "gpt56-ga",
+        "gemini-agents",
+        "model-routing-decision"
+      ],
+      "expire": "2026-08-31"
+    },
     {
       "tag": "Claude Code 后台代理",
       "note": "后台代理可靠性+权限安全:v2.1.199/203/205+默认Manual",
@@ -1235,7 +1354,8 @@
       "note": "两个硬截止：7/24 与 8/5",
       "topicIds": [
         "opus47-fast",
-        "opus41-retire"
+        "opus41-retire",
+        "opus47-fast-deadline"
       ],
       "expire": "2026-08-05"
     },
@@ -1296,6 +1416,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-11",
+      "label": "周六 · 精选 3 条（GPT-5.6 GA + Gemini 代理 + 你的模型路由决策）",
+      "url": "reports/2026-07-11.html"
+    },
     {
       "date": "2026-07-10",
       "label": "周五 · 精选 3 条（CC 权限安全 + Marketing MCP 实时数据 + API 限速统一）",
