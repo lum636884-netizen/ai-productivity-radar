@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-11T07:37+08:00",
+  "updated": "2026-07-12T07:37+08:00",
   "categories": {
     "model": "🧠 模型能力",
     "tools": "🛠 工具与工作流",
@@ -1209,6 +1209,95 @@
       ],
       "url": "reports/2026-07-11.html#admin-analytics",
       "links": []
+    },
+    {
+      "id": "cc-week-closer",
+      "date": "2026-07-12",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "今天就升",
+      "deadline": null,
+      "title": "Claude Code v2.1.206/207（7/9-10）收官修复：auth/MCP/OAuth 稳定性 + 终端卡顿",
+      "brief": "修复OAuth MCP单次刷新失败即要求手动重认证(很可能是MCP反复掉线根因)、--mcp-config的request_timeout_ms被忽略卡60s、登录过期报错不提示/login、--resume键盘无响应、流式超长内容终端卡顿;云平台Bedrock/Vertex/Foundry开auto、AWS/Vertex默认Opus4.8。整套雷达跑在CC+MCP上,直接治本周MCP掉线摩擦。",
+      "tags": [
+        "Claude Code",
+        "v2.1.207",
+        "MCP",
+        "OAuth",
+        "auth",
+        "session",
+        "稳定性"
+      ],
+      "url": "reports/2026-07-12.html#cc-week-closer",
+      "links": []
+    },
+    {
+      "id": "m365-write",
+      "date": "2026-07-12",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "备档",
+      "deadline": null,
+      "title": "Claude Microsoft 365 连接器升级为读+写（Enterprise 限定）",
+      "brief": "7/7起M365连接器从只读扩为可发邮件/管草稿日历/更新OneDrive·SharePoint。仅Claude Enterprise+需Entra全局管理员审批+Microsoft Business租户+默认关闭+个人无法自开。Pro/Max一人团队暂不可用仅备档;将来上Enterprise用M365办公才相关。",
+      "tags": [
+        "Microsoft 365",
+        "连接器",
+        "写工具",
+        "Enterprise",
+        "邮件",
+        "SharePoint"
+      ],
+      "url": "reports/2026-07-12.html#m365-write",
+      "links": []
+    },
+    {
+      "id": "gpt56-sol-ultra",
+      "date": "2026-07-12",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "model",
+      "conf": "✅",
+      "act": "了解",
+      "deadline": null,
+      "title": "GPT-5.6 Sol Ultra 达 GA",
+      "brief": "07-11 GPT-5.6三档之上再放更高Sol Ultra档转GA。竞品往更强更贵顶配延伸。对一人团队意义不变:顶配非日常所需,昨日'审慎不迁+分级路由'结论继续成立,仅多一个价格上限锚点。",
+      "tags": [
+        "GPT-5.6",
+        "Sol Ultra",
+        "OpenAI",
+        "竞品",
+        "顶配"
+      ],
+      "url": "reports/2026-07-12.html#gpt56-sol-ultra",
+      "links": []
+    },
+    {
+      "id": "ev-market-context",
+      "date": "2026-07-12",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "marketing",
+      "conf": "✅",
+      "act": "本行业参考",
+      "deadline": null,
+      "title": "【行业背景·非AI主线】印尼 EV/充电桩招商大热，PLN 推 SPKLU 加盟方案",
+      "brief": "供本行业参考、非AI生产力主线:印尼EV 2025增128%占新车15%,2026-27目标8000-12000座SPKLU;PLN推SPKLU充电桩加盟方案(门槛更低、外资几日注册)。与你'加盟商招商'直接相关的政策/市场风口。",
+      "tags": [
+        "印尼",
+        "EV",
+        "充电桩",
+        "SPKLU",
+        "招商",
+        "加盟",
+        "行业背景"
+      ],
+      "url": "reports/2026-07-12.html#ev-market-context",
+      "links": []
     }
   ],
   "picks": [
@@ -1331,7 +1420,8 @@
       "topicIds": [
         "gpt56-ga",
         "gemini-agents",
-        "model-routing-decision"
+        "model-routing-decision",
+        "gpt56-sol-ultra"
       ],
       "expire": "2026-08-31"
     },
@@ -1345,7 +1435,8 @@
         "cc-v2-1-199",
         "cc-v2-1-203",
         "cc-permission-safety",
-        "cc-v2-1-205-fixes"
+        "cc-v2-1-205-fixes",
+        "cc-week-closer"
       ],
       "expire": null
     },
@@ -1416,6 +1507,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-12",
+      "label": "周日 · 精选 1 条 + 本周复盘（CC 收官修复 · 4 条主线回顾）",
+      "url": "reports/2026-07-12.html"
+    },
     {
       "date": "2026-07-11",
       "label": "周六 · 精选 3 条（GPT-5.6 GA + Gemini 代理 + 你的模型路由决策）",
