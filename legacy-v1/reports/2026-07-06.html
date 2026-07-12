@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 生产力雷达 · 2026-07-06</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header>
+  <h1>📡 AI 生产力雷达</h1>
+  <div class="date" id="stats">2026-07-06（周一）· 精选 1 条 · 扩展 1 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
+  <a class="prev-link" href="../index.html">← 返回首页</a>
+</header>
+
+<h2>今日精选</h2>
+
+<div class="batch-sep">── 第 1 次采集 · 10:34（UTC+8）──</div>
+
+<div class="card" id="prompt-caching-batch">
+  <h3>1. 降本利器：Prompt Caching（读取 0.1×）+ Batch API（5 折）叠加，输入成本最高省 ~95%<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>两个官方降本杠杆可叠加：① <b>Prompt Caching</b>——缓存<b>读取仅 0.1×</b> 基础输入价，5 分钟写入 1.25×、1 小时写入 2×；稳定内容（system prompt、工具定义、知识包）首次之后省 70-90%。② <b>Batch API</b>——异步批处理，输入输出<b>各打 5 折</b>。两者叠加时缓存读取在 batch 下有效低至 <b>0.05×</b>。以 Opus 4.8 为例：基础输入 $5/MTok，缓存读取降至 $0.50，叠加 batch 后约 $0.25。</div>
+  <div class="field"><b>对你的价值：</b>直接压低你两类长期成本。① 本雷达系统 + 行研工作流有大量<b>固定不变的规则文档、知识包、system prompt</b>，正是缓存的理想对象——这些内容每次运行原样重发，加缓存后从第二次起省 90%。② 招商话术批量生成、竞对批量摘要这类<b>不要求实时</b>的任务走 Batch API，直接砍半。两者对一人团队的月度 API 账单影响显著。</div>
+  <div class="field"><b>怎么部署：</b>① 缓存：在稳定前缀（system prompt / 规则文档 / 知识包）末尾加 <code>"cache_control": {"type": "ephemeral"}</code>；间隔较长的跟进用 <code>"ttl": "1h"</code>。② 批处理：非实时任务改走 <code>/v1/messages/batches</code>。③ 组合：批处理请求里同样可带 cache_control。</div>
+  <div class="field"><b>坑与验证：</b>① <b>最小可缓存长度 512-4096 token（因模型而异）</b>，短 prompt 不会缓存；② 缓存写入有成本（1.25×/2×），只对<b>高频复用</b>内容划算，一次性内容别加；③ 2026-02 起缓存隔离改为 <b>workspace 级</b>，多 workspace 不共享缓存前缀。验证：对比加缓存前后账单的 <code>cache_read_input_tokens</code> 字段。</div>
+  <div class="action">🎯 行动建议：<b>今天就试</b>——把你雷达/行研工作流里那份固定不变的规则文档或知识包加上 <code>cache_control</code>，跑两次看第二次的 <code>cache_read_input_tokens</code>，确认省下 90% 输入成本。</div>
+  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">官方 Prompt Caching 文档</a><a href="https://platform.claude.com/docs/en/about-claude/pricing">官方定价（含 Batch）</a><a href="https://www.aimagicx.com/blog/prompt-caching-claude-api-cost-optimization-2026">生产实测：省 60-90%</a></div>
+</div>
+
+<h2>扩展区</h2>
+<div class="batch-sep">── 第 1 次采集 ──</div>
+<ul class="ext">
+  <li><b>Agent Skills / Plugin Marketplace 生态持续扩张</b>（🔶 待细验）——社区 Skill/插件市场（agentskills.io 等开放标准，跨 Claude Code/Cursor/Copilot 通用）条目数快速增长。<b>数字存疑并标注</b>：各来源统计差异极大（从 1,520 到 21,600+ Skills 不等，口径不一），说明缺乏权威计数，<b>不可作为决策依据</b>，仅提示"可复用 Skill 的供给在变多"。对你的意义：招商文案、SEO、CRO 类现成 Skill 越来越多，但质量参差，务必按上期原则——看每个 Skill 的 README 与实测，对照自己场景验证后再用。<a href="https://github.com/netresearch/claude-code-marketplace">开放标准 marketplace</a> · <a href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">官方 Agent Skills 文档</a></li>
+</ul>
+
+<h2 class="noise">今日噪音（已过滤）</h2>
+<div class="card noise-card">
+  <div class="field">🚫 <b>"这个 Prompt Caching 技巧帮我省了 90% API 费用！"类单点夸大标题文</b>——只喊"省 90%"这一个数字，回避最小可缓存长度（短 prompt 根本不缓存）、缓存写入成本（1.25×/2×）、workspace 级隔离等真实约束，容易让人以为无脑加缓存就省钱。<b>过滤理由：T3 选择性呈现，与今日精选第 1 条给出的完整机制（含三条坑）相比是残缺信息，照做易踩坑。</b></div>
+</div>
+
+<footer>
+  AI Productivity Radar · 本期规则版本 <b>ROUTINE v4</b> · 2026-07-06<br>
+  注：本条 Prompt Caching 信息原误并入 2026-07-05（第 4 次采集），按 UTC+8 时区铁律（采集实际发生于 07-06 10:34）已归位至本页。<br>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
+</footer>
+</body>
+</html>

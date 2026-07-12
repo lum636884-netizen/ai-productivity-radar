@@ -1,13 +1,13 @@
 {
   "updated": "2026-07-12T07:37+08:00",
   "categories": {
-    "model": "🧠 模型能力",
-    "tools": "🛠 工具与工作流",
-    "marketing": "🎯 营销与获客",
-    "reliability": "🛡 可靠性工程",
-    "cost": "💰 成本与计费",
-    "pitfall": "⚠️ 踩坑与截止",
-    "platform": "🔐 平台与合规"
+    "model": "模型能力",
+    "tools": "工具与工作流",
+    "marketing": "营销与获客",
+    "reliability": "可靠性工程",
+    "cost": "成本与计费",
+    "pitfall": "踩坑与截止",
+    "platform": "平台与合规"
   },
   "topics": [
     {
@@ -135,7 +135,7 @@
         "破坏性变更",
         "无人值守"
       ],
-      "url": "reports/2026-07-04.html#manual-mode",
+      "url": "reports/2026-07-04.html#topic-manual-mode",
       "links": []
     },
     {
@@ -154,7 +154,7 @@
         "分类器误判",
         "模型选型"
       ],
-      "url": "reports/2026-07-04.html#fable5-classifier",
+      "url": "reports/2026-07-04.html#topic-fable5-classifier",
       "links": []
     },
     {
@@ -173,7 +173,7 @@
         "Fast Mode",
         "截止"
       ],
-      "url": "reports/2026-07-04.html#opus47-fast",
+      "url": "reports/2026-07-04.html#topic-opus47-fast",
       "links": []
     },
     {
@@ -191,7 +191,7 @@
         "Claude Code",
         "Skill"
       ],
-      "url": "reports/2026-07-04.html#stacked-skills",
+      "url": "reports/2026-07-04.html#topic-stacked-skills",
       "links": []
     },
     {
@@ -209,7 +209,7 @@
         "Claude Code",
         "后台 agent"
       ],
-      "url": "reports/2026-07-04.html",
+      "url": "reports/2026-07-04.html#topic-bg-agent-patches",
       "links": []
     },
     {
@@ -227,7 +227,7 @@
         "MCP",
         "API 变更"
       ],
-      "url": "reports/2026-07-04.html",
+      "url": "reports/2026-07-04.html#topic-mcp-tunnels-move",
       "links": []
     },
     {
@@ -245,7 +245,7 @@
         "Claude Code",
         "稳定性"
       ],
-      "url": "reports/2026-07-04.html",
+      "url": "reports/2026-07-04.html#topic-streaming-watchdog",
       "links": []
     },
     {
@@ -264,7 +264,7 @@
         "提示词缓存",
         "层级"
       ],
-      "url": "reports/2026-07-05.html#rate-limits",
+      "url": "reports/2026-07-05.html#topic-rate-limits",
       "links": []
     },
     {
@@ -283,7 +283,7 @@
         "LinkedIn",
         "招商线索"
       ],
-      "url": "reports/2026-07-05.html#chrome-frontier",
+      "url": "reports/2026-07-05.html#topic-chrome-frontier",
       "links": []
     },
     {
@@ -302,7 +302,7 @@
         "自托管沙箱",
         "MCP Tunnels"
       ],
-      "url": "reports/2026-07-05.html#self-hosted-sandbox",
+      "url": "reports/2026-07-05.html#topic-self-hosted-sandbox",
       "links": []
     },
     {
@@ -320,7 +320,7 @@
         "Skill",
         "营销"
       ],
-      "url": "reports/2026-07-05.html",
+      "url": "reports/2026-07-05.html#topic-marketing-skills",
       "links": [
         {
           "t": "GitHub",
@@ -343,7 +343,7 @@
         "Computer Use",
         "竞对调研"
       ],
-      "url": "reports/2026-07-05.html",
+      "url": "reports/2026-07-05.html#topic-computeruse-cases",
       "links": []
     },
     {
@@ -362,7 +362,7 @@
         "定时调度",
         "Vault 凭证"
       ],
-      "url": "reports/2026-07-05.html#scheduled-agents",
+      "url": "reports/2026-07-05.html#topic-scheduled-agents",
       "links": []
     },
     {
@@ -381,7 +381,7 @@
         "退役",
         "截止"
       ],
-      "url": "reports/2026-07-05.html#opus41-retire",
+      "url": "reports/2026-07-05.html#topic-opus41-retire",
       "links": []
     },
     {
@@ -401,7 +401,7 @@
         "印尼",
         "Bahasa"
       ],
-      "url": "reports/2026-07-05.html#whatsapp-leads",
+      "url": "reports/2026-07-05.html#topic-whatsapp-leads",
       "links": []
     },
     {
@@ -419,7 +419,7 @@
         "Skill",
         "社区实测"
       ],
-      "url": "reports/2026-07-05.html",
+      "url": "reports/2026-07-05.html#topic-skills-100",
       "links": []
     },
     {
@@ -437,7 +437,7 @@
         "多 agent",
         "操作纪律"
       ],
-      "url": "reports/2026-07-05.html",
+      "url": "reports/2026-07-05.html#topic-reddit-discipline",
       "links": []
     },
     {
@@ -456,7 +456,7 @@
         "Small Business",
         "lead triage"
       ],
-      "url": "reports/2026-07-05.html#small-business",
+      "url": "reports/2026-07-05.html#topic-small-business",
       "links": []
     },
     {
@@ -474,7 +474,7 @@
         "Fable 5",
         "分类器误判"
       ],
-      "url": "reports/2026-07-05.html",
+      "url": "reports/2026-07-05.html#topic-fable5-followup",
       "links": []
     },
     {
@@ -492,7 +492,7 @@
         "Computer Use",
         "移动端"
       ],
-      "url": "reports/2026-07-05.html",
+      "url": "reports/2026-07-05.html#topic-mobile-computer-use",
       "links": []
     },
     {
@@ -511,7 +511,7 @@
         "评估",
         "行研验证"
       ],
-      "url": "reports/2026-07-05.html",
+      "url": "reports/2026-07-05.html#topic-hallu-4types",
       "links": []
     },
     {
@@ -531,7 +531,7 @@
         "降本",
         "API 成本"
       ],
-      "url": "reports/2026-07-06.html#prompt-caching-batch",
+      "url": "reports/2026-07-06.html#topic-prompt-caching-batch",
       "links": []
     },
     {
@@ -550,7 +550,7 @@
         "Marketplace",
         "生态"
       ],
-      "url": "reports/2026-07-06.html",
+      "url": "reports/2026-07-06.html#topic-skills-ecosystem",
       "links": [
         {
           "t": "开放标准 marketplace",
@@ -576,7 +576,7 @@
         "并行",
         "Notification hook"
       ],
-      "url": "reports/2026-07-07.html#cc-subagent-bg",
+      "url": "reports/2026-07-07.html#topic-cc-subagent-bg",
       "links": []
     },
     {
@@ -596,7 +596,7 @@
         "Computer Use",
         "竞对调研"
       ],
-      "url": "reports/2026-07-07.html#claude-chrome-ga",
+      "url": "reports/2026-07-07.html#topic-claude-chrome-ga",
       "links": []
     },
     {
@@ -617,7 +617,7 @@
         "踩坑",
         "matcher"
       ],
-      "url": "reports/2026-07-07.html#hook-silent-fail",
+      "url": "reports/2026-07-07.html#topic-hook-silent-fail",
       "links": []
     },
     {
@@ -638,7 +638,7 @@
         "促销价",
         "默认模型"
       ],
-      "url": "reports/2026-07-07.html#sonnet5-cc-default",
+      "url": "reports/2026-07-07.html#topic-sonnet5-cc-default",
       "links": []
     },
     {
@@ -658,7 +658,7 @@
         "refusal",
         "成本"
       ],
-      "url": "reports/2026-07-07.html#refusal-no-bill",
+      "url": "reports/2026-07-07.html#topic-refusal-no-bill",
       "links": []
     },
     {
@@ -678,7 +678,7 @@
         "SDK",
         "程序化工具调用"
       ],
-      "url": "reports/2026-07-07.html#codeexec-repl",
+      "url": "reports/2026-07-07.html#topic-codeexec-repl",
       "links": []
     },
     {
@@ -699,7 +699,7 @@
         "可视化",
         "skill"
       ],
-      "url": "reports/2026-07-07.html#dataviz-skill",
+      "url": "reports/2026-07-07.html#topic-dataviz-skill",
       "links": []
     },
     {
@@ -721,7 +721,7 @@
         "AQL",
         "WhatsApp"
       ],
-      "url": "reports/2026-07-07.html#sea-agentic-marketing",
+      "url": "reports/2026-07-07.html#topic-sea-agentic-marketing",
       "links": []
     },
     {
@@ -742,7 +742,7 @@
         "稳定性",
         "stacked skills"
       ],
-      "url": "reports/2026-07-08.html#cc-v2-1-199",
+      "url": "reports/2026-07-08.html#topic-cc-v2-1-199",
       "links": []
     },
     {
@@ -763,7 +763,7 @@
         "缓存排障",
         "API"
       ],
-      "url": "reports/2026-07-08.html#cache-diagnostics",
+      "url": "reports/2026-07-08.html#topic-cache-diagnostics",
       "links": []
     },
     {
@@ -785,7 +785,7 @@
         "SEO",
         "技能链"
       ],
-      "url": "reports/2026-07-08.html#marketing-skills-workflow",
+      "url": "reports/2026-07-08.html#topic-marketing-skills-workflow",
       "links": []
     },
     {
@@ -805,7 +805,7 @@
         "自托管沙箱",
         "上下文"
       ],
-      "url": "reports/2026-07-08.html#ma-output-spill",
+      "url": "reports/2026-07-08.html#topic-ma-output-spill",
       "links": []
     },
     {
@@ -825,7 +825,7 @@
         "尽调",
         "财务研究"
       ],
-      "url": "reports/2026-07-08.html#websearch-sec",
+      "url": "reports/2026-07-08.html#topic-websearch-sec",
       "links": []
     },
     {
@@ -845,7 +845,7 @@
         "移动端",
         "Max"
       ],
-      "url": "reports/2026-07-08.html#cowork-expansion",
+      "url": "reports/2026-07-08.html#topic-cowork-expansion",
       "links": []
     },
     {
@@ -867,7 +867,7 @@
         "agentic",
         "自我修正"
       ],
-      "url": "reports/2026-07-09.html#sonnet5-token-cost",
+      "url": "reports/2026-07-09.html#topic-sonnet5-token-cost",
       "links": []
     },
     {
@@ -889,7 +889,7 @@
         "可靠性",
         "登录预警"
       ],
-      "url": "reports/2026-07-09.html#cc-v2-1-203",
+      "url": "reports/2026-07-09.html#topic-cc-v2-1-203",
       "links": []
     },
     {
@@ -911,7 +911,7 @@
         "招商",
         "线索"
       ],
-      "url": "reports/2026-07-09.html#connectors-directory",
+      "url": "reports/2026-07-09.html#topic-connectors-directory",
       "links": []
     },
     {
@@ -931,7 +931,7 @@
         "可靠性",
         "状态页"
       ],
-      "url": "reports/2026-07-09.html#sonnet5-service-blip",
+      "url": "reports/2026-07-09.html#topic-sonnet5-service-blip",
       "links": []
     },
     {
@@ -951,7 +951,7 @@
         "agentic",
         "案例"
       ],
-      "url": "reports/2026-07-09.html#alberta-case",
+      "url": "reports/2026-07-09.html#topic-alberta-case",
       "links": []
     },
     {
@@ -971,7 +971,7 @@
         "beta",
         "备档"
       ],
-      "url": "reports/2026-07-09.html#claude-science",
+      "url": "reports/2026-07-09.html#topic-claude-science",
       "links": []
     },
     {
@@ -993,7 +993,7 @@
         "沙箱",
         "prompt注入"
       ],
-      "url": "reports/2026-07-10.html#cc-permission-safety",
+      "url": "reports/2026-07-10.html#topic-cc-permission-safety",
       "links": []
     },
     {
@@ -1015,7 +1015,7 @@
         "CRM",
         "实时数据"
       ],
-      "url": "reports/2026-07-10.html#marketing-mcp-live",
+      "url": "reports/2026-07-10.html#topic-marketing-mcp-live",
       "links": []
     },
     {
@@ -1036,7 +1036,7 @@
         "批量",
         "吞吐"
       ],
-      "url": "reports/2026-07-10.html#api-rate-tiers",
+      "url": "reports/2026-07-10.html#topic-api-rate-tiers",
       "links": []
     },
     {
@@ -1058,7 +1058,7 @@
         "hook",
         "修复"
       ],
-      "url": "reports/2026-07-10.html#cc-v2-1-205-fixes",
+      "url": "reports/2026-07-10.html#topic-cc-v2-1-205-fixes",
       "links": []
     },
     {
@@ -1078,7 +1078,7 @@
         "仪表盘",
         "Team/Enterprise"
       ],
-      "url": "reports/2026-07-10.html#artifacts-dashboards",
+      "url": "reports/2026-07-10.html#topic-artifacts-dashboards",
       "links": []
     },
     {
@@ -1099,7 +1099,7 @@
         "memory",
         "个人效率"
       ],
-      "url": "reports/2026-07-10.html#claude-reflect",
+      "url": "reports/2026-07-10.html#topic-claude-reflect",
       "links": []
     },
     {
@@ -1121,7 +1121,7 @@
         "编码基准",
         "模型选择"
       ],
-      "url": "reports/2026-07-11.html#gpt56-ga",
+      "url": "reports/2026-07-11.html#topic-gpt56-ga",
       "links": []
     },
     {
@@ -1143,7 +1143,7 @@
         "竞品",
         "agentic"
       ],
-      "url": "reports/2026-07-11.html#gemini-agents",
+      "url": "reports/2026-07-11.html#topic-gemini-agents",
       "links": []
     },
     {
@@ -1165,7 +1165,7 @@
         "分级",
         "降本"
       ],
-      "url": "reports/2026-07-11.html#model-routing-decision",
+      "url": "reports/2026-07-11.html#topic-model-routing-decision",
       "links": []
     },
     {
@@ -1186,7 +1186,7 @@
         "7-24",
         "迁移"
       ],
-      "url": "reports/2026-07-11.html#opus47-fast-deadline",
+      "url": "reports/2026-07-11.html#topic-opus47-fast-deadline",
       "links": []
     },
     {
@@ -1207,7 +1207,7 @@
         "skills",
         "connectors"
       ],
-      "url": "reports/2026-07-11.html#admin-analytics",
+      "url": "reports/2026-07-11.html#topic-admin-analytics",
       "links": []
     },
     {
@@ -1230,7 +1230,7 @@
         "session",
         "稳定性"
       ],
-      "url": "reports/2026-07-12.html#cc-week-closer",
+      "url": "reports/2026-07-12.html#topic-cc-week-closer",
       "links": []
     },
     {
@@ -1252,7 +1252,7 @@
         "邮件",
         "SharePoint"
       ],
-      "url": "reports/2026-07-12.html#m365-write",
+      "url": "reports/2026-07-12.html#topic-m365-write",
       "links": []
     },
     {
@@ -1273,7 +1273,7 @@
         "竞品",
         "顶配"
       ],
-      "url": "reports/2026-07-12.html#gpt56-sol-ultra",
+      "url": "reports/2026-07-12.html#topic-gpt56-sol-ultra",
       "links": []
     },
     {
@@ -1296,7 +1296,7 @@
         "加盟",
         "行业背景"
       ],
-      "url": "reports/2026-07-12.html#ev-market-context",
+      "url": "reports/2026-07-12.html#topic-ev-market-context",
       "links": []
     }
   ],
@@ -1310,7 +1310,7 @@
         "claude-chrome-ga",
         "hook-silent-fail"
       ],
-      "url": "reports/2026-07-07.html#cc-subagent-bg",
+      "url": "reports/2026-07-07.html#topic-cc-subagent-bg",
       "why": "一次升级拿到并行后台子代理、浏览器自动化 GA、两个 hook 隐性 bug 修复——一人团队并行度与排障体验的直接提升。"
     },
     {
@@ -1322,7 +1322,7 @@
         "gpt56-ga",
         "sonnet5-token-cost"
       ],
-      "url": "reports/2026-07-11.html#model-routing-decision",
+      "url": "reports/2026-07-11.html#topic-model-routing-decision",
       "why": "Sonnet 5促销8/31到期+GPT-5.6三档重排价格。按价值分级路由(核心留Opus/Sonnet5、量产用满促销、超大批量测Luna/Terra),日历标8/31,别为单价频繁切模型。"
     },
     {
@@ -1333,7 +1333,7 @@
         "cc-permission-safety",
         "hook-silent-fail"
       ],
-      "url": "reports/2026-07-10.html#cc-permission-safety",
+      "url": "reports/2026-07-10.html#topic-cc-permission-safety",
       "why": "auto模式'不是安全、只是比dangerous安全些':已有prompt注入泄密钥、误删致宕机的真实案例。保持Manual+关键仓库上OS级沙箱,别把安全押在AI判断上。"
     },
     {
@@ -1344,7 +1344,7 @@
         "sonnet5-token-cost",
         "sonnet5-cc-default"
       ],
-      "url": "reports/2026-07-09.html#sonnet5-token-cost",
+      "url": "reports/2026-07-09.html#topic-sonnet5-token-cost",
       "why": "'单价对等'≠总价对等:Sonnet 5 token 量更大,多步代理链可能反超 Opus。按任务分级选模型、分类摘要关thinking、叠 Caching+Batch,别凭直觉。"
     },
     {
@@ -1355,7 +1355,7 @@
         "cache-diagnostics",
         "prompt-caching-batch"
       ],
-      "url": "reports/2026-07-08.html#cache-diagnostics",
+      "url": "reports/2026-07-08.html#topic-cache-diagnostics",
       "why": "把'加了 cache_control 却 cache_read=0'的排障从肉眼 diff 变成 API 直接点名分叉点——缓存降本能真正落地的关键工具。"
     },
     {
@@ -1363,7 +1363,7 @@
       "why": "一次全局模型 ID 体检同时清零两个硬错误风险，顺带 Fast Mode 降本 3×。最不该拖的一件事。",
       "cat": "pitfall",
       "conf": "✅",
-      "url": "reports/2026-07-05.html#opus41-retire",
+      "url": "reports/2026-07-05.html#topic-opus41-retire",
       "topicIds": [
         "opus47-fast",
         "opus41-retire"
@@ -1374,7 +1374,7 @@
       "why": "本雷达/行研工作流有大量固定不变的规则文档与知识包每次原样重发，加 cache_control 从第二次起省 90%；直接压低运营成本。",
       "cat": "cost",
       "conf": "✅",
-      "url": "reports/2026-07-06.html#prompt-caching-batch",
+      "url": "reports/2026-07-06.html#topic-prompt-caching-batch",
       "topicIds": [
         "prompt-caching-batch",
         "rate-limits"
@@ -1396,7 +1396,7 @@
       "why": "不报错、只静止——最隐蔽的一类故障。所有定时/夜间任务升级后必须回归验证一次。",
       "cat": "pitfall",
       "conf": "✅",
-      "url": "reports/2026-07-04.html#manual-mode",
+      "url": "reports/2026-07-04.html#topic-manual-mode",
       "topicIds": [
         "manual-mode"
       ]
@@ -1406,7 +1406,7 @@
       "why": "付 Fable 5 价格可能收到 Opus 4.8 结果；已开 /feedback 误报通道。用 Fable 5 的工作流本周先验证实际命中模型。",
       "cat": "pitfall",
       "conf": "🔶",
-      "url": "reports/2026-07-04.html#fable5-classifier",
+      "url": "reports/2026-07-04.html#topic-fable5-classifier",
       "topicIds": [
         "fable5-classifier",
         "fable5-followup"

@@ -1,108 +1,325 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Productivity Radar</title>
-<link rel="stylesheet" href="assets/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 生产力雷达</title>
+  <meta name="description" content="面向一人团队的每日 AI 生产力情报 · 交叉验证 · 宁缺毋滥">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>📡 AI Productivity Radar</h1>
-  <p class="sub">面向一人团队的每日 AI 生产力信息 · 交叉验证 · 宁缺毋滥</p>
-</header>
+<div class="br-app" id="app" data-theme="light">
+  <div class="br-wrap">
 
-<section>
-  <h2 class="pin">📌 过去 30 天最值得关注</h2>
-  <div id="picksList"></div>
-</section>
+    <header class="br-masthead">
+      <div class="br-masthead__meta">
+        <span id="br-issue">每日情报</span>
+        <button class="br-theme" data-theme-toggle>☾ 深色</button>
+      </div>
+      <div class="br-masthead__bar">
+        <div>
+          <h1 class="br-masthead__title">AI 生产力雷达</h1>
+          <div class="br-masthead__sub">面向一人团队 · 每日交叉验证 · 宁缺毋滥</div>
+        </div>
+        <div class="br-search">
+          <span class="br-search__icon">⌕</span>
+          <input class="br-search__input" id="br-q" type="search" placeholder="搜索话题、标签、行动建议…" aria-label="搜索">
+          <button class="br-search__clear" id="br-qclear" hidden aria-label="清空">✕</button>
+        </div>
+      </div>
+      <nav class="br-tabs" id="br-tabs"></nav>
+    </header>
 
-<section>
-  <h2 class="noise">🔥 近期热词</h2>
-  <div class="hotwrap" id="hotList"></div>
-</section>
+    <main class="br-view" id="br-view" role="main"></main>
 
-<section>
-  <h2>🔍 全部话题</h2>
-  <input id="q" type="search" placeholder="搜索标题 / 摘要 / 标签…">
-  <div class="chips" id="chips"></div>
-  <div id="topicList"></div>
-</section>
+    <footer class="br-footer">
+      <span>每日 UTC+8 08:00 前更新 · 本页由 data/topics.json 驱动</span>
+      <span>规则版本见 ROUTINE.md</span>
+    </footer>
 
-<section>
-  <h2>📅 每日报告</h2>
-  <div id="days"></div>
-</section>
-
-<footer>规则版本见仓库 ROUTINE.md · 每日 UTC+8 08:00 前更新 · 本页由 data/topics.json 驱动</footer>
+  </div>
+</div>
 
 <script>
 (function(){
-  var D=null,state={q:'',cat:null,hot:null};
-  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  function topicUrl(t){if(t.url)return t.url;if(t.links&&t.links.length)return t.links[0].u;return '#';}
-  function daysLeft(d){if(!d)return null;var diff=Math.ceil((new Date(d+'T23:59:59+08:00')-new Date())/86400000);return diff;}
-  function renderPicks(){
-    var h='';
-    D.picks.forEach(function(p){
-      h+='<a class="pick" href="'+esc(p.url)+'"><b>'+esc(D.categories[p.cat]||'')+'</b> '+esc(p.conf)+' '+esc(p.title)+'<span class="why">'+esc(p.why)+'</span></a>';
-    });
-    document.getElementById('picksList').innerHTML=h;
+  "use strict";
+
+  /* ---------- 状态 ---------- */
+  var S = { tab:"today", query:"", cat:"all", hot:"", detailId:null, theme:"light", favs:[] };
+  var DATA = null, LATEST = "", ISSUE = "";
+  var app = document.getElementById("app"),
+      viewEl = document.getElementById("br-view"),
+      tabsEl = document.getElementById("br-tabs"),
+      qEl = document.getElementById("br-q"),
+      qClearEl = document.getElementById("br-qclear"),
+      issueEl = document.getElementById("br-issue");
+
+  var TABS = [
+    { key:"today", label:"今日" },
+    { key:"picks", label:"30天精选" },
+    { key:"all",   label:"全部话题" },
+    { key:"days",  label:"存档" },
+    { key:"fav",   label:"收藏" }
+  ];
+
+  /* ---------- 置信映射 (✅/🔶/⚠️ → 已证实/可复现/待观察) ---------- */
+  var CONF = {
+    "✅":{w:"已证实",r:"high"}, "🔶":{w:"可复现",r:"mid"}, "⚠️":{w:"待观察",r:"low"},
+    "高":{w:"已证实",r:"high"}, "中":{w:"可复现",r:"mid"}, "低":{w:"待观察",r:"low"}
+  };
+  function conf(c){ return CONF[c] || { w:String(c||""), r:"mid" }; }
+
+  /* ---------- 工具 ---------- */
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(m){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]; }); }
+  function catName(k){ return (DATA.categories && DATA.categories[k]) || k; }
+  function md(date){ return String(date||"").slice(5).replace("-","/"); }
+  function byId(id){ return DATA.topics.find(function(t){ return t.id===id; }); }
+
+  function dline(deadline){
+    if(!deadline) return "";
+    var d0 = new Date((LATEST||todayISO())+"T00:00:00"), d1 = new Date(deadline+"T00:00:00");
+    if(isNaN(d1)) return "";
+    var days = Math.round((d1-d0)/86400000), mds = md(deadline);
+    if(days<0) return "已截止";
+    if(days===0) return "今日截止";
+    return "截止 "+mds+" · "+days+"天";
   }
-  function renderHot(){
-    var h='';
-    D.hot.forEach(function(x,i){
-      var left=daysLeft(x.expire);
-      if(left!==null&&left<0)return; /* 过期热词不展示 */
-      h+='<button class="hotchip'+(state.hot===i?' on':'')+'" data-i="'+i+'" title="'+esc(x.note)+'">'+esc(x.tag)+' <span class="n">×'+x.topicIds.length+(left!==null?' · 剩'+left+'天':'')+'</span></button>';
-    });
-    document.getElementById('hotList').innerHTML=h||'<span class="empty">当前无高热话题</span>';
-    Array.prototype.forEach.call(document.querySelectorAll('.hotchip'),function(b){
-      b.onclick=function(){var i=+b.getAttribute('data-i');state.hot=(state.hot===i?null:i);state.cat=null;renderAll();};
-    });
+  function todayISO(){ return new Date().toISOString().slice(0,10); }
+  function daysLeft(d){ if(!d) return null; var d0=new Date((LATEST||todayISO())+"T00:00:00"), d1=new Date(d+"T00:00:00"); if(isNaN(d1)) return null; return Math.round((d1-d0)/86400000); }
+  function isFav(id){ return S.favs.indexOf(id) !== -1; }
+
+  /* ---------- localStorage ---------- */
+  function loadPrefs(){
+    try{ var f = JSON.parse(localStorage.getItem("radar_favs")||"[]"); S.favs = Array.isArray(f)?f:[]; }catch(e){ S.favs=[]; }
+    try{ var t = localStorage.getItem("radar_theme"); if(t==="dark"||t==="light") S.theme=t; }catch(e){}
   }
-  function renderChips(){
-    var h='<button class="chip'+(state.cat===null&&state.hot===null?' on':'')+'" data-c="">全部</button>';
-    Object.keys(D.categories).forEach(function(k){
-      h+='<button class="chip'+(state.cat===k?' on':'')+'" data-c="'+k+'">'+esc(D.categories[k])+'</button>';
-    });
-    document.getElementById('chips').innerHTML=h;
-    Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(b){
-      b.onclick=function(){var c=b.getAttribute('data-c');state.cat=c||null;state.hot=null;renderAll();};
-    });
+  function saveFavs(){ try{ localStorage.setItem("radar_favs", JSON.stringify(S.favs)); }catch(e){} }
+  function saveTheme(){ try{ localStorage.setItem("radar_theme", S.theme); }catch(e){} }
+
+  function toggleFav(id){
+    var i = S.favs.indexOf(id);
+    if(i===-1) S.favs.unshift(id); else S.favs.splice(i,1);
+    saveFavs(); renderTabs(); render();
   }
-  function renderTopics(){
-    var q=state.q.toLowerCase(),hotIds=state.hot!==null?D.hot[state.hot].topicIds:null;
-    var list=D.topics.filter(function(t){
-      if(state.cat&&t.cat!==state.cat)return false;
-      if(hotIds&&hotIds.indexOf(t.id)<0)return false;
-      if(q){var hay=(t.title+' '+t.brief+' '+t.tags.join(' ')).toLowerCase();if(hay.indexOf(q)<0)return false;}
-      return true;
-    });
-    list.sort(function(a,b){return (b.date+b.batch).localeCompare(a.date+a.batch);});
-    var h='';
-    list.forEach(function(t){
-      var left=daysLeft(t.deadline);
-      h+='<a class="t'+(t.tier==='extended'?' tier-ext':'')+'" href="'+esc(topicUrl(t))+'">'
-        +'<span class="ti">'+esc(t.conf)+' '+esc(t.title)+'</span>'
-        +(left!==null&&left>=0?'<span class="deadline-badge">⏰ 剩 '+left+' 天</span>':'')
-        +'<span class="meta">'+esc(t.date)+' · '+esc(D.categories[t.cat]||'')+' · '+(t.tier==='featured'?'精选':'扩展')+(t.act?' · 🎯 '+esc(t.act):'')+'</span>'
-        +'<span class="meta">'+esc(t.brief)+'</span>'
-        +'<span class="tags">'+t.tags.map(function(g){return '<span class="tag">'+esc(g)+'</span>';}).join('')+'</span>'
-        +'</a>';
-    });
-    document.getElementById('topicList').innerHTML=h||'<div class="empty">没有匹配的话题——换个关键词或清除筛选试试</div>';
+  function toggleTheme(){
+    S.theme = (S.theme==="dark") ? "light" : "dark";
+    app.setAttribute("data-theme", S.theme); saveTheme();
+    var b = document.querySelector("[data-theme-toggle]");
+    if(b) b.textContent = S.theme==="dark" ? "☀ 浅色" : "☾ 深色";
   }
-  function renderDays(){
-    var h='';
-    D.days.forEach(function(d){h+='<a href="'+esc(d.url)+'"><b>'+esc(d.date)+'</b><span class="meta">'+esc(d.label)+'</span></a>';});
-    document.getElementById('days').innerHTML=h;
+
+  /* ---------- 徽章片段 ---------- */
+  function confBadge(c){ var k=conf(c); return '<span class="br-conf br-conf--'+k.r+'">'+esc(k.w)+'</span>'; }
+  function actBadge(act){ return act ? '<span class="br-act">行动 · '+esc(act)+'</span>' : ''; }
+  function dlineBadge(dl){ var t=dline(dl); return t ? '<span class="br-dline">'+esc(t)+'</span>' : ''; }
+  function favBtn(id, cls){ return '<button class="'+(cls||"br-fav")+'" data-fav="'+esc(id)+'" aria-pressed="'+(isFav(id)?"true":"false")+'" title="收藏">'+(isFav(id)?"★":"☆")+'</button>'; }
+
+  /* ---------- 渲染:Tab ---------- */
+  function renderTabs(){
+    tabsEl.innerHTML = TABS.map(function(t){
+      var badge = (t.key==="fav" && S.favs.length) ? '<span class="br-tab__badge">'+S.favs.length+'</span>' : '';
+      return '<button class="br-tab'+(S.tab===t.key&&!S.detailId?" is-active":"")+'" data-tab="'+t.key+'">'+t.label+badge+'</button>';
+    }).join("");
   }
-  function renderAll(){renderPicks();renderHot();renderChips();renderTopics();renderDays();}
-  document.getElementById('q').addEventListener('input',function(e){state.q=e.target.value;renderTopics();});
-  fetch('data/topics.json').then(function(r){return r.json();}).then(function(j){D=j;renderAll();}).catch(function(e){
-    document.getElementById('topicList').innerHTML='<div class="empty">数据加载失败：'+esc(e.message)+'</div>';
+
+  /* ---------- 各视图 ---------- */
+  function viewToday(){
+    var todays = DATA.topics.filter(function(t){ return t.date===LATEST; });
+    var lead = todays.filter(function(t){ return t.tier==="featured"; })[0] || todays[0];
+    if(!lead) return '<div class="br-empty">今日暂无更新。</div>';
+    var rest = todays.filter(function(t){ return t.id!==lead.id; });
+    var aside = rest.map(function(t,i){
+      var m = [catName(t.cat), conf(t.conf).w].concat(t.deadline?[dline(t.deadline)]:[]).join(" · ");
+      return '<div class="br-row--compact">'+
+        '<div class="br-row__no">'+String(i+2).padStart(2,"0")+'</div>'+
+        '<div class="br-row__mainc"><a class="br-row__ct" href="#" data-open="'+esc(t.id)+'">'+esc(t.title)+'</a>'+
+        '<div class="br-row__cmeta">'+esc(m)+'</div></div>'+
+        favBtn(t.id)+'</div>';
+    }).join("");
+    return '<div class="br-kicker" style="margin-bottom:6px">头条 · '+esc(catName(lead.cat))+'</div>'+
+      '<div class="br-today">'+
+        '<article class="br-lead">'+
+          '<a href="#" data-open="'+esc(lead.id)+'"><h2 class="br-lead__title">'+esc(lead.title)+'</h2></a>'+
+          '<div class="br-lead__brief">'+esc(lead.brief)+'</div>'+
+          '<div class="br-badges">'+confBadge(lead.conf)+actBadge(lead.act)+dlineBadge(lead.deadline)+
+            '<span style="margin-left:auto">'+favBtn(lead.id,"br-fav br-fav--lg")+'</span></div>'+
+        '</article>'+
+        '<aside class="br-aside">'+
+          '<div class="br-kicker" style="margin-bottom:12px">今日其他 · '+rest.length+' 条</div>'+
+          '<div>'+(aside||'<div class="br-row__cmeta">今日仅头条一条。</div>')+'</div>'+
+        '</aside>'+
+      '</div>';
+  }
+
+  function viewPicks(){
+    var picks = DATA.picks || [];
+    var cards = picks.map(function(p){
+      var pid = (p.topicIds && p.topicIds[0]) || "";
+      return '<article class="br-pick">'+
+        '<div class="br-pick__head"><span class="br-kicker">'+esc(catName(p.cat))+' · '+esc(conf(p.conf).w)+'</span>'+
+          (pid?favBtn(pid):"")+'</div>'+
+        '<a href="#" data-open="'+esc(pid)+'"><h3 class="br-pick__title">'+esc(p.title)+'</h3></a>'+
+        '<p class="br-pick__why">'+esc(p.why)+'</p>'+
+        '<div class="br-pick__foot">关联 '+((p.topicIds||[]).length)+' 条话题 →</div>'+
+      '</article>';
+    }).join("");
+    return '<div class="br-kicker" style="display:block;margin-bottom:18px">过去 30 天 · 编辑精选 '+picks.length+' 则</div>'+
+      '<div class="br-grid">'+cards+'</div>';
+  }
+
+  function rowHTML(t){
+    return '<div class="br-row">'+
+      '<div class="br-row__meta">'+esc(md(t.date))+'<br><span class="br-row__cat">'+esc(catName(t.cat))+'</span></div>'+
+      '<div class="br-row__body">'+
+        '<a class="br-row__title" href="#" data-open="'+esc(t.id)+'">'+esc(t.title)+'</a>'+
+        '<div class="br-row__brief">'+esc(t.brief)+'</div>'+
+        '<div class="br-badges">'+confBadge(t.conf)+actBadge(t.act)+dlineBadge(t.deadline)+'</div>'+
+      '</div>'+favBtn(t.id)+'</div>';
+  }
+
+  function viewAll(){
+    var q = S.query.trim().toLowerCase();
+    var list = DATA.topics.slice().sort(function(a,b){ return a.date<b.date?1:(a.date>b.date?-1:0); });
+    if(S.cat!=="all") list = list.filter(function(t){ return t.cat===S.cat; });
+    if(S.hot!==""){ var _ho=(DATA.hot||[])[+S.hot]; if(_ho){ var _ids=_ho.topicIds||[]; list = list.filter(function(t){ return _ids.indexOf(t.id)!==-1; }); } }
+    if(q) list = list.filter(function(t){ return (t.title+t.brief+(t.tags||[]).join("")+(t.act||"")).toLowerCase().indexOf(q)!==-1; });
+
+    var chips = ['<button class="br-chip'+(S.cat==="all"?" is-active":"")+'" data-cat="all">全部</button>']
+      .concat(Object.keys(DATA.categories).map(function(k){
+        return '<button class="br-chip'+(S.cat===k?" is-active":"")+'" data-cat="'+esc(k)+'">'+esc(DATA.categories[k])+'</button>';
+      })).join("");
+    var hots = (DATA.hot||[]).map(function(h,i){ return {h:h,i:i}; }).filter(function(o){
+      var e=o.h.expire; return e ? (daysLeft(e)>=0) : true;
+    }).map(function(o){
+      var left = o.h.expire ? daysLeft(o.h.expire) : null, n=(o.h.topicIds||[]).length;
+      return '<button class="br-hot'+(S.hot===String(o.i)?" is-active":"")+'" data-hot="'+o.i+'" title="'+esc(o.h.note||"")+'">#'+esc(o.h.tag)+' <span class="br-hot__n">×'+n+(left!==null?" · 剩"+left+"天":"")+'</span></button>';
+    }).join("");
+
+    var label = list.length+" 条话题";
+    if(S.cat!=="all") label += " · "+catName(S.cat);
+    if(S.hot!==""){ var _hl=(DATA.hot||[])[+S.hot]; if(_hl) label += " · #"+_hl.tag; }
+    if(q) label += " · 搜索“"+S.query.trim()+"”";
+
+    var body = list.length ? '<div class="br-list">'+list.map(rowHTML).join("")+'</div>'
+      : '<div class="br-empty">没有匹配的话题 —— 试试清空筛选或换个关键词。</div>';
+
+    return '<div class="br-chips">'+chips+'</div>'+
+      '<div class="br-hots"><span class="br-hots__label">热词</span>'+hots+'</div>'+
+      '<div class="br-result">'+esc(label)+'</div>'+body;
+  }
+
+  function viewDays(){
+    var cards = (DATA.days||[]).map(function(d){
+      var ds = DATA.topics.filter(function(t){ return t.date===d.date; });
+      var items = ds.slice(0,3).map(function(t){
+        return '<li><a href="#" data-open="'+esc(t.id)+'"><span class="br-tag-cat">'+esc(catName(t.cat))+'</span>'+
+          '<span class="br-day__ct">'+esc(t.title)+'</span></a></li>';
+      }).join("");
+      var more = ds.length>3 ? '<a class="br-day__more" href="'+esc(d.url)+'">查看全部 '+ds.length+' 条 →</a>' : '';
+      var body = ds.length ? '<ul class="br-day__list">'+items+'</ul>'+more
+        : '<div class="br-day__none">报告存档 · 摘要待整理</div>';
+      return '<div class="br-day">'+
+        '<div class="br-day__head"><a class="br-day__date" href="'+esc(d.url)+'">'+esc(md(d.date))+'</a>'+
+          '<span class="br-day__label">'+esc(d.label)+'</span></div>'+body+'</div>';
+    }).join("");
+    return '<div class="br-kicker" style="display:block;margin-bottom:18px">每日报告 · 存档</div>'+
+      '<div class="br-days">'+cards+'</div>';
+  }
+
+  function viewFav(){
+    var favTopics = S.favs.map(byId).filter(Boolean);
+    var head = '<div class="br-kicker" style="display:block;margin-bottom:18px">我的收藏 · '+favTopics.length+' 条</div>';
+    if(!favTopics.length){
+      return head+'<div class="br-fav-empty"><div class="br-fav-empty__star">☆</div>'+
+        '<div class="br-fav-empty__t">还没有收藏。</div>'+
+        '<div class="br-fav-empty__s">在任意话题右侧点 ☆,重要情报就不会被淹没。</div></div>';
+    }
+    return head+'<div class="br-list">'+favTopics.map(rowHTML).join("")+'</div>';
+  }
+
+  function viewDetail(){
+    var t = byId(S.detailId);
+    if(!t) return '<div class="br-empty">未找到该话题。</div>';
+    var day = (DATA.days||[]).filter(function(d){ return d.date===t.date; })[0];
+    var rel = DATA.topics.filter(function(x){ return x.id!==t.id && (x.tags||[]).some(function(g){ return (t.tags||[]).indexOf(g)!==-1; }); }).slice(0,3);
+    var tags = (t.tags||[]).map(function(g){ return '<span class="br-tag">#'+esc(g)+'</span>'; }).join("");
+    var related = rel.length ? '<div class="br-related"><span class="br-kicker">关联阅读 · '+rel.length+' 条</span>'+
+      '<div class="br-list">'+rel.map(function(x){
+        return '<a class="br-row" href="#" data-open="'+esc(x.id)+'" style="text-decoration:none">'+
+          '<div class="br-row__meta">'+esc(md(x.date))+'<br><span class="br-row__cat">'+esc(catName(x.cat))+'</span></div>'+
+          '<div class="br-row__body"><span class="br-row__title">'+esc(x.title)+'</span></div></a>';
+      }).join("")+'</div></div>' : '';
+
+    return '<button class="br-back" data-close>‹ 返回列表</button>'+
+      '<article class="br-detail">'+
+        '<span class="br-kicker">'+esc(catName(t.cat))+' · '+esc(day?day.label:"存档")+' · '+esc(String(t.date).replace(/-/g,"/"))+'</span>'+
+        '<h1 class="br-detail__title">'+esc(t.title)+'</h1>'+
+        '<div class="br-detail__badges">'+confBadge(t.conf)+dlineBadge(t.deadline)+
+          '<button class="br-detail__fav" data-fav="'+esc(t.id)+'" aria-pressed="'+(isFav(t.id)?"true":"false")+'">'+(isFav(t.id)?"★":"☆")+' 收藏</button></div>'+
+        '<p class="br-detail__brief">'+esc(t.brief)+'</p>'+
+        (t.act ? '<div class="br-act-box"><span class="br-field__h">建议行动</span><p>'+esc(t.act)+'</p></div>' : '')+
+        (tags ? '<div class="br-tags">'+tags+'</div>' : '')+
+        '<a class="br-source" href="'+esc(t.url)+'">阅读原文 / 来源 →</a>'+
+        related+
+      '</article>';
+  }
+
+  /* ---------- 主渲染 ---------- */
+  function render(){
+    if(S.detailId){ viewEl.innerHTML = viewDetail(); }
+    else if(S.tab==="today"){ viewEl.innerHTML = viewToday(); }
+    else if(S.tab==="picks"){ viewEl.innerHTML = viewPicks(); }
+    else if(S.tab==="all"){ viewEl.innerHTML = viewAll(); }
+    else if(S.tab==="days"){ viewEl.innerHTML = viewDays(); }
+    else if(S.tab==="fav"){ viewEl.innerHTML = viewFav(); }
+    viewEl.style.animation = "none"; void viewEl.offsetWidth; viewEl.style.animation = "";
+  }
+
+  /* ---------- 事件委托 ---------- */
+  document.addEventListener("click", function(e){
+    var el;
+    if((el = e.target.closest("[data-theme-toggle]"))){ toggleTheme(); return; }
+    if((el = e.target.closest("[data-fav]"))){ e.preventDefault(); toggleFav(el.getAttribute("data-fav")); return; }
+    if((el = e.target.closest("[data-open]"))){ e.preventDefault(); var id=el.getAttribute("data-open"); if(id){ S.detailId=id; window.scrollTo(0,0); renderTabs(); render(); } return; }
+    if((el = e.target.closest("[data-close]"))){ e.preventDefault(); S.detailId=null; renderTabs(); render(); return; }
+    if((el = e.target.closest("[data-tab]"))){ S.tab=el.getAttribute("data-tab"); S.detailId=null; renderTabs(); render(); window.scrollTo(0,0); return; }
+    if((el = e.target.closest("[data-cat]"))){ S.cat=el.getAttribute("data-cat"); S.hot=""; render(); return; }
+    if((el = e.target.closest("[data-hot]"))){ var idx=el.getAttribute("data-hot"); S.hot=(S.hot===idx?"":idx); if(S.hot!=="") S.cat="all"; render(); return; }
   });
+
+  qEl.addEventListener("input", function(){
+    S.query = qEl.value; S.tab="all"; S.detailId=null; S.hot="";
+    qClearEl.hidden = !S.query;
+    renderTabs(); render();
+  });
+  qClearEl.addEventListener("click", function(){ qEl.value=""; S.query=""; qClearEl.hidden=true; render(); });
+
+  /* ---------- 启动 ---------- */
+  function boot(){
+    loadPrefs();
+    app.setAttribute("data-theme", S.theme);
+    var tb = document.querySelector("[data-theme-toggle]"); if(tb) tb.textContent = S.theme==="dark" ? "☀ 浅色" : "☾ 深色";
+
+    fetch("data/topics.json", { cache:"no-store" })
+      .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+      .then(function(json){
+        DATA = json;
+        var dates = (DATA.topics||[]).map(function(t){ return t.date; }).sort();
+        LATEST = dates[dates.length-1] || todayISO();
+        var d0 = (DATA.days||[])[0];
+        ISSUE = d0 ? (d0.label + " · " + String(d0.date).replace(/-/g,"/")) : "每日情报";
+        issueEl.textContent = ISSUE;
+        renderTabs(); render();
+      })
+      .catch(function(err){
+        viewEl.innerHTML = '<div class="br-empty">数据加载失败:'+esc(err.message)+'<br>请确认 data/topics.json 存在且为合法 JSON。</div>';
+      });
+  }
+  boot();
 })();
 </script>
 </body>

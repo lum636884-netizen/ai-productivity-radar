@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Productivity Radar</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <h1>📡 AI Productivity Radar</h1>
+  <p class="sub">面向一人团队的每日 AI 生产力信息 · 交叉验证 · 宁缺毋滥</p>
+</header>
+
+<section>
+  <h2 class="pin">📌 过去 30 天最值得关注</h2>
+  <div id="picksList"></div>
+</section>
+
+<section>
+  <h2 class="noise">🔥 近期热词</h2>
+  <div class="hotwrap" id="hotList"></div>
+</section>
+
+<section>
+  <h2>🔍 全部话题</h2>
+  <input id="q" type="search" placeholder="搜索标题 / 摘要 / 标签…">
+  <div class="chips" id="chips"></div>
+  <div id="topicList"></div>
+</section>
+
+<section>
+  <h2>📅 每日报告</h2>
+  <div id="days"></div>
+</section>
+
+<footer>规则版本见仓库 ROUTINE.md · 每日 UTC+8 08:00 前更新 · 本页由 data/topics.json 驱动</footer>
+
+<script>
+(function(){
+  var D=null,state={q:'',cat:null,hot:null};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function topicUrl(t){if(t.url)return t.url;if(t.links&&t.links.length)return t.links[0].u;return '#';}
+  function daysLeft(d){if(!d)return null;var diff=Math.ceil((new Date(d+'T23:59:59+08:00')-new Date())/86400000);return diff;}
+  function renderPicks(){
+    var h='';
+    D.picks.forEach(function(p){
+      h+='<a class="pick" href="'+esc(p.url)+'"><b>'+esc(D.categories[p.cat]||'')+'</b> '+esc(p.conf)+' '+esc(p.title)+'<span class="why">'+esc(p.why)+'</span></a>';
+    });
+    document.getElementById('picksList').innerHTML=h;
+  }
+  function renderHot(){
+    var h='';
+    D.hot.forEach(function(x,i){
+      var left=daysLeft(x.expire);
+      if(left!==null&&left<0)return; /* 过期热词不展示 */
+      h+='<button class="hotchip'+(state.hot===i?' on':'')+'" data-i="'+i+'" title="'+esc(x.note)+'">'+esc(x.tag)+' <span class="n">×'+x.topicIds.length+(left!==null?' · 剩'+left+'天':'')+'</span></button>';
+    });
+    document.getElementById('hotList').innerHTML=h||'<span class="empty">当前无高热话题</span>';
+    Array.prototype.forEach.call(document.querySelectorAll('.hotchip'),function(b){
+      b.onclick=function(){var i=+b.getAttribute('data-i');state.hot=(state.hot===i?null:i);state.cat=null;renderAll();};
+    });
+  }
+  function renderChips(){
+    var h='<button class="chip'+(state.cat===null&&state.hot===null?' on':'')+'" data-c="">全部</button>';
+    Object.keys(D.categories).forEach(function(k){
+      h+='<button class="chip'+(state.cat===k?' on':'')+'" data-c="'+k+'">'+esc(D.categories[k])+'</button>';
+    });
+    document.getElementById('chips').innerHTML=h;
+    Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(b){
+      b.onclick=function(){var c=b.getAttribute('data-c');state.cat=c||null;state.hot=null;renderAll();};
+    });
+  }
+  function renderTopics(){
+    var q=state.q.toLowerCase(),hotIds=state.hot!==null?D.hot[state.hot].topicIds:null;
+    var list=D.topics.filter(function(t){
+      if(state.cat&&t.cat!==state.cat)return false;
+      if(hotIds&&hotIds.indexOf(t.id)<0)return false;
+      if(q){var hay=(t.title+' '+t.brief+' '+t.tags.join(' ')).toLowerCase();if(hay.indexOf(q)<0)return false;}
+      return true;
+    });
+    list.sort(function(a,b){return (b.date+b.batch).localeCompare(a.date+a.batch);});
+    var h='';
+    list.forEach(function(t){
+      var left=daysLeft(t.deadline);
+      h+='<a class="t'+(t.tier==='extended'?' tier-ext':'')+'" href="'+esc(topicUrl(t))+'">'
+        +'<span class="ti">'+esc(t.conf)+' '+esc(t.title)+'</span>'
+        +(left!==null&&left>=0?'<span class="deadline-badge">⏰ 剩 '+left+' 天</span>':'')
+        +'<span class="meta">'+esc(t.date)+' · '+esc(D.categories[t.cat]||'')+' · '+(t.tier==='featured'?'精选':'扩展')+(t.act?' · 🎯 '+esc(t.act):'')+'</span>'
+        +'<span class="meta">'+esc(t.brief)+'</span>'
+        +'<span class="tags">'+t.tags.map(function(g){return '<span class="tag">'+esc(g)+'</span>';}).join('')+'</span>'
+        +'</a>';
+    });
+    document.getElementById('topicList').innerHTML=h||'<div class="empty">没有匹配的话题——换个关键词或清除筛选试试</div>';
+  }
+  function renderDays(){
+    var h='';
+    D.days.forEach(function(d){h+='<a href="'+esc(d.url)+'"><b>'+esc(d.date)+'</b><span class="meta">'+esc(d.label)+'</span></a>';});
+    document.getElementById('days').innerHTML=h;
+  }
+  function renderAll(){renderPicks();renderHot();renderChips();renderTopics();renderDays();}
+  document.getElementById('q').addEventListener('input',function(e){state.q=e.target.value;renderTopics();});
+  fetch('data/topics.json').then(function(r){return r.json();}).then(function(j){D=j;renderAll();}).catch(function(e){
+    document.getElementById('topicList').innerHTML='<div class="empty">数据加载失败：'+esc(e.message)+'</div>';
+  });
+})();
+</script>
+</body>
+</html>

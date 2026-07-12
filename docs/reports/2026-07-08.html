@@ -1,71 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 生产力雷达 · 2026-07-08</title>
-<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<header>
-  <h1>📡 AI 生产力雷达</h1>
-  <div class="date" id="stats">2026-07-08（周三）· 精选 3 条 · 扩展 3 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
-  <a class="prev-link" href="../index.html">← 返回首页</a>
-</header>
-
-<h2>今日精选</h2>
-
-<div class="batch-sep">── 第 1 次采集 · 07:37（UTC+8）──</div>
-
-<div class="card" id="cc-v2-1-199">
-  <h3>1. Claude Code v2.1.199（7/2）：后台代理稳定性修复 + 多技能一次全加载<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>7/2 发布的 v2.1.199 以稳定性修复为主，几条直接关系到昨天刚上的「子代理默认后台运行」：① 修复 <b>Linux 上后台代理守护进程在非正常关闭后、每 ~50 秒自杀并杀掉所有在跑代理</b>（损坏的 worker 记录所致）；② 修复<b>流式响应在 API 中途报 overloaded/server error 时整段被丢弃</b>——现在保留已产出部分并附"响应不完整"提示；③ <b>叠加式斜杠技能调用 <code>/skill-a /skill-b</code> 现会加载全部前置技能（最多 5 个）</b>，而非只加载第一个；④ SSL 证书错误快速失败并给修复提示；⑤ JetBrains 终端闪烁、Kitty 键盘协议下 Shift+非 ASCII 丢字等修复。</div>
-  <div class="field"><b>对你的价值：</b>你昨天刚开始用后台子代理并行干活——①②正是这套玩法的稳定性地基：守护进程自杀 bug 会让你"以为在跑其实全死了"，流式丢弃会让长任务白跑。升级后这两个隐性坑消失。③让你把「趋势研究→文案→改写→排期」这类多技能链一次性挂上，不用再逐个触发。</div>
-  <div class="field"><b>怎么部署：</b>① 升级 Claude Code 到 ≥ v2.1.199；② 若之前遇到后台代理莫名全停，就是那个守护进程 bug，升级即解；③ 想链式挂技能，直接 <code>/skill-a /skill-b</code> 连写（≤5 个）。</div>
-  <div class="field"><b>坑与验证：</b>升级后验证后台代理稳定性：派一个跑 &gt;1 分钟的后台子代理，确认它不会在 ~50 秒被守护进程杀掉；再用 <code>/a /b</code> 连写确认两个技能都加载。</div>
-  <div class="action">🎯 行动建议：<b>今天就升</b>——尤其你已在用后台子代理，这版修的正是它的稳定性地基。</div>
-  <div class="links">🔗 <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG（v2.1.199）</a><a href="https://www.claudeupdates.dev/version/2.1.199">v2.1.199 完整 24 项变更</a><a href="https://code.claude.com/docs/en/changelog">Claude Code changelog</a></div>
-</div>
-
-<div class="card" id="cache-diagnostics">
-  <h3>2. 【补录】Cache Diagnostics：一行参数定位"缓存为什么没命中"<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>官方缓存诊断能力（beta header <code>cache-diagnosis-2026-04-07</code>，4/7 起公测——<b>非本周新，此前本雷达漏报，现补录</b>）。用法：请求带 <code>diagnostics.previous_message_id</code>（首个请求设 <code>null</code> 开启，之后传上一次响应的 <code>id</code>），API 会对比前后两次请求的前缀指纹，返回 <code>cache_miss_reason</code>，精确告诉你缓存前缀在哪一处开始分叉（如 <code>system_changed</code> / <code>tools_changed</code>）。仅 Claude API 支持，Bedrock/Vertex 不支持。</div>
-  <div class="field"><b>对你的价值：</b>直接补齐我们前几天聊的缓存降本闭环。你把规则文档/知识包做成缓存前缀后，最怕的就是"明明加了 cache_control，<code>cache_read_input_tokens</code> 却是 0"——某个隐形变量（时间戳、未排序 JSON、工具集变动）把前缀改了。以前只能靠肉眼 diff，现在 API 直接点名分叉点，排缓存失效从"猜"变成"看"。</div>
-  <div class="field"><b>怎么部署：</b>① 请求加 beta header <code>cache-diagnosis-2026-04-07</code>；② 首次传 <code>diagnostics={"previous_message_id": null}</code>，之后传上一次响应 <code>id</code>；③ 读响应里的 <code>diagnostics.cache_miss_reason.type</code> 定位（<code>system_changed</code> 说明 system 前缀变了，<code>tools_changed</code> 说明工具集变了）。</div>
-  <div class="field"><b>坑与验证：</b>① <code>cache_miss_reason</code> 为 <code>null</code> 表示比对还在挂起，看下一轮；② 只在 Claude API 生效。验证：故意在 system 前缀塞个 <code>datetime.now()</code>，跑两次，确认返回 <code>system_changed</code>。</div>
-  <div class="action">🎯 行动建议：<b>下次调缓存时就用</b>——一旦发现 <code>cache_read_input_tokens=0</code>，加这个 header 让 API 直接告诉你哪一段前缀在漂。</div>
-  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics">官方 Cache Diagnostics 文档</a><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt Caching 文档</a></div>
-</div>
-
-<div class="card" id="marketing-skills-workflow">
-  <h3>3. 招商/Marketing 可部署：共享 product-marketing-context + 技能链工作流<span class="badge">🔶 可复现</span></h3>
-  <div class="field"><b>是什么：</b>社区把 Marketing/SEO 沉淀成了成熟的 Skills 工作流打法（非单一新品，是**可复现的组织模式**）：核心是<b>一个共享的 <code>product-marketing-context</code> 文件</b>——把你的产品、受众、定位<b>定义一次</b>，之后每个技能的产出都自动遵守它；再把「趋势研究→文案→多渠道改写→UGC 脚本→排期」<b>链成一条技能链</b>。现成技能库涵盖 CRO、文案、SEO、GEO/AEO、schema、本地 SEO、客户报告等。</div>
-  <div class="field"><b>对你的价值：</b>一人团队做招商 Marketing 最痛的是"每次都要重讲一遍我是谁、卖给谁"。这个模式把上下文抽成单文件复用，等于给所有营销技能装了统一的"品牌大脑"——写加盟商招募文案、场站本地 SEO、竞对定价页汇总时，产出口径一致、不用反复交代背景。</div>
-  <div class="field"><b>怎么部署：</b>① 先写一个 <code>product-marketing-context.md</code>：印尼公共充电场站业务、目标（加盟商招募 + Marketing）、受众画像、定位、禁忌；② 从社区库挑 3-5 个真正用得上的技能（如本地 SEO、文案、客户报告），让每个技能开头引用该 context 文件；③ 用 <code>/skill-a /skill-b</code> 连写成链（配合精选①的多技能加载）。</div>
-  <div class="field"><b>坑与验证：</b><b>星标 ≠ 质量</b>（某库 22K stars 不代表适配你的场景）——务必逐个看 README 和实测，对照充电场站/东南亚语境验证后再纳入。别整库照搬。验证：先用 1 个技能 + context 文件跑一篇招商文案，人工核对口径是否贴合你的业务，再扩链。</div>
-  <div class="action">🎯 行动建议：<b>本周做</b>——先只写 <code>product-marketing-context.md</code> 这一个文件（30 分钟），接 1 个技能验证效果，别一次挂满。</div>
-  <div class="links">🔗 <a href="https://www.mindstudio.ai/blog/5-skill-agent-workflow-content-marketing-claude-code">5 技能内容营销工作流</a><a href="https://ahrefs.com/blog/claude-skills/">Ahrefs：Skills 用于 SEO/营销</a><a href="https://github.com/coreyhaines31/marketingskills">marketingskills 库（自行甄别）</a></div>
-</div>
-
-<h2>扩展区</h2>
-<div class="batch-sep">── 第 1 次采集 ──</div>
-<ul class="ext">
-  <li id="ma-output-spill"><b>Managed Agents：工具大输出自动溢写文件 + 自托管沙箱</b>（✅ 已证实）——agent_toolset / MCP 工具返回 <b>超过 100K token 的输出现自动溢写到沙箱文件</b>，模型收到截断预览 + 可按需 read 全文，不再撑爆上下文；同时自托管沙箱（在你自己基础设施跑工具执行）已可用。对你的意义：跑长采集/大批量抓取的代理更稳，不会因单次巨量输出崩掉。<a href="https://releasebot.io/updates/anthropic/claude">更新记录</a></li>
-  <li id="websearch-sec"><b>Web Search 工具返回更丰富的 SEC 备案数据</b>（✅ 已证实）——便于给财务研究/尽调类代理提供带引用的一手财报数据。<b>对你的直接用途有限</b>（充电场站招商非美股尽调场景），列此仅备档；若做上游供应商/合作方的美股背景核查时可用。<a href="https://www.anthropic.com/engineering/advanced-tool-use">工具能力说明</a></li>
-  <li id="cowork-expansion"><b>Claude Cowork 扩展到 Web + 移动端</b>（✅ 已证实）——原桌面端的 Cowork 本周起上 Web 和移动，Max 计划先行、其余计划陆续跟进。对你的意义：若在 Pro 计划，暂需等待放量；关注即可，暂不必投入。<a href="https://support.claude.com/en/articles/12138966-release-notes">发布说明</a></li>
-</ul>
-
-<h2 class="noise">今日噪音（已过滤）</h2>
-<div class="card noise-card">
-  <div class="field">🚫 <b>「2026 年 7 月 Claude 完全体用法 / 全套系统总览」类大汇总长文</b>——把已知功能（模型选择、Projects、Skills、Connectors、Cowork、Dynamic Workflows、API 路由等）重新打包成"一篇看懂全部"的攻略。<b>过滤理由：§6「不保留无增量的二手总结」——这类长文无新信息、无可复现步骤，只是已有功能的再包装，读它不如直接看官方 changelog 与各专题文档。</b></div>
-</div>
-
-<footer>
-  AI Productivity Radar · 本期规则版本 <b>ROUTINE v4</b> · 2026-07-08（UTC+8）<br>
+<div class="br-app" id="app" data-theme="light">
+  <div class="br-wrap">
+    <header class="br-masthead">
+      <div class="br-masthead__meta"><span>2026-07-08 · 周三</span><a class="br-back" href="../index.html" style="margin:0">‹ 返回首页</a></div>
+      <div class="br-masthead__bar"><div>
+        <h1 class="br-masthead__title">AI 生产力雷达</h1>
+        <div class="br-masthead__sub">2026-07-08（周三）· 精选 3 条 · 扩展 3 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
+      </div></div>
+    </header>
+    <main class="br-view" role="main"><section class="br-report-block"><span class="br-kicker">今日精选</span><article class="br-report-card" id="topic-cc-v2-1-199"><div class="br-report-card__head"><span class="br-kicker">工具与工作流 · 已证实</span></div><h2 class="br-report-card__title">Claude Code v2.1.199（7/2）：后台代理稳定性修复 + 多技能一次全加载</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>7/2 发布的 v2.1.199 以稳定性修复为主，几条直接关系到昨天刚上的「子代理默认后台运行」：① 修复 <b>Linux 上后台代理守护进程在非正常关闭后、每 ~50 秒自杀并杀掉所有在跑代理</b>（损坏的 worker 记录所致）；② 修复<b>流式响应在 API 中途报 overloaded/server error 时整段被丢弃</b>——现在保留已产出部分并附"响应不完整"提示；③ <b>叠加式斜杠技能调用 <code>/skill-a /skill-b</code> 现会加载全部前置技能（最多 5 个）</b>，而非只加载第一个；④ SSL 证书错误快速失败并给修复提示；⑤ JetBrains 终端闪烁、Kitty 键盘协议下 Shift+非 ASCII 丢字等修复。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>你昨天刚开始用后台子代理并行干活——①②正是这套玩法的稳定性地基：守护进程自杀 bug 会让你"以为在跑其实全死了"，流式丢弃会让长任务白跑。升级后这两个隐性坑消失。③让你把「趋势研究→文案→改写→排期」这类多技能链一次性挂上，不用再逐个触发。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>① 升级 Claude Code 到 ≥ v2.1.199；② 若之前遇到后台代理莫名全停，就是那个守护进程 bug，升级即解；③ 想链式挂技能，直接 <code>/skill-a /skill-b</code> 连写（≤5 个）。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>升级后验证后台代理稳定性：派一个跑 &gt;1 分钟的后台子代理，确认它不会在 ~50 秒被守护进程杀掉；再用 <code>/a /b</code> 连写确认两个技能都加载。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>今天就升</b>——尤其你已在用后台子代理，这版修的正是它的稳定性地基。</p></div><div class="br-tags"><span class="br-tag">#Claude Code</span><span class="br-tag">#v2.1.199</span><span class="br-tag">#后台代理</span><span class="br-tag">#稳定性</span><span class="br-tag">#stacked skills</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG（v2.1.199）</a> · <a href="https://www.claudeupdates.dev/version/2.1.199">v2.1.199 完整 24 项变更</a> · <a href="https://code.claude.com/docs/en/changelog">Claude Code changelog</a></p></div></article><article class="br-report-card" id="topic-cache-diagnostics"><div class="br-report-card__head"><span class="br-kicker">成本与计费 · 已证实</span></div><h2 class="br-report-card__title">【补录】Cache Diagnostics：一行参数定位"缓存为什么没命中"</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>官方缓存诊断能力（beta header <code>cache-diagnosis-2026-04-07</code>，4/7 起公测——<b>非本周新，此前本雷达漏报，现补录</b>）。用法：请求带 <code>diagnostics.previous_message_id</code>（首个请求设 <code>null</code> 开启，之后传上一次响应的 <code>id</code>），API 会对比前后两次请求的前缀指纹，返回 <code>cache_miss_reason</code>，精确告诉你缓存前缀在哪一处开始分叉（如 <code>system_changed</code> / <code>tools_changed</code>）。仅 Claude API 支持，Bedrock/Vertex 不支持。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>直接补齐我们前几天聊的缓存降本闭环。你把规则文档/知识包做成缓存前缀后，最怕的就是"明明加了 cache_control，<code>cache_read_input_tokens</code> 却是 0"——某个隐形变量（时间戳、未排序 JSON、工具集变动）把前缀改了。以前只能靠肉眼 diff，现在 API 直接点名分叉点，排缓存失效从"猜"变成"看"。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>① 请求加 beta header <code>cache-diagnosis-2026-04-07</code>；② 首次传 <code>diagnostics={"previous_message_id": null}</code>，之后传上一次响应 <code>id</code>；③ 读响应里的 <code>diagnostics.cache_miss_reason.type</code> 定位（<code>system_changed</code> 说明 system 前缀变了，<code>tools_changed</code> 说明工具集变了）。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>① <code>cache_miss_reason</code> 为 <code>null</code> 表示比对还在挂起，看下一轮；② 只在 Claude API 生效。验证：故意在 system 前缀塞个 <code>datetime.now()</code>，跑两次，确认返回 <code>system_changed</code>。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>下次调缓存时就用</b>——一旦发现 <code>cache_read_input_tokens=0</code>，加这个 header 让 API 直接告诉你哪一段前缀在漂。</p></div><div class="br-tags"><span class="br-tag">#Cache Diagnostics</span><span class="br-tag">#Prompt Caching</span><span class="br-tag">#降本</span><span class="br-tag">#缓存排障</span><span class="br-tag">#API</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics">官方 Cache Diagnostics 文档</a> · <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt Caching 文档</a></p></div></article><article class="br-report-card" id="topic-marketing-skills-workflow"><div class="br-report-card__head"><span class="br-kicker">营销与获客 · 可复现</span></div><h2 class="br-report-card__title">招商/Marketing 可部署：共享 product-marketing-context + 技能链工作流</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>社区把 Marketing/SEO 沉淀成了成熟的 Skills 工作流打法（非单一新品，是**可复现的组织模式**）：核心是<b>一个共享的 <code>product-marketing-context</code> 文件</b>——把你的产品、受众、定位<b>定义一次</b>，之后每个技能的产出都自动遵守它；再把「趋势研究→文案→多渠道改写→UGC 脚本→排期」<b>链成一条技能链</b>。现成技能库涵盖 CRO、文案、SEO、GEO/AEO、schema、本地 SEO、客户报告等。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>一人团队做招商 Marketing 最痛的是"每次都要重讲一遍我是谁、卖给谁"。这个模式把上下文抽成单文件复用，等于给所有营销技能装了统一的"品牌大脑"——写加盟商招募文案、场站本地 SEO、竞对定价页汇总时，产出口径一致、不用反复交代背景。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>① 先写一个 <code>product-marketing-context.md</code>：印尼公共充电场站业务、目标（加盟商招募 + Marketing）、受众画像、定位、禁忌；② 从社区库挑 3-5 个真正用得上的技能（如本地 SEO、文案、客户报告），让每个技能开头引用该 context 文件；③ 用 <code>/skill-a /skill-b</code> 连写成链（配合精选①的多技能加载）。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p><b>星标 ≠ 质量</b>（某库 22K stars 不代表适配你的场景）——务必逐个看 README 和实测，对照充电场站/东南亚语境验证后再纳入。别整库照搬。验证：先用 1 个技能 + context 文件跑一篇招商文案，人工核对口径是否贴合你的业务，再扩链。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>本周做</b>——先只写 <code>product-marketing-context.md</code> 这一个文件（30 分钟），接 1 个技能验证效果，别一次挂满。</p></div><div class="br-tags"><span class="br-tag">#Skills</span><span class="br-tag">#营销</span><span class="br-tag">#招商</span><span class="br-tag">#product-marketing-context</span><span class="br-tag">#SEO</span><span class="br-tag">#技能链</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://www.mindstudio.ai/blog/5-skill-agent-workflow-content-marketing-claude-code">5 技能内容营销工作流</a> · <a href="https://ahrefs.com/blog/claude-skills/">Ahrefs：Skills 用于 SEO/营销</a> · <a href="https://github.com/coreyhaines31/marketingskills">marketingskills 库（自行甄别）</a></p></div></article></section><section class="br-report-block"><span class="br-kicker">扩展阅读</span><div class="br-list"><div class="br-row" id="topic-ma-output-spill"><div class="br-row__meta">07/08<br><span class="br-row__cat">工具与工作流</span></div><div class="br-row__body"><span class="br-row__title">Managed Agents：工具大输出自动溢写文件 + 自托管沙箱</span><div class="br-row__brief">（已证实）——agent_toolset / MCP 工具返回 <b>超过 100K token 的输出现自动溢写到沙箱文件</b>，模型收到截断预览 + 可按需 read 全文，不再撑爆上下文；同时自托管沙箱（在你自己基础设施跑工具执行）已可用。对你的意义：跑长采集/大批量抓取的代理更稳，不会因单次巨量输出崩掉。<a href="https://releasebot.io/updates/anthropic/claude">更新记录</a></div></div></div><div class="br-row" id="topic-websearch-sec"><div class="br-row__meta">07/08<br><span class="br-row__cat">平台与合规</span></div><div class="br-row__body"><span class="br-row__title">Web Search 工具返回更丰富的 SEC 备案数据</span><div class="br-row__brief">（已证实）——便于给财务研究/尽调类代理提供带引用的一手财报数据。<b>对你的直接用途有限</b>（充电场站招商非美股尽调场景），列此仅备档；若做上游供应商/合作方的美股背景核查时可用。<a href="https://www.anthropic.com/engineering/advanced-tool-use">工具能力说明</a></div></div></div><div class="br-row" id="topic-cowork-expansion"><div class="br-row__meta">07/08<br><span class="br-row__cat">工具与工作流</span></div><div class="br-row__body"><span class="br-row__title">Claude Cowork 扩展到 Web + 移动端</span><div class="br-row__brief">（已证实）——原桌面端的 Cowork 本周起上 Web 和移动，Max 计划先行、其余计划陆续跟进。对你的意义：若在 Pro 计划，暂需等待放量；关注即可，暂不必投入。<a href="https://support.claude.com/en/articles/12138966-release-notes">发布说明</a></div></div></div></div></section><section class="br-report-block"><span class="br-kicker">今日噪音 · 已降权</span><ul class="br-noise"><li><b>「2026 年 7 月 Claude 完全体用法 / 全套系统总览」类大汇总长文</b>——把已知功能（模型选择、Projects、Skills、Connectors、Cowork、Dynamic Workflows、API 路由等）重新打包成"一篇看懂全部"的攻略。<b>过滤理由：§6「不保留无增量的二手总结」——这类长文无新信息、无可复现步骤，只是已有功能的再包装，读它不如直接看官方 changelog 与各专题文档。</b></li></ul></section></main>
+    <footer class="br-footer"><span>AI Productivity Radar · 本期规则版本 <b>ROUTINE v4</b> · 2026-07-08（UTC+8）<br>
   时区核对：采集实际发生于 UTC 2026-07-07 23:37 = UTC+8 2026-07-08 07:37，跨零点，归属日期为 07-08（周三）。<br>
   诚实标注：精选② Cache Diagnostics 为 4/7 公测的已有能力（本雷达此前漏报，按 §8.2 补录），非本周新品；精选③为可复现的组织模式而非单一新品。<br>
   已做跨区一致性自检：精选/扩展/噪音无同源矛盾条目。<br>
-  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
-</footer>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。</span></footer>
+  </div>
+</div>
 </body>
 </html>
