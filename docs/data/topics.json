@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-12T07:37+08:00",
+  "updated": "2026-07-13T07:38+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -1305,9 +1305,105 @@
         "https://www.tempo.co/ekonomi/bikin-waralaba-spklu-dan-spbklu-pln-tawarkan-paket-investasi-mulai-rp-342-juta-270975",
         "https://emerhub.com/indonesia/pln-partnership-to-open-an-ev-charging-station-in-indonesia/"
       ]
+    },
+    {
+      "id": "fable5-plan-end",
+      "date": "2026-07-13",
+      "batch": "07:38",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "今天就做:盘点并切走非必要 Fable 5 调用",
+      "deadline": "2026-07-13",
+      "title": "Fable 5 计划内访问 7/12 到期，转 API-only $10/$50——用了就要重算账",
+      "brief": "Anthropic 把 Fable 5「计划内额度」(套餐周用量50%内不额外计费)延到7/12 23:59 PT后结束;7/13起仅按API计量$10/百万输入、$50/百万输出(输出是Opus 4.8约$25的2倍)。你此前把部分分类路由给Fable 5(见7/4误伤),今起不再含在套餐里。应对:盘脚本/Skill是否调用Fable 5;轻量任务改Haiku 4.5/Sonnet;确需的改显式API调用+设预算护栏。",
+      "tags": [
+        "Fable 5",
+        "定价",
+        "API计费",
+        "模型路由",
+        "成本",
+        "截止"
+      ],
+      "url": "reports/2026-07-13.html#topic-fable5-plan-end",
+      "links": [
+        "https://www.anthropic.com/claude/fable",
+        "https://www.androidauthority.com/claude-fable-5-free-extension-3685103/",
+        "https://www.techtimes.com/articles/319767/20260706/fable-5-subscription-ends-tomorrow-per-token-costs-who-gets-hit-hardest.htm",
+        "https://www.digitalapplied.com/blog/anthropic-fable-5-access-extended-july-12-2026"
+      ]
+    },
+    {
+      "id": "copilot-spend-guardrails",
+      "date": "2026-07-13",
+      "batch": "07:38",
+      "tier": "extended",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "竞品参考:自设预算护栏",
+      "deadline": null,
+      "title": "GitHub Copilot 加「会话开销上限」+ 浏览器工具 GA",
+      "brief": "Copilot CLI/SDK现可给单次agent会话设AI额度上限,到顶自动收尾(公测,CLI≥1.0.66/SDK≥1.0.5);VS Code浏览器工具转GA、默认开启。对你(Claude Code用户):竞品在补'无人值守agent花费封顶',CC侧目前是用量限额、无逐会话美元封顶;跑后台脚本可自设预算护栏并留意CC是否跟进。浏览器GA与Claude in Chrome(7/7)同向。",
+      "tags": [
+        "GitHub Copilot",
+        "竞品",
+        "成本护栏",
+        "会话上限",
+        "浏览器自动化"
+      ],
+      "url": "reports/2026-07-13.html#topic-copilot-spend-guardrails",
+      "links": [
+        "https://github.blog/changelog/2026-07-01-set-ai-credit-session-limits-in-copilot-cli-and-sdk/",
+        "https://www.techtimes.com/articles/319982/20260709/github-closes-agentic-loop-vs-code-browser-tools-go-ga-sessions-run-parallel.htm"
+      ]
+    },
+    {
+      "id": "apikey-expiry",
+      "date": "2026-07-13",
+      "batch": "07:38",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "给自动化脚本的key设过期日",
+      "deadline": null,
+      "title": "Claude Console 现可给 API Key 设过期时间（7/8 上线·补录）",
+      "brief": "新建API key/Admin key时可选过期(预设/自定义/永不);≥7天有效期的key到期前邮件提醒创建者,Admin API用expires_at字段可查,存量key不受影响。对你:跑无人值守采集/自动化的一人团队,给脚本用的key设到期日=低成本安全护栏,避免长命key长期泄露风险。7/8上线、此前未推的补录项。",
+      "tags": [
+        "API key",
+        "安全",
+        "过期",
+        "平台",
+        "自动化"
+      ],
+      "url": "reports/2026-07-13.html#topic-apikey-expiry",
+      "links": [
+        "https://platform.claude.com/docs/en/release-notes/overview",
+        "https://platform.claude.com/docs/en/manage-claude/authentication"
+      ]
     }
   ],
   "picks": [
+    {
+      "cat": "cost",
+      "conf": "✅",
+      "title": "Fable 5 计划内访问 7/12 到期，转 API-only $10/$50——盘点并切走非必要调用",
+      "topicIds": [
+        "fable5-plan-end"
+      ],
+      "url": "reports/2026-07-13.html#topic-fable5-plan-end",
+      "why": "套餐内免费额度今日终止,输出 $50 是 Opus 4.8 的 2 倍;一人团队若无刚需应今天切走、避免静默计费。"
+    },
+    {
+      "title": "模型退役双截止：7/24 Opus 4.7 Fast Mode · 8/5 Opus 4.1",
+      "why": "一次全局模型 ID 体检同时清零两个硬错误风险，顺带 Fast Mode 降本 3×。最不该拖的一件事。",
+      "cat": "pitfall",
+      "conf": "✅",
+      "url": "reports/2026-07-05.html#topic-opus41-retire",
+      "topicIds": [
+        "opus47-fast",
+        "opus41-retire"
+      ]
+    },
     {
       "cat": "tools",
       "conf": "✅",
@@ -1366,17 +1462,6 @@
       "why": "把'加了 cache_control 却 cache_read=0'的排障从肉眼 diff 变成 API 直接点名分叉点——缓存降本能真正落地的关键工具。"
     },
     {
-      "title": "模型退役双截止：7/24 Opus 4.7 Fast Mode · 8/5 Opus 4.1",
-      "why": "一次全局模型 ID 体检同时清零两个硬错误风险，顺带 Fast Mode 降本 3×。最不该拖的一件事。",
-      "cat": "pitfall",
-      "conf": "✅",
-      "url": "reports/2026-07-05.html#topic-opus41-retire",
-      "topicIds": [
-        "opus47-fast",
-        "opus41-retire"
-      ]
-    },
-    {
       "title": "API 降本组合：Prompt Caching 0.1× + Batch API 5 折，输入省 ~95%",
       "why": "本雷达/行研工作流有大量固定不变的规则文档与知识包每次原样重发，加 cache_control 从第二次起省 90%；直接压低运营成本。",
       "cat": "cost",
@@ -1406,17 +1491,6 @@
       "url": "reports/2026-07-04.html#topic-manual-mode",
       "topicIds": [
         "manual-mode"
-      ]
-    },
-    {
-      "title": "Fable 5 分类器误伤（进展中）：请求被静默降级至 Opus 4.8",
-      "why": "付 Fable 5 价格可能收到 Opus 4.8 结果；已开 /feedback 误报通道。用 Fable 5 的工作流本周先验证实际命中模型。",
-      "cat": "pitfall",
-      "conf": "🔶",
-      "url": "reports/2026-07-04.html#topic-fable5-classifier",
-      "topicIds": [
-        "fable5-classifier",
-        "fable5-followup"
       ]
     }
   ],
@@ -1514,6 +1588,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-13",
+      "label": "周一 · 精选 1 条（Fable 5 计费转档 · 清淡日）",
+      "url": "reports/2026-07-13.html"
+    },
     {
       "date": "2026-07-12",
       "label": "周日 · 精选 1 条 + 本周复盘（CC 收官修复 · 4 条主线回顾）",
