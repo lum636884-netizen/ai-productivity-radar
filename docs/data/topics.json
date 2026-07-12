@@ -1285,8 +1285,8 @@
       "conf": "✅",
       "act": "本行业参考",
       "deadline": null,
-      "title": "【行业背景·非AI主线】印尼 EV/充电桩招商大热，PLN 推 SPKLU 加盟方案",
-      "brief": "供本行业参考、非AI生产力主线:印尼EV 2025增128%占新车15%,2026-27目标8000-12000座SPKLU;PLN推SPKLU充电桩加盟方案(门槛更低、外资几日注册)。与你'加盟商招商'直接相关的政策/市场风口。",
+      "title": "【行业背景·非AI主线】印尼 EV/充电桩招商大热，PLN 推 SPKLU 分成/加盟方案",
+      "brief": "供本行业参考、非AI生产力主线。市场:印尼2025年EV销量翻倍以上、占新车约15%(IEA2026/ICCT)。充电基建:PLN至2025年底运营约4,655座SPKLU(较2024年3,223座约+44%),政府2030年目标约3.2万座;PLN以分成/加盟(waralaba)引私营伙伴共建,单座投资起约3.42亿印尼盾(约2.1万美元)+≥42㎡用地。与你'加盟商招商'直接相关。已纠错:原'2025增128%/2026-27目标8000-12000座/外资几日注册'缺出处,按官方口径修正或删除。",
       "tags": [
         "印尼",
         "EV",
@@ -1294,10 +1294,17 @@
         "SPKLU",
         "招商",
         "加盟",
+        "waralaba",
         "行业背景"
       ],
       "url": "reports/2026-07-12.html#topic-ev-market-context",
-      "links": []
+      "links": [
+        "https://theicct.org/publication/electric-vehicle-market-in-indonesia-dec25/",
+        "https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars",
+        "https://www.esdm.go.id/en/media-center/news-archives/pln-gandeng-pihak-swasta-perbanyak-spklu-dengan-skema-bagi-hasil",
+        "https://www.tempo.co/ekonomi/bikin-waralaba-spklu-dan-spbklu-pln-tawarkan-paket-investasi-mulai-rp-342-juta-270975",
+        "https://emerhub.com/indonesia/pln-partnership-to-open-an-ev-charging-station-in-indonesia/"
+      ]
     }
   ],
   "picks": [
