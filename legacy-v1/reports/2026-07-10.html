@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 生产力雷达 · 2026-07-10</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header>
+  <h1>📡 AI 生产力雷达</h1>
+  <div class="date" id="stats">2026-07-10（周五）· 精选 3 条 · 扩展 3 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
+  <a class="prev-link" href="../index.html">← 返回首页</a>
+</header>
+
+<h2>今日精选</h2>
+
+<div class="batch-sep">── 第 1 次采集 · 07:37（UTC+8）──</div>
+
+<div class="card" id="cc-permission-safety">
+  <h3>1. Claude Code 权限安全：默认已改「手动批准」+ auto 模式的真实风险与正确用法<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>① <b>v2.1.200（7/3）把默认权限模式从 Auto 改成 Manual</b>（CLI/VS Code/JetBrains 全线，仅一行 changelog、无公告）——现在危险动作默认需你点头，auto 需显式开启。② v2.1.205（7/8）给 auto 模式加了"禁止篡改会话 transcript 文件"的安全阀。③ 背景警报：微软安全团队（6月）发现 <b>Claude Code GitHub Action 可被 prompt 注入诱导泄露 CI/CD 密钥</b>；4月有 GitHub issue 记录一次会话<b>误删文件导致生产宕机+数据丢失</b>。</div>
+  <div class="field"><b>对你的价值：</b>你天天跑 CC agent（还在用后台子代理），这条直接关系到你的资产安全。默认改 Manual 是好事——别急着为图省事全开 auto。真实教训是：<b>AI 层的安全防护是非确定性的</b>（Simon Willison 明确不信任 AI 安全、只信 OS 级沙箱），一旦 agent 被诱导或误解指令，代价是密钥泄露或误删。</div>
+  <div class="field"><b>怎么部署：</b>① 保持默认 Manual，只对**明确低风险、可回滚**的重复动作开 auto；② 关键项目用 <b>OS 级隔离</b>（受限文件访问 + 网络白名单 + 单独低权限账号/容器）兜底，别只靠 CC 的权限模式；③ 涉密操作（含 GitHub Action）警惕 prompt 注入——不要把密钥暴露在 agent 可读上下文；④ 破坏性命令（删除/部署/改配置）保留人工确认。</div>
+  <div class="field"><b>坑与验证：</b>auto 模式"不是安全，只是比 dangerous 模式安全些"（Boris Cherny 原话）。验证你的隔离是否真生效：在沙箱里让 agent 尝试写 <code>/</code> 或访问白名单外域名，确认被 OS 层拦截，而非指望 agent 自觉。</div>
+  <div class="action">🎯 行动建议：<b>今天就查</b>——确认你的 CC 是默认 Manual；给跑 agent 的关键仓库加一层 OS 级沙箱（限文件+限网络），别把安全全押在 auto 模式的 AI 判断上。</div>
+  <div class="links">🔗 <a href="https://www.anthropic.com/engineering/claude-code-auto-mode">官方：Claude Code auto mode</a><a href="https://www.techtimes.com/articles/319874/20260707/claude-code-defaults-human-approval-auto-mode-requires-explicit-opt.htm">默认改手动批准（报道）</a><a href="https://paddo.dev/blog/claude-code-auto-mode-absent-human/">auto 模式风险分析</a></div>
+</div>
+
+<div class="card" id="marketing-mcp-live">
+  <h3>2. 招商/Marketing：用 MCP 让 Claude 直连广告平台 / CRM 实时数据（区别于静态技能）<span class="badge">🔶 可复现</span></h3>
+  <div class="field"><b>是什么：</b>与 07-08 讲的"静态 Skills 技能链"是**不同层**：MCP 是"通用适配器"，让 Claude <b>直接调广告平台 / CRM 的 API 拉实时数据</b>——不用再导 CSV，Claude 能直接读当前投放表现、实时预算、搜索词，相当于给它开了广告后台的只读权限。配合 Marketing Operations 类技能，可做线索生命周期建模与流程自动化。</div>
+  <div class="field"><b>对你的价值：</b>招商 Marketing 的实时性痛点——"这周哪个渠道 CPL 涨了""预算烧到哪了"——以前要人肉导数据，用 MCP 后 Claude 直接连数据源答。对一人团队，等于把"数据搬运 + 初步诊断"这一层交给 agent，你只看结论。</div>
+  <div class="field"><b>怎么部署：</b>① 从官方审核的 Connectors 目录（见 07-09）选广告平台 / CRM 的 MCP；② 先只给<b>只读</b>权限跑通"拉本周投放表现→给一句诊断"；③ 再叠加你的 <code>product-marketing-context</code>（07-08）让输出口径统一。</div>
+  <div class="field"><b>坑与验证：</b>① 实时数据接入=把客户/投放数据暴露给 agent，务必最小权限 + 只读起步 + 看合规；② 结合精选①：给这类连数据的 agent 也上权限约束，别 auto 全开。验证：先对一个渠道跑只读诊断，人工核对数字与后台一致再扩。</div>
+  <div class="action">🎯 行动建议：<b>本周可试</b>——挑一个你在用的广告平台/CRM，接只读 MCP，让 Claude 出一份"本周投放诊断"，核对准确度。</div>
+  <div class="links">🔗 <a href="https://newsletter.mkt1.co/p/build-marketing-strategy-skill-in-claude-code">MKT1：让 Claude 更懂营销</a><a href="https://customer.io/learn/how-we-work/claude-skills-for-marketers">营销人的 Claude Skills</a></div>
+</div>
+
+<div class="card" id="api-rate-tiers">
+  <h3>3. API 限速统一 + 用量分级简化为三档（Start / Build / Scale）<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>Claude 开发者平台<b>提高 API 限速并简化用量分级</b>：Sonnet 与 Haiku 的限速<b>在各档均对齐 Opus</b>；用量档位收敛为三档——Start / Build / Scale。</div>
+  <div class="field"><b>对你的价值：</b>你若用 API 跑批量采集/摘要/招商话术，以前 Sonnet/Haiku 的低限速会在批量任务里卡你；现在对齐 Opus，<b>同一档下批量吞吐更高、更少被限流</b>。分档简化也让"我该在哪档、花多少"更清楚。</div>
+  <div class="field"><b>怎么部署：</b>① 查你当前所在档（Start/Build/Scale）与对应 RPM/TPM；② 之前因 Sonnet/Haiku 限速被迫拆分的批量任务，可重新合并跑；③ 配合 Batch API（5 折）+ 缓存进一步压成本与限流压力。</div>
+  <div class="field"><b>坑与验证：</b>限速提高 ≠ 无限，仍按档计；别把长期用量模型建在"促销/临时放宽"上。验证：跑一次你典型的批量任务，看是否还触发 429（限流），对比调整前后的吞吐。</div>
+  <div class="action">🎯 行动建议：<b>了解 + 按需调</b>——确认自己所在档与新限速；把之前被限速拆碎的批量活合并重跑一次验证。</div>
+  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/api/rate-limits">官方限速文档</a><a href="https://releasebot.io/updates/anthropic/claude-developer-platform">开发者平台更新</a></div>
+</div>
+
+<h2>扩展区</h2>
+<div class="batch-sep">── 第 1 次采集 ──</div>
+<ul class="ext">
+  <li id="cc-v2-1-205-fixes"><b>Claude Code v2.1.204/205（7/8）其他修复</b>（✅ 已证实）——新增 <code>/doctor</code> 安装体检命令；<b>修复 headless（无头/远程）会话中 SessionStart hook 事件不流式导致远程 worker 被中途回收</b>（与本仓库在远程会话跑 SessionStart hook 直接相关）；修复 <code>--json-schema</code> 遇非法 schema 静默产出非结构化输出；修复 <code>--max-turns</code> 到顶时中途消息被静默丢弃；修复后台代理 SendMessage 恢复后仍显示"失败/完成"。<a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.205">v2.1.205 release</a></li>
+  <li id="artifacts-dashboards"><b>Claude Code Artifacts：live 共享仪表盘</b>（✅ 已证实）——把 CC 会话产出变成随工作实时更新的可分享 HTML 页（仪表盘/PR 讲解/发布清单），支持持久存储（20MB/件）、直连 API、MCP 集成。<b>限 Team/Enterprise，Pro/Free 暂无</b>——你若在 Pro 暂用不了；不过你这套雷达站本身就是同类"live dashboard"，思路可自建。<a href="https://claude.com/blog/artifacts-in-claude-code">官方博客</a></li>
+  <li id="claude-reflect"><b>Claude 月度回顾 + 专注设置（Reflect，7/9）</b>（✅ 已证实）——设置 &gt; Reflect 显示你的用时话题/最活跃日/高峰时段，含休息提醒、免打扰时段；beta，需开启 memory。<b>个人效率向，与招商业务工作流关系较弱，仅备档。</b><a href="https://support.claude.com/en/articles/12138966-release-notes">发布说明</a></li>
+</ul>
+
+<h2 class="noise">今日噪音（已过滤）</h2>
+<div class="card noise-card">
+  <div class="field">🚫 <b>「Claude for Government 上线 / Anthropic 拿下政府市场」类商业叙事</b>——Claude for Government 本周 beta 上线，被大量解读为"进军政府""大客户版图"。<b>过滤理由：属 AI 行业客户 / 商业动态（ROUTINE 排除项：投资 / 商业市场动态），与一人团队的生产力工作流无关，无可执行项。</b></div>
+</div>
+
+<footer>
+  AI Productivity Radar · 本期规则版本 <b>ROUTINE v5</b> · 2026-07-10（UTC+8）<br>
+  时区核对：采集实际发生于 UTC 2026-07-09 23:37 = UTC+8 2026-07-10 07:37，跨零点，归属日期为 07-10（周五）。<br>
+  已做跨区一致性自检：精选 / 扩展 / 噪音无同源矛盾条目（精选①CC 安全与扩展 CC 修复为不同事实、方向一致；噪音为独立商业叙事条）。<br>
+  说明：本站正在迁移新设计（design 交接中），本期仍用现行样式，待新设计文件落库后统一迁移。<br>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
+</footer>
+</body>
+</html>

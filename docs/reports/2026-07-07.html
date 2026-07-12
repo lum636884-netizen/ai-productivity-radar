@@ -1,81 +1,30 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 生产力雷达 · 2026-07-07</title>
-<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<header>
-  <h1>📡 AI 生产力雷达</h1>
-  <div class="date" id="stats">2026-07-07（周二）· 精选 4 条 · 扩展 4 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
-  <a class="prev-link" href="../index.html">← 返回首页</a>
-</header>
-
-<h2>今日精选</h2>
-
-<div class="batch-sep">── 第 1 次采集 · 07:37（UTC+8）──</div>
-
-<div class="card" id="cc-subagent-bg">
-  <h3>1. Claude Code 子代理默认「后台运行」+ 完成通知，主线不再被阻塞<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>7/1 的 Claude Code v2.1.198 起，用 Agent 工具派生的<b>子代理默认在后台运行</b>——主 Claude 不再干等，可继续手头工作，子代理完成或需要输入时通过 <code>Notification</code> hook 触发（新增 <code>agent_needs_input</code> / <code>agent_completed</code> 事件）。同版还修了「子代理/MCP 并行初始化」相关问题。</div>
-  <div class="field"><b>对你的价值：</b>一人团队最缺的是并行度。以后可以让主线继续采集/写报告，同时甩一个子代理去跑「竞对批量摘要」或「招商线索初筛」这类独立活，完成时收到通知回来收口——把原本串行的两小时压成并行。配合你已有的 CLAUDE.md 铁律，子代理各自独立上下文、互不污染。</div>
-  <div class="field"><b>怎么部署：</b>① 升级 Claude Code 到 ≥ v2.1.198；② 派生子代理时默认即后台，无需额外参数；③ 想收完成提醒，在 <code>settings.json</code> 配 <code>Notification</code> hook 监听 <code>agent_completed</code> / <code>agent_needs_input</code>（本仓库已有 hook 基建，加一条 matcher 即可）。</div>
-  <div class="field"><b>坑与验证：</b>后台化意味着你不再"盯着"子代理——务必给子代理明确的完成判据和产物落点，否则它跑偏了你也不知道。验证：派一个"读 X 目录并返回摘要"的子代理，确认主线不阻塞、且 <code>agent_completed</code> 通知如期到达。</div>
-  <div class="action">🎯 行动建议：<b>今天就试</b>——升级后派一个后台子代理做一件独立小活（如批量摘要 3 篇竞对文），确认主线不被阻塞、完成有通知。</div>
-  <div class="links">🔗 <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG（v2.1.198）</a><a href="https://code.claude.com/docs/en/changelog">Claude Code 官方 changelog</a><a href="https://github.com/anthropics/claude-code/releases">GitHub Releases</a></div>
-</div>
-
-<div class="card" id="claude-chrome-ga">
-  <h3>2. Claude in Chrome 正式 GA——浏览器内 AI 操作可进日常工作流<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>7/1 起 <b>Claude in Chrome 从预览转为正式可用（GA）</b>。它让 Claude 直接在浏览器里读页面、填表单、跨标签页操作——相当于把 Computer Use 的浏览器子集做成了随手可用的扩展形态。</div>
-  <div class="field"><b>对你的价值：</b>招商与 Marketing 有大量"人肉浏览器"活：查竞对官网/定价页、抓取行业目录里的潜在加盟商信息、在后台批量填表。GA 意味着不必再自己搭 Computer Use 环境，装上就能让 Claude 代你在浏览器里跑这些重复动作。</div>
-  <div class="field"><b>怎么部署：</b>① 在 Chrome 装 Claude 扩展并用你的 Pro/Max 账号登录；② 从一个低风险只读任务起步（如"打开这 5 个竞对定价页，汇总成表"）；③ 涉及登录态/提交动作的，先在沙箱账号验证再上真实数据。</div>
-  <div class="field"><b>坑与验证：</b>浏览器自动化天然踩「登录态、验证码、误点提交」三个雷——务必先只读、后写入，且对任何"提交/发送"动作保留人工确认。验证：先跑纯抓取任务，核对汇总结果与人工一致后，再逐步放开写操作。</div>
-  <div class="action">🎯 行动建议：<b>本周试</b>——用一个只读的竞对定价页汇总任务验证准确度，别一上来就让它填表提交。</div>
-  <div class="links">🔗 <a href="https://code.claude.com/docs/en/changelog">Claude Code 官方 changelog（GA 记录）</a><a href="https://www.anthropic.com/news">Anthropic Newsroom</a></div>
-</div>
-
-<div class="card" id="hook-silent-fail">
-  <h3>3. 踩坑警报：Claude Code hook「静默失效」两个真 bug 已修（与本仓库 hook 直接相关）<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>7/1 版本修了两个隐蔽的 hook bug：① <b>逗号分隔的 matcher（如 <code>"Bash,PowerShell"</code>）此前会静默从不触发</b>；② <b>SessionStart / Setup / SubagentStart hook 以退出码 2 失败时，stderr 被静默吞掉</b>，现在会显示在 transcript 里。此外修复了 Windows 上 <code>CLAUDE_ENV_FILE</code> 与 SessionStart env 文件不生效的问题。</div>
-  <div class="field"><b>对你的价值：</b>直接命中你——本仓库刚建了 <code>.claude/hooks/session-start.sh</code>（SessionStart hook，注入工作铁律）。这条警报的含义：<b>(a)</b> 若你写多事件 matcher，务必用官方支持的写法而非逗号拼接（旧版逗号会静默不触发）；<b>(b)</b> 若 hook 脚本以退出码 2 报错，旧版你根本看不到原因——现在升级后能看到 stderr，排障不再抓瞎。</div>
-  <div class="field"><b>怎么部署：</b>① 升级 Claude Code；② 检查现有 <code>settings.json</code> 里的 hook matcher 是否用了逗号拼接，改为官方数组/多条目写法；③ 给 hook 脚本加 <code>set -euo pipefail</code> 并主动 echo 关键状态，配合修复后的 stderr 显示排障。</div>
-  <div class="field"><b>坑与验证：</b>本仓库的 hook 目前是单事件（SessionStart）、无逗号 matcher，不受第一个 bug 影响；但要留意退出码——脚本末尾正常退出即 0。验证：故意让 hook 脚本 <code>exit 2</code> 跑一次，确认升级后能在 transcript 看到 stderr。</div>
-  <div class="action">🎯 行动建议：<b>今天顺手做</b>——升级 Claude Code，并 grep 一遍自己 <code>settings.json</code> 里有没有逗号拼接的 matcher。</div>
-  <div class="links">🔗 <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG（hook 修复条目）</a><a href="https://code.claude.com/docs/en/changelog">Claude Code changelog</a></div>
-</div>
-
-<div class="card" id="sonnet5-cc-default">
-  <h3>4. Sonnet 5 成为 Claude Code 默认模型 + 促销价 $2/$10（至 8/31）<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>随 7/1 版本，<b>Claude Sonnet 5 成为 Claude Code 的默认模型</b>，原生 1M 上下文，且享<b>促销价 $2/$10 每 MTok（输入/输出），有效期至 2026-08-31</b>（此后恢复 $3/$15）。Sonnet 5 在编码/代理任务上接近 Opus 档，成本却远低于 Opus（$5/$25）。</div>
-  <div class="field"><b>对你的价值：</b>你的日常采集、批量摘要、招商话术生成等大多数活不需要 Opus 顶配。默认切到 Sonnet 5 意味着<b>同等产出下每月账单可观下降</b>，且促销窗口内输入端再打 6-7 折。对一人团队的月度 API 支出是直接利好。</div>
-  <div class="field"><b>怎么部署：</b>① 升级后默认即 Sonnet 5，无需操作；② 只在确实需要最强推理的硬任务（复杂重构、深度行研）手动切 Opus 4.8；③ 促销窗口内把可批处理的活尽量前移，叠加 Batch 5 折进一步降本。</div>
-  <div class="field"><b>坑与验证：</b>① Sonnet 5 换了 tokenizer，同样文本 token 数比旧 Sonnet 约 +30%——按 token 计的预算/上限要重新标定；② 促销价 8/31 到期，别把长期成本模型建在促销价上。验证：跑一批代表性任务对比 Sonnet 5 与 Opus 的产出质量与 <code>usage</code>，按路由分级用模型。</div>
-  <div class="action">🎯 行动建议：<b>本周做</b>——把日常低风险任务留在 Sonnet 5 默认，仅对硬任务手动升 Opus；用 <code>count_tokens</code> 重新标定预算上限。</div>
-  <div class="links">🔗 <a href="https://code.claude.com/docs/en/changelog">Claude Code changelog（默认模型）</a><a href="https://www.anthropic.com/news/claude-opus-4-8">Anthropic 模型公告</a><a href="https://platform.claude.com/docs/en/about-claude/pricing">官方定价</a></div>
-</div>
-
-<h2>扩展区</h2>
-<div class="batch-sep">── 第 1 次采集 ──</div>
-<ul class="ext">
-  <li><b>refusal 无输出不再计费</b>（✅ 已证实）——请求返回 <code>stop_reason: "refusal"</code> 且<b>未生成任何输出时不计费</b>（生成中途的 refusal 仍按已产出部分计费）。约 6 月生效，近期各 SDK 补齐。对你的意义：批量任务里偶发的分类器误拒不再白花钱，成本可预测性提升。<a href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals">官方：处理 streaming refusals</a> · <a href="https://docs.anthropic.com/en/api/handling-stop-reasons">Stop reasons 文档</a></li>
-  <li><b>code_execution_20260120（REPL 状态持久化）现覆盖全部 7 个官方 SDK</b>（✅ 已证实）——Python/TypeScript/Go/Java/Ruby/PHP/C# 均已支持这一版代码执行工具，REPL 跨调用保持状态，也是「程序化工具调用」的最低版本，设 <code>type</code> 即可、无需 beta 头。对你的意义：需要多步数据处理（如清洗采集数据→出图）时不必每步重开环境。<a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">SDK 支持记录</a></li>
-  <li><b>Claude Code 新增 <code>/dataviz</code> skill</b>（✅ 已证实）——图表与仪表盘设计指导，自带可运行的配色校验器（含无障碍/明暗主题检查）。对你的意义：做招商数据看板、行研图表时，配色不再靠猜。<a href="https://code.claude.com/docs/en/changelog">changelog</a></li>
-  <li><b>【场景加分项】东南亚/印尼 SME「agentic 营销」趋势</b>（⚠️ 待观察）——多份行业稿指向：WhatsApp/Instagram 上的自主代理做线索捕获→资格判定已成主流打法，并提出 AQL（Agent-Qualified Leads，经 AI 对话自我资格化的线索）概念。<b>数字须存疑</b>：所引"CPL 降 38%、会议数 2.4×、转化 1.5×"等来自 Salesforce/机构报告的<b>二手转述，无可复现步骤、口径不一，不可作为决策依据</b>，仅提示方向。落地仍须自建小样本 A/B 验证。<a href="https://www.marketing-interactive.com/next-in-digital-indonesia-s-marketers-brace-for-ai-led-discovery-and-owned-channel-revival">印尼营销趋势</a> · <a href="https://ismartcom.com/blog/ai-lead-generation-in-singapore-and-asia-in-2026-whats-actually-changed/">东南亚 AI 线索生成</a></li>
-</ul>
-
-<h2 class="noise">今日噪音（已过滤）</h2>
-<div class="card noise-card">
-  <div class="field">🚫 <b>「Anthropic 计费改革 / 与 OpenAI 打价格战」类商业叙事</b>——围绕 Anthropic 一度计划将 Agent SDK / <code>claude -p</code> / 第三方 wrapper 用量拆分到独立月度额度池、又在生效当日暂停的商业新闻，被大量二次解读为"价格战""重大变局"。<b>过滤理由：属 AI 行业商业/定价博弈叙事（ROUTINE 排除项：投资/融资/商业动态），与一人团队的生产力工作流无关；且该计费变更<b>已被暂停</b>，自带账号走 wrapper 的路径现状不变，无需据此采取任何行动。</b></div>
-</div>
-
-<footer>
-  AI Productivity Radar · 本期规则版本 <b>ROUTINE v4</b> · 2026-07-07（UTC+8）<br>
+<div class="br-app" id="app" data-theme="light">
+  <div class="br-wrap">
+    <header class="br-masthead">
+      <div class="br-masthead__meta"><span>2026-07-07 · 周二</span><a class="br-back" href="../index.html" style="margin:0">‹ 返回首页</a></div>
+      <div class="br-masthead__bar"><div>
+        <h1 class="br-masthead__title">AI 生产力雷达</h1>
+        <div class="br-masthead__sub">2026-07-07（周二）· 精选 4 条 · 扩展 4 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
+      </div></div>
+    </header>
+    <main class="br-view" role="main"><section class="br-report-block"><span class="br-kicker">今日精选</span><article class="br-report-card" id="topic-cc-subagent-bg"><div class="br-report-card__head"><span class="br-kicker">工具与工作流 · 已证实</span></div><h2 class="br-report-card__title">Claude Code 子代理默认「后台运行」+ 完成通知，主线不再被阻塞</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>7/1 的 Claude Code v2.1.198 起，用 Agent 工具派生的<b>子代理默认在后台运行</b>——主 Claude 不再干等，可继续手头工作，子代理完成或需要输入时通过 <code>Notification</code> hook 触发（新增 <code>agent_needs_input</code> / <code>agent_completed</code> 事件）。同版还修了「子代理/MCP 并行初始化」相关问题。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>一人团队最缺的是并行度。以后可以让主线继续采集/写报告，同时甩一个子代理去跑「竞对批量摘要」或「招商线索初筛」这类独立活，完成时收到通知回来收口——把原本串行的两小时压成并行。配合你已有的 CLAUDE.md 铁律，子代理各自独立上下文、互不污染。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>① 升级 Claude Code 到 ≥ v2.1.198；② 派生子代理时默认即后台，无需额外参数；③ 想收完成提醒，在 <code>settings.json</code> 配 <code>Notification</code> hook 监听 <code>agent_completed</code> / <code>agent_needs_input</code>（本仓库已有 hook 基建，加一条 matcher 即可）。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>后台化意味着你不再"盯着"子代理——务必给子代理明确的完成判据和产物落点，否则它跑偏了你也不知道。验证：派一个"读 X 目录并返回摘要"的子代理，确认主线不阻塞、且 <code>agent_completed</code> 通知如期到达。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>今天就试</b>——升级后派一个后台子代理做一件独立小活（如批量摘要 3 篇竞对文），确认主线不被阻塞、完成有通知。</p></div><div class="br-tags"><span class="br-tag">#Claude Code</span><span class="br-tag">#子代理</span><span class="br-tag">#后台运行</span><span class="br-tag">#并行</span><span class="br-tag">#Notification hook</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG（v2.1.198）</a> · <a href="https://code.claude.com/docs/en/changelog">Claude Code 官方 changelog</a> · <a href="https://github.com/anthropics/claude-code/releases">GitHub Releases</a></p></div></article><article class="br-report-card" id="topic-claude-chrome-ga"><div class="br-report-card__head"><span class="br-kicker">工具与工作流 · 已证实</span></div><h2 class="br-report-card__title">Claude in Chrome 正式 GA——浏览器内 AI 操作可进日常工作流</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>7/1 起 <b>Claude in Chrome 从预览转为正式可用（GA）</b>。它让 Claude 直接在浏览器里读页面、填表单、跨标签页操作——相当于把 Computer Use 的浏览器子集做成了随手可用的扩展形态。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>招商与 Marketing 有大量"人肉浏览器"活：查竞对官网/定价页、抓取行业目录里的潜在加盟商信息、在后台批量填表。GA 意味着不必再自己搭 Computer Use 环境，装上就能让 Claude 代你在浏览器里跑这些重复动作。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>① 在 Chrome 装 Claude 扩展并用你的 Pro/Max 账号登录；② 从一个低风险只读任务起步（如"打开这 5 个竞对定价页，汇总成表"）；③ 涉及登录态/提交动作的，先在沙箱账号验证再上真实数据。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>浏览器自动化天然踩「登录态、验证码、误点提交」三个雷——务必先只读、后写入，且对任何"提交/发送"动作保留人工确认。验证：先跑纯抓取任务，核对汇总结果与人工一致后，再逐步放开写操作。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>本周试</b>——用一个只读的竞对定价页汇总任务验证准确度，别一上来就让它填表提交。</p></div><div class="br-tags"><span class="br-tag">#Claude in Chrome</span><span class="br-tag">#浏览器自动化</span><span class="br-tag">#Computer Use</span><span class="br-tag">#竞对调研</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://code.claude.com/docs/en/changelog">Claude Code 官方 changelog（GA 记录）</a> · <a href="https://www.anthropic.com/news">Anthropic Newsroom</a></p></div></article><article class="br-report-card" id="topic-hook-silent-fail"><div class="br-report-card__head"><span class="br-kicker">踩坑与截止 · 已证实</span></div><h2 class="br-report-card__title">踩坑警报：Claude Code hook「静默失效」两个真 bug 已修（与本仓库 hook 直接相关）</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>7/1 版本修了两个隐蔽的 hook bug：① <b>逗号分隔的 matcher（如 <code>"Bash,PowerShell"</code>）此前会静默从不触发</b>；② <b>SessionStart / Setup / SubagentStart hook 以退出码 2 失败时，stderr 被静默吞掉</b>，现在会显示在 transcript 里。此外修复了 Windows 上 <code>CLAUDE_ENV_FILE</code> 与 SessionStart env 文件不生效的问题。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>直接命中你——本仓库刚建了 <code>.claude/hooks/session-start.sh</code>（SessionStart hook，注入工作铁律）。这条警报的含义：<b>(a)</b> 若你写多事件 matcher，务必用官方支持的写法而非逗号拼接（旧版逗号会静默不触发）；<b>(b)</b> 若 hook 脚本以退出码 2 报错，旧版你根本看不到原因——现在升级后能看到 stderr，排障不再抓瞎。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>① 升级 Claude Code；② 检查现有 <code>settings.json</code> 里的 hook matcher 是否用了逗号拼接，改为官方数组/多条目写法；③ 给 hook 脚本加 <code>set -euo pipefail</code> 并主动 echo 关键状态，配合修复后的 stderr 显示排障。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>本仓库的 hook 目前是单事件（SessionStart）、无逗号 matcher，不受第一个 bug 影响；但要留意退出码——脚本末尾正常退出即 0。验证：故意让 hook 脚本 <code>exit 2</code> 跑一次，确认升级后能在 transcript 看到 stderr。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>今天顺手做</b>——升级 Claude Code，并 grep 一遍自己 <code>settings.json</code> 里有没有逗号拼接的 matcher。</p></div><div class="br-tags"><span class="br-tag">#Claude Code</span><span class="br-tag">#hook</span><span class="br-tag">#SessionStart</span><span class="br-tag">#踩坑</span><span class="br-tag">#matcher</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG（hook 修复条目）</a> · <a href="https://code.claude.com/docs/en/changelog">Claude Code changelog</a></p></div></article><article class="br-report-card" id="topic-sonnet5-cc-default"><div class="br-report-card__head"><span class="br-kicker">成本与计费 · 已证实</span><span class="br-dline">截止 08/31</span></div><h2 class="br-report-card__title">Sonnet 5 成为 Claude Code 默认模型 + 促销价 $2/$10（至 8/31）</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>随 7/1 版本，<b>Claude Sonnet 5 成为 Claude Code 的默认模型</b>，原生 1M 上下文，且享<b>促销价 $2/$10 每 MTok（输入/输出），有效期至 2026-08-31</b>（此后恢复 $3/$15）。Sonnet 5 在编码/代理任务上接近 Opus 档，成本却远低于 Opus（$5/$25）。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>你的日常采集、批量摘要、招商话术生成等大多数活不需要 Opus 顶配。默认切到 Sonnet 5 意味着<b>同等产出下每月账单可观下降</b>，且促销窗口内输入端再打 6-7 折。对一人团队的月度 API 支出是直接利好。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>① 升级后默认即 Sonnet 5，无需操作；② 只在确实需要最强推理的硬任务（复杂重构、深度行研）手动切 Opus 4.8；③ 促销窗口内把可批处理的活尽量前移，叠加 Batch 5 折进一步降本。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>① Sonnet 5 换了 tokenizer，同样文本 token 数比旧 Sonnet 约 +30%——按 token 计的预算/上限要重新标定；② 促销价 8/31 到期，别把长期成本模型建在促销价上。验证：跑一批代表性任务对比 Sonnet 5 与 Opus 的产出质量与 <code>usage</code>，按路由分级用模型。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>本周做</b>——把日常低风险任务留在 Sonnet 5 默认，仅对硬任务手动升 Opus；用 <code>count_tokens</code> 重新标定预算上限。</p></div><div class="br-tags"><span class="br-tag">#Sonnet 5</span><span class="br-tag">#Claude Code</span><span class="br-tag">#降本</span><span class="br-tag">#促销价</span><span class="br-tag">#默认模型</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://code.claude.com/docs/en/changelog">Claude Code changelog（默认模型）</a> · <a href="https://www.anthropic.com/news/claude-opus-4-8">Anthropic 模型公告</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing">官方定价</a></p></div></article></section><section class="br-report-block"><span class="br-kicker">扩展阅读</span><div class="br-list"><div class="br-row" id="topic-refusal-no-bill"><div class="br-row__meta">07/07<br><span class="br-row__cat">成本与计费</span></div><div class="br-row__body"><span class="br-row__title">refusal 无输出不再计费</span><div class="br-row__brief">（已证实）——请求返回 <code>stop_reason: "refusal"</code> 且<b>未生成任何输出时不计费</b>（生成中途的 refusal 仍按已产出部分计费）。约 6 月生效，近期各 SDK 补齐。对你的意义：批量任务里偶发的分类器误拒不再白花钱，成本可预测性提升。<a href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals">官方：处理 streaming refusals</a> · <a href="https://docs.anthropic.com/en/api/handling-stop-reasons">Stop reasons 文档</a></div></div></div><div class="br-row" id="topic-codeexec-repl"><div class="br-row__meta">07/07<br><span class="br-row__cat">工具与工作流</span></div><div class="br-row__body"><span class="br-row__title">code_execution_20260120（REPL 状态持久化）现覆盖全部 7 个官方 SDK</span><div class="br-row__brief">（已证实）——Python/TypeScript/Go/Java/Ruby/PHP/C# 均已支持这一版代码执行工具，REPL 跨调用保持状态，也是「程序化工具调用」的最低版本，设 <code>type</code> 即可、无需 beta 头。对你的意义：需要多步数据处理（如清洗采集数据→出图）时不必每步重开环境。<a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">SDK 支持记录</a></div></div></div><div class="br-row" id="topic-dataviz-skill"><div class="br-row__meta">07/07<br><span class="br-row__cat">工具与工作流</span></div><div class="br-row__body"><span class="br-row__title">Claude Code 新增 <code>/dataviz</code> skill</span><div class="br-row__brief">（已证实）——图表与仪表盘设计指导，自带可运行的配色校验器（含无障碍/明暗主题检查）。对你的意义：做招商数据看板、行研图表时，配色不再靠猜。<a href="https://code.claude.com/docs/en/changelog">changelog</a></div></div></div><div class="br-row" id="topic-sea-agentic-marketing"><div class="br-row__meta">07/07<br><span class="br-row__cat">营销与获客</span></div><div class="br-row__body"><span class="br-row__title">【场景加分项】东南亚/印尼 SME「agentic 营销」趋势</span><div class="br-row__brief">（待观察）——多份行业稿指向：WhatsApp/Instagram 上的自主代理做线索捕获→资格判定已成主流打法，并提出 AQL（Agent-Qualified Leads，经 AI 对话自我资格化的线索）概念。<b>数字须存疑</b>：所引"CPL 降 38%、会议数 2.4×、转化 1.5×"等来自 Salesforce/机构报告的<b>二手转述，无可复现步骤、口径不一，不可作为决策依据</b>，仅提示方向。落地仍须自建小样本 A/B 验证。<a href="https://www.marketing-interactive.com/next-in-digital-indonesia-s-marketers-brace-for-ai-led-discovery-and-owned-channel-revival">印尼营销趋势</a> · <a href="https://ismartcom.com/blog/ai-lead-generation-in-singapore-and-asia-in-2026-whats-actually-changed/">东南亚 AI 线索生成</a></div></div></div></div></section><section class="br-report-block"><span class="br-kicker">今日噪音 · 已降权</span><ul class="br-noise"><li><b>「Anthropic 计费改革 / 与 OpenAI 打价格战」类商业叙事</b>——围绕 Anthropic 一度计划将 Agent SDK / <code>claude -p</code> / 第三方 wrapper 用量拆分到独立月度额度池、又在生效当日暂停的商业新闻，被大量二次解读为"价格战""重大变局"。<b>过滤理由：属 AI 行业商业/定价博弈叙事（ROUTINE 排除项：投资/融资/商业动态），与一人团队的生产力工作流无关；且该计费变更<b>已被暂停</b>，自带账号走 wrapper 的路径现状不变，无需据此采取任何行动。</b></li></ul></section></main>
+    <footer class="br-footer"><span>AI Productivity Radar · 本期规则版本 <b>ROUTINE v4</b> · 2026-07-07（UTC+8）<br>
   时区核对：采集实际发生于 UTC 2026-07-06 23:37 = UTC+8 2026-07-07 07:37，跨零点，归属日期为 07-07（周二）。<br>
   已做跨区一致性自检：精选/扩展/噪音无同源矛盾条目。<br>
-  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
-</footer>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。</span></footer>
+  </div>
+</div>
 </body>
 </html>

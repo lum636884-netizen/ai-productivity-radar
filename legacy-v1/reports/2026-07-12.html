@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 生产力雷达 · 2026-07-12</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header>
+  <h1>📡 AI 生产力雷达</h1>
+  <div class="date" id="stats">2026-07-12（周日）· 精选 1 条 · 扩展 3 条 · 噪音过滤 1 条 · 本日已采集 1 次 · 附本周复盘</div>
+  <a class="prev-link" href="../index.html">← 返回首页</a>
+</header>
+
+<h2>今日精选</h2>
+
+<div class="batch-sep">── 第 1 次采集 · 07:37（UTC+8）──</div>
+
+<div class="card" id="cc-week-closer">
+  <h3>1. Claude Code v2.1.206/207（7/9-10）本周收官修复：auth/MCP/OAuth 稳定性 + 终端卡顿<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>两版以稳定性收尾，几条正中日常痛点：① <b>修复 OAuth 认证的 MCP 服务器在单次 token 刷新失败后就要求手动重新认证</b>（这很可能正是"MCP 反复掉线要重授权"的根因之一）；② 修复 <code>--mcp-config</code>/<code>.mcp.json</code> 的 <code>request_timeout_ms</code> 被忽略、新会话里长任务 MCP 调用卡在 60 秒默认超时；③ 修复登录过期时所有模型报错误信息而非提示 <code>/login</code>；④ 修复 <code>--resume</code>/<code>--continue</code> 启动时键盘无响应；⑤ <b>修复流式输出超长列表/表格/代码块时终端卡顿、按键延迟</b>；⑥ 云平台侧：Bedrock/Vertex/Foundry 开放 auto 模式、AWS/Vertex 默认切 Opus 4.8。</div>
+  <div class="field"><b>对你的价值：</b>你整套雷达流水线跑在 Claude Code + MCP 上，①②③直接治你我这周反复遇到的"github MCP 掉线/需重授权/超时"类摩擦——升级后这类中断应显著减少。⑤对你写长报告/看长 diff 的体验是实打实改善。</div>
+  <div class="field"><b>怎么部署：</b>升级 Claude Code 到 ≥ v2.1.207。若之前 MCP 频繁要重授权或长调用莫名超时，升级后观察是否消失；仍频繁的话再查 <code>request_timeout_ms</code> 配置。</div>
+  <div class="field"><b>坑与验证：</b>OAuth 修复只解"单次刷新失败即掉线"这一类，不代表所有授权问题消失。验证：升级后连续跑几天，看 MCP 是否还像本周这样频繁需要重新授权。</div>
+  <div class="action">🎯 行动建议：<b>今天就升</b>——尤其你被 MCP 掉线烦到，这两版正是冲着 auth/MCP 稳定性来的。</div>
+  <div class="links">🔗 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.206">v2.1.206 release</a><a href="https://dev.classmethod.jp/en/articles/20260711-cc-updates-v2-1-207/">v2.1.207 更新解读</a><a href="https://code.claude.com/docs/en/changelog">官方 changelog</a></div>
+</div>
+
+<h2>扩展区</h2>
+<div class="batch-sep">── 第 1 次采集 ──</div>
+<ul class="ext">
+  <li id="m365-write"><b>Claude 的 Microsoft 365 连接器升级为「读+写」</b>（✅ 已证实，⚠️ <b>Enterprise 限定</b>）——7/7 起 M365 连接器从只读扩为可<b>发邮件、管理草稿/日历、更新 OneDrive/SharePoint 文件</b>。<b>但：仅 Claude Enterprise、需 Entra 全局管理员审批新权限、需 Microsoft Business 租户、默认关闭、个人无法自开</b>；发出的邮件带"agent 发起"标识。<b>对你（Pro/Max 一人团队）：暂不可用，仅备档</b>——若将来上 Enterprise + 用 M365 办公，它能把邮件/日历/文档这类招商行政活交给 Claude。<a href="https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector">官方设置文档</a> · <a href="https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide">安全指南</a></li>
+  <li id="gpt56-sol-ultra"><b>GPT-5.6 Sol Ultra 达 GA</b>（✅ 已证实）——昨天(07-11)GPT-5.6 三档之上再放出更高的 Sol Ultra 档并转 GA。竞品在往"更强更贵"的顶配延伸。<b>对你的意义不变</b>：顶配非一人团队日常所需，昨日"审慎不迁、按任务分级路由"的结论继续成立，只是价格锚点又多了一个上限点。<a href="https://jls42.org/en/news/ia-actualites-10-jul-2026">竞品动态汇总</a></li>
+  <li id="ev-market-context"><b>【行业背景·非 AI 生产力】印尼 EV/充电桩招商大热</b>（✅ 已证实）——供你本行业参考、非本雷达 AI 主线：印尼 EV 销量 2025 增 128%、占新车 15%，2026-27 目标 8000-12000 座 SPKLU；<b>PLN 正推 SPKLU 充电桩加盟方案（投资门槛更低、外资可几日完成注册）</b>。与你"加盟商招商"直接相关的政策/市场风口。<a href="https://supra-international.com/insights/charging-ahead-indonesia-s-push-to-dominate-southeast-asia-s-ev-infrastructure-market">印尼 EV 基建洞察</a></li>
+</ul>
+
+<h2 class="noise">今日噪音（已过滤）</h2>
+<div class="card noise-card">
+  <div class="field">🚫 <b>周末「Claude 完全体用法 / 15 个技能改变我的生意」类攻略营 + 卖课导流</b>——把已知功能重新打包成"周末速成课/终极清单",部分带课程/训练营导流。<b>过滤理由：§6 无增量二手总结;真正可复现的 Skills/MCP 做法看官方文档与我们本周已推的招商线（07-08 技能链 / 07-10 MCP 实时数据）即可,不必为"清单"付费。</b></div>
+</div>
+
+<h2 class="review">本周复盘（07-05 ~ 07-11 · 行动建议命中率回顾）</h2>
+<div class="card">
+  <div class="field"><b>本周四条主线（建议是否仍成立）：</b></div>
+  <div class="field">① <b>CC 后台代理·可靠性与安全线</b>（一致成立，且今日收官）：07-07 子代理默认后台 → 07-08 v2.1.199 修守护进程自杀 → 07-09 v2.1.203 三修 → 07-10 权限默认 Manual + auto 风险 → <b>今日 v2.1.206/207 auth/MCP 稳定性</b>。一条连贯的"放心用后台代理"建设线，建议全程一致有效。</div>
+  <div class="field">② <b>降本线（含一次自我修正——本周质量亮点）</b>：07-06 Caching+Batch → 07-08 Cache Diagnostics → <b>07-09 把 07-07「Sonnet 5 成默认可降本」修正为「多步 agentic 下可能贵过 Opus」</b> → 07-11 8/31 成本拐点 + 分级路由。这条自我修正正是 ROUTINE v5「跨区一致性自检」的价值体现——宁可自己纠错，不误导你。</div>
+  <div class="field">③ <b>招商/Marketing 线（逐步拼出半自动漏斗）</b>：07-05 WhatsApp 线索机器人 → 07-08 product-marketing-context + 技能链 → 07-09 官方连接器货架 → 07-10 MCP 直连广告/CRM 实时数据。四步指向同一个可落地目标：「WhatsApp 收线索 → CRM 建档打标 → 技能链产出 → 实时数据诊断」。建议连贯、可分步落地。</div>
+  <div class="field">④ <b>竞品格局</b>：07-11 GPT-5.6 GA / Gemini 代理 → 结论「审慎不迁、按价值分级路由」，今日 Sol Ultra GA 不改变该结论。</div>
+  <div class="field"><b>行动项 / 截止追踪（务必上日历）：</b>
+    <table class="cmp"><tr><th>事项</th><th>日期</th><th>剩余</th><th>动作</th></tr>
+    <tr><td>Opus 4.7 Fast Mode 移除</td><td>7/24</td><td>12 天</td><td>用了则迁 Opus 4.8 fast，否则忽略</td></tr>
+    <tr><td>Opus 4.1 退役</td><td>8/5</td><td>24 天</td><td>用了则迁 Opus 4.8</td></tr>
+    <tr><td>Sonnet 5 促销价到期</td><td>8/31</td><td>50 天</td><td>到期回 $3/$15；到期前定分级路由、量产活趁促销跑满</td></tr></table>
+  </div>
+  <div class="field"><b>方法论收获：</b>本周把 ROUTINE 升到 <b>v5</b>（跨区一致性自检 + 跨区去重铁律，源自 07-06 同源矛盾事故），并将其焊进 CLAUDE.md 铁律 + SessionStart hook——从"靠自觉"变"强制步骤"。</div>
+  <div class="field"><b>命中率自评（诚实口径）：</b>本周约 18 条精选，方向仍成立者为主；<b>1 条（07-07 Sonnet 5 降本）本周内被自我修正</b>；无用户反馈的明显误报。此为"方向是否仍成立 + 是否需修正"的自评，非严格的逐条效果追踪——若你有实际落地反馈（哪条帮到/哪条踩空），告诉我可据此升规则。</div>
+</div>
+
+<footer>
+  AI Productivity Radar · 本期规则版本 <b>ROUTINE v5</b> · 2026-07-12（UTC+8）<br>
+  时区核对：采集实际发生于 UTC 2026-07-11 23:37 = UTC+8 2026-07-12 07:37，跨零点，归属日期为 07-12（周日）。<br>
+  周日：已附本周复盘节（§8.3）。周日新闻清淡，按 §5 宁缺毋滥定 1 条精选，不硬凑；M365 写工具因 Enterprise 限定不可部署，降扩展备档。<br>
+  已做跨区一致性自检：精选/扩展/噪音无同源矛盾条目。<br>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
+</footer>
+</body>
+</html>

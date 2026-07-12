@@ -1,70 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 生产力雷达 · 2026-07-11</title>
-<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<header>
-  <h1>📡 AI 生产力雷达</h1>
-  <div class="date" id="stats">2026-07-11（周六）· 精选 3 条 · 扩展 2 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
-  <a class="prev-link" href="../index.html">← 返回首页</a>
-</header>
-
-<h2>今日精选</h2>
-
-<div class="batch-sep">── 第 1 次采集 · 07:37（UTC+8）──</div>
-
-<div class="card" id="gpt56-ga">
-  <h3>1. OpenAI GPT-5.6 正式 GA（Luna / Terra / Sol 三档）——竞品价格与编码能力锚点<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>7/9 GPT-5.6 结束两周门控预览、正式 GA，一次给三档：<b>Sol（旗舰 $5/$30）</b>、<b>Terra（均衡 $2.50/$15）</b>、<b>Luna（最快最便宜 $1/$6）</b>（每百万 token 输入/输出）。编码基准（Artificial Analysis Coding Agent Index）：Sol 80、Terra 77、Luna 75；Sol 在 Claude Code 里每任务成本比 Opus 4.8(max) 约低 ~10%。</div>
-  <div class="field"><b>对你的价值：</b>你的工作流深绑 Claude Code + skills，<b>不建议整体迁移</b>（迁移成本远大于省下的钱）。但知道价格地板有用：① Terra $2.50/$15 在输入端压过 Sonnet 4.6 的 $3/$15；② Luna $1/$6 在 Claude 侧没有对位的同价产品；③ Sol 输出 $30 比 Opus 4.8 的 $25 贵。</div>
-  <div class="field"><b>怎么部署（如果要用）：</b>把它当**批量/低风险任务的备选降本池**，而非主力——例如大批量摘要/分类这类不吃工作流集成的活，可测 Luna/Terra 的性价比；主力编码/agent 仍留 Claude Code。别为省钱把招商/行研的核心流程搬离你已经调顺的 Claude 环境。</div>
-  <div class="field"><b>坑与验证：</b>① 基准≠你的真实任务，务必用**你自己的代表性任务**实测成本与质量再决定；② 换供应商=换 SDK/密钥/合规面，隐性成本高；③ 编码 review 场景有报告称 Sonnet 5 注释质量更干净。验证：拿一批你的真实摘要任务，Luna/Terra 与 Sonnet 5 各跑一遍比 <code>成本×质量</code>。</div>
-  <div class="action">🎯 行动建议：<b>了解为主</b>——记住三档价位当锚点；只在"大批量、不吃集成"的任务上小范围试 Luna/Terra，主力别动。</div>
-  <div class="links">🔗 <a href="https://artificialanalysis.ai/articles/gpt-5-6-has-landed">Artificial Analysis：GPT-5.6 基准</a><a href="https://www.datacamp.com/blog/claude-sonnet-5-vs-gpt-5-6">Sonnet 5 vs GPT-5.6 对比</a><a href="https://www.vellum.ai/blog/gpt-5-6-benchmarks-explained">三档该用哪个</a></div>
-</div>
-
-<div class="card" id="gemini-agents">
-  <h3>2. Google Gemini 3.5 Flash 转 GA + Gemini Managed Agents 公测（Google 托管沙箱）<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>① <b>Gemini 3.5 Flash 正式 GA</b>，主打 agentic/编码性价比（3.5 Pro 因推理/编码问题从 6 月滑到 7 月）；② <b>Gemini Managed Agents 进入公测</b>——在 Google 托管的隔离 Linux 沙箱里构建/部署有状态自主代理，思路与 Anthropic 的 Managed Agents 同类。</div>
-  <div class="field"><b>对你的价值：</b>又一个"托管沙箱跑代理"的选项，说明 agentic 平台在同质化竞争。对一人团队：<b>暂无迁移必要</b>——你若已在用 Claude 侧的代理/Skills，Gemini 侧是平行生态，重复搭建不划算；仅在你需要 Google 生态深度集成（如 Workspace/Search 数据）时才值得评估。</div>
-  <div class="field"><b>怎么部署：</b>不必动。若你重度用 Google Workspace 做招商资料，可留意 Gemini Agents 对 Google 数据的原生连接是否比走 MCP 更省事——但先等它出公测期。</div>
-  <div class="field"><b>坑与验证：</b>公测阶段能力/稳定性未定型；托管沙箱的数据驻留与合规要看清。验证：仅在有明确 Google 生态刚需时做一次小 POC，否则观望。</div>
-  <div class="action">🎯 行动建议：<b>观望</b>——记录生态动向即可，无 Google 刚需不投入。</div>
-  <div class="links">🔗 <a href="https://ai.google.dev/gemini-api/docs/changelog">Gemini API 更新日志</a><a href="https://felloai.com/best-ai-models/">2026 年 7 月模型横评</a></div>
-</div>
-
-<div class="card" id="model-routing-decision">
-  <h3>3. 对一人团队的落点：8/31 成本拐点将至，现在怎么定你的模型路由<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>把本周价格重排落到你的决策上。关键事实：<b>Sonnet 5 促销价 $2/$10 到 8/31 到期，之后回 $3/$15</b>；届时 GPT-5.6 Terra（$2.50/$15）在输入端会比 Sonnet 5 更便宜；Luna（$1/$6）是最低价档。也就是说，<b>8/31 是你成本结构的一个拐点</b>。</div>
-  <div class="field"><b>对你的价值：</b>与其纠结"换不换"，不如现在就把任务<b>按价值分级路由</b>，把拐点变成一次主动优化而非被动涨价。</div>
-  <div class="field"><b>怎么部署（分级路由）：</b>① <b>核心/高风险</b>（招商决策、行研结论、代码）——留 Opus 4.8 / Sonnet 5，质量优先；② <b>日常量产</b>（摘要、分类、话术初稿）——Sonnet 5 促销期先用满，配 <code>effort: low</code> + 关 thinking + Prompt Caching + Batch；③ <b>超大批量、不吃集成</b>——在 8/31 前后测一次 Luna/Terra 做备选降本池；④ 在日历上标 <b>8/31</b>，到期前重算一次账单再定主力。</div>
-  <div class="field"><b>坑与验证：</b>别为"账面单价"频繁切模型——切换有 tokenizer/缓存失效/质量波动的隐性成本（见 07-09 Sonnet 5 成本自我修正）。验证：8/31 前用真实一周用量，把"分级路由 vs 全 Sonnet 5"两种方案各估一次月账单。</div>
-  <div class="action">🎯 行动建议：<b>本周做</b>——日历标 8/31；把任务粗分三级并指定默认模型；促销期把量产活跑满 Sonnet 5。</div>
-  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude 官方定价</a><a href="https://www.finout.io/blog/anthropic-api-pricing">Anthropic 定价与优化</a></div>
-</div>
-
-<h2>扩展区</h2>
-<div class="batch-sep">── 第 1 次采集 ──</div>
-<ul class="ext">
-  <li id="opus47-fast-deadline"><b>倒计时：Opus 4.7 Fast Mode 将于 7/24 移除</b>（✅ 已证实，13 天）——移除后 Opus 4.7 的 fast 请求<b>直接报错、不回退</b>到标准 Opus 4.7。用了的话须迁到 <b>Opus 4.8 的 fast mode</b>。对你的意义：若你没显式用 Opus 4.7 fast，无需动作；用了就在 7/24 前改。（此为 07-05 已推截止项的临近提醒，未到 ≤3 天再入选阈值，仅扩展区注明。）<a href="https://code.claude.com/docs/en/fast-mode">Fast mode 文档</a></li>
-  <li id="admin-analytics"><b>Claude 管理员分析看板：按 skills/connectors/artifacts 显示成本</b>（✅ 已证实）——管理面板现能按组/按用户显示用量与成本，并把"创建的 artifacts、编辑的文件、用到的 skills/connectors"与其成本并排展示。<b>面向组织/Enterprise，一人团队非该场景，仅备档</b>——但它印证一个方向：成本可观测性在变细，你自建账单核算时可参考这种"按能力维度归集成本"的思路。<a href="https://releasebot.io/updates/anthropic/claude-developer-platform">开发者平台更新</a></li>
-</ul>
-
-<h2 class="noise">今日噪音（已过滤）</h2>
-<div class="card noise-card">
-  <div class="field">🚫 <b>「Claude Reflect 在悄悄推销你多用 AI」类观点评论文</b>——围绕 7/9 上线的 Reflect（用量回顾看板）的批评稿，论点是"用量仪表盘会 gamify、诱导你更依赖 AI"。<b>过滤理由：T3 观点评论、无可复现/可执行项；其提醒（别被用量看板牵着走）已属常识，且 Reflect 与你招商业务工作流关系弱（已于 07-10 扩展区备档），不占精选。</b></div>
-</div>
-
-<footer>
-  AI Productivity Radar · 本期规则版本 <b>ROUTINE v5</b> · 2026-07-11（UTC+8）<br>
+<div class="br-app" id="app" data-theme="light">
+  <div class="br-wrap">
+    <header class="br-masthead">
+      <div class="br-masthead__meta"><span>2026-07-11 · 周六</span><a class="br-back" href="../index.html" style="margin:0">‹ 返回首页</a></div>
+      <div class="br-masthead__bar"><div>
+        <h1 class="br-masthead__title">AI 生产力雷达</h1>
+        <div class="br-masthead__sub">2026-07-11（周六）· 精选 3 条 · 扩展 2 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
+      </div></div>
+    </header>
+    <main class="br-view" role="main"><section class="br-report-block"><span class="br-kicker">今日精选</span><article class="br-report-card" id="topic-gpt56-ga"><div class="br-report-card__head"><span class="br-kicker">模型能力 · 已证实</span></div><h2 class="br-report-card__title">OpenAI GPT-5.6 正式 GA（Luna / Terra / Sol 三档）——竞品价格与编码能力锚点</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>7/9 GPT-5.6 结束两周门控预览、正式 GA，一次给三档：<b>Sol（旗舰 $5/$30）</b>、<b>Terra（均衡 $2.50/$15）</b>、<b>Luna（最快最便宜 $1/$6）</b>（每百万 token 输入/输出）。编码基准（Artificial Analysis Coding Agent Index）：Sol 80、Terra 77、Luna 75；Sol 在 Claude Code 里每任务成本比 Opus 4.8(max) 约低 ~10%。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>你的工作流深绑 Claude Code + skills，<b>不建议整体迁移</b>（迁移成本远大于省下的钱）。但知道价格地板有用：① Terra $2.50/$15 在输入端压过 Sonnet 4.6 的 $3/$15；② Luna $1/$6 在 Claude 侧没有对位的同价产品；③ Sol 输出 $30 比 Opus 4.8 的 $25 贵。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署（如果要用）</h3><p>把它当**批量/低风险任务的备选降本池**，而非主力——例如大批量摘要/分类这类不吃工作流集成的活，可测 Luna/Terra 的性价比；主力编码/agent 仍留 Claude Code。别为省钱把招商/行研的核心流程搬离你已经调顺的 Claude 环境。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>① 基准≠你的真实任务，务必用**你自己的代表性任务**实测成本与质量再决定；② 换供应商=换 SDK/密钥/合规面，隐性成本高；③ 编码 review 场景有报告称 Sonnet 5 注释质量更干净。验证：拿一批你的真实摘要任务，Luna/Terra 与 Sonnet 5 各跑一遍比 <code>成本×质量</code>。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>了解为主</b>——记住三档价位当锚点；只在"大批量、不吃集成"的任务上小范围试 Luna/Terra，主力别动。</p></div><div class="br-tags"><span class="br-tag">#GPT-5.6</span><span class="br-tag">#OpenAI</span><span class="br-tag">#定价</span><span class="br-tag">#竞品</span><span class="br-tag">#编码基准</span><span class="br-tag">#模型选择</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://artificialanalysis.ai/articles/gpt-5-6-has-landed">Artificial Analysis：GPT-5.6 基准</a> · <a href="https://www.datacamp.com/blog/claude-sonnet-5-vs-gpt-5-6">Sonnet 5 vs GPT-5.6 对比</a> · <a href="https://www.vellum.ai/blog/gpt-5-6-benchmarks-explained">三档该用哪个</a></p></div></article><article class="br-report-card" id="topic-gemini-agents"><div class="br-report-card__head"><span class="br-kicker">工具与工作流 · 已证实</span></div><h2 class="br-report-card__title">Google Gemini 3.5 Flash 转 GA + Gemini Managed Agents 公测（Google 托管沙箱）</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>① <b>Gemini 3.5 Flash 正式 GA</b>，主打 agentic/编码性价比（3.5 Pro 因推理/编码问题从 6 月滑到 7 月）；② <b>Gemini Managed Agents 进入公测</b>——在 Google 托管的隔离 Linux 沙箱里构建/部署有状态自主代理，思路与 Anthropic 的 Managed Agents 同类。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>又一个"托管沙箱跑代理"的选项，说明 agentic 平台在同质化竞争。对一人团队：<b>暂无迁移必要</b>——你若已在用 Claude 侧的代理/Skills，Gemini 侧是平行生态，重复搭建不划算；仅在你需要 Google 生态深度集成（如 Workspace/Search 数据）时才值得评估。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>不必动。若你重度用 Google Workspace 做招商资料，可留意 Gemini Agents 对 Google 数据的原生连接是否比走 MCP 更省事——但先等它出公测期。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>公测阶段能力/稳定性未定型；托管沙箱的数据驻留与合规要看清。验证：仅在有明确 Google 生态刚需时做一次小 POC，否则观望。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>观望</b>——记录生态动向即可，无 Google 刚需不投入。</p></div><div class="br-tags"><span class="br-tag">#Gemini</span><span class="br-tag">#Google</span><span class="br-tag">#Managed Agents</span><span class="br-tag">#托管沙箱</span><span class="br-tag">#竞品</span><span class="br-tag">#agentic</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://ai.google.dev/gemini-api/docs/changelog">Gemini API 更新日志</a> · <a href="https://felloai.com/best-ai-models/">2026 年 7 月模型横评</a></p></div></article><article class="br-report-card" id="topic-model-routing-decision"><div class="br-report-card__head"><span class="br-kicker">成本与计费 · 已证实</span><span class="br-dline">截止 08/31</span></div><h2 class="br-report-card__title">对一人团队的落点：8/31 成本拐点将至，现在怎么定你的模型路由</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>把本周价格重排落到你的决策上。关键事实：<b>Sonnet 5 促销价 $2/$10 到 8/31 到期，之后回 $3/$15</b>；届时 GPT-5.6 Terra（$2.50/$15）在输入端会比 Sonnet 5 更便宜；Luna（$1/$6）是最低价档。也就是说，<b>8/31 是你成本结构的一个拐点</b>。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>与其纠结"换不换"，不如现在就把任务<b>按价值分级路由</b>，把拐点变成一次主动优化而非被动涨价。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署（分级路由）</h3><p>① <b>核心/高风险</b>（招商决策、行研结论、代码）——留 Opus 4.8 / Sonnet 5，质量优先；② <b>日常量产</b>（摘要、分类、话术初稿）——Sonnet 5 促销期先用满，配 <code>effort: low</code> + 关 thinking + Prompt Caching + Batch；③ <b>超大批量、不吃集成</b>——在 8/31 前后测一次 Luna/Terra 做备选降本池；④ 在日历上标 <b>8/31</b>，到期前重算一次账单再定主力。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>别为"账面单价"频繁切模型——切换有 tokenizer/缓存失效/质量波动的隐性成本（见 07-09 Sonnet 5 成本自我修正）。验证：8/31 前用真实一周用量，把"分级路由 vs 全 Sonnet 5"两种方案各估一次月账单。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>本周做</b>——日历标 8/31；把任务粗分三级并指定默认模型；促销期把量产活跑满 Sonnet 5。</p></div><div class="br-tags"><span class="br-tag">#模型路由</span><span class="br-tag">#成本拐点</span><span class="br-tag">#8-31</span><span class="br-tag">#Sonnet 5</span><span class="br-tag">#分级</span><span class="br-tag">#降本</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude 官方定价</a> · <a href="https://www.finout.io/blog/anthropic-api-pricing">Anthropic 定价与优化</a></p></div></article></section><section class="br-report-block"><span class="br-kicker">扩展阅读</span><div class="br-list"><div class="br-row" id="topic-opus47-fast-deadline"><div class="br-row__meta">07/11<br><span class="br-row__cat">踩坑与截止</span></div><div class="br-row__body"><span class="br-row__title">倒计时：Opus 4.7 Fast Mode 将于 7/24 移除</span><div class="br-row__brief">（已证实，13 天）——移除后 Opus 4.7 的 fast 请求<b>直接报错、不回退</b>到标准 Opus 4.7。用了的话须迁到 <b>Opus 4.8 的 fast mode</b>。对你的意义：若你没显式用 Opus 4.7 fast，无需动作；用了就在 7/24 前改。（此为 07-05 已推截止项的临近提醒，未到 ≤3 天再入选阈值，仅扩展区注明。）<a href="https://code.claude.com/docs/en/fast-mode">Fast mode 文档</a></div></div></div><div class="br-row" id="topic-admin-analytics"><div class="br-row__meta">07/11<br><span class="br-row__cat">平台与合规</span></div><div class="br-row__body"><span class="br-row__title">Claude 管理员分析看板：按 skills/connectors/artifacts 显示成本</span><div class="br-row__brief">（已证实）——管理面板现能按组/按用户显示用量与成本，并把"创建的 artifacts、编辑的文件、用到的 skills/connectors"与其成本并排展示。<b>面向组织/Enterprise，一人团队非该场景，仅备档</b>——但它印证一个方向：成本可观测性在变细，你自建账单核算时可参考这种"按能力维度归集成本"的思路。<a href="https://releasebot.io/updates/anthropic/claude-developer-platform">开发者平台更新</a></div></div></div></div></section><section class="br-report-block"><span class="br-kicker">今日噪音 · 已降权</span><ul class="br-noise"><li><b>「Claude Reflect 在悄悄推销你多用 AI」类观点评论文</b>——围绕 7/9 上线的 Reflect（用量回顾看板）的批评稿，论点是"用量仪表盘会 gamify、诱导你更依赖 AI"。<b>过滤理由：T3 观点评论、无可复现/可执行项；其提醒（别被用量看板牵着走）已属常识，且 Reflect 与你招商业务工作流关系弱（已于 07-10 扩展区备档），不占精选。</b></li></ul></section></main>
+    <footer class="br-footer"><span>AI Productivity Radar · 本期规则版本 <b>ROUTINE v5</b> · 2026-07-11（UTC+8）<br>
   时区核对：采集实际发生于 UTC 2026-07-10 23:37 = UTC+8 2026-07-11 07:37，跨零点，归属日期为 07-11（周六）。<br>
   本期为跨厂商格局主导日（GPT-5.6 GA / Gemini 代理）——按 ROUTINE §0，竞品信息一律落到"对一人团队意味着什么、要不要动手"，不做无落点的转述。<br>
   已做跨区一致性自检：精选/扩展/噪音无同源矛盾（三条精选方向一致=审慎不迁；噪音为独立观点条）。<br>
-  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
-</footer>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。</span></footer>
+  </div>
+</div>
 </body>
 </html>

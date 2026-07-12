@@ -1,71 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 生产力雷达 · 2026-07-09</title>
-<link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<header>
-  <h1>📡 AI 生产力雷达</h1>
-  <div class="date" id="stats">2026-07-09（周四）· 精选 3 条 · 扩展 3 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
-  <a class="prev-link" href="../index.html">← 返回首页</a>
-</header>
-
-<h2>今日精选</h2>
-
-<div class="batch-sep">── 第 1 次采集 · 07:37（UTC+8）──</div>
-
-<div class="card" id="sonnet5-token-cost">
-  <h3>1. 【自我修正】Sonnet 5 成默认后：多步 agentic 下 token 偏高，可能贵过 Opus——附降本手法<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>多个独立来源（MindStudio、Finout、SitePoint）与社区（Cursor 论坛）一致指出：Sonnet 5 <b>同任务约多用 30% token（新 tokenizer）+ 倾向更长、更多推理的输出</b>，两者叠加，在<b>多步骤 / 多工具调用 / 长推理链的 agentic 工作流里，单任务成本可能反超 Opus 4.8</b>——尽管单价"看似对等"($3/$15，促销 $2/$10)。这是对本雷达 <b>07-07 "Sonnet 5 成 CC 默认可降本" 判断的修正/补充</b>：在<b>简单任务</b>上 Sonnet 5 确实更省，但在<b>重 agentic 任务</b>上不一定。</div>
-  <div class="field"><b>对你的价值：</b>你的活分两类：① 日常采集/摘要/分类/招商文案生成——短、结构化，Sonnet 5 默认仍划算；② 若你未来搭多步代理链（如"抓取→清洗→出图→写报告"一条龙），别默认以为 Sonnet 5 一定比 Opus 便宜，要实测账单。</div>
-  <div class="field"><b>怎么部署（降本四招）：</b>① <b>按任务分级选模型</b>：简单任务 Sonnet 5 + <code>effort: low</code>，硬 agentic 任务实测对比 Sonnet 5 vs Opus 的 <code>usage</code> 再定；② <b>分类/格式化/抽取/摘要类任务关掉 extended thinking</b>（<code>thinking: disabled</code>）——这类任务思考几乎不提质却烧钱；③ 叠加 Prompt Caching（读取 0.1×）+ Batch（5 折）；④ 精简上下文、默认低 effort。</div>
-  <div class="field"><b>坑与验证：</b>别被"单价对等"误导——真实成本 = 单价 × token 量，而 Sonnet 5 的 token 量更大。验证：拿一个你的代表性 agentic 任务，Sonnet 5 与 Opus 4.8 各跑一次，直接比 <code>usage.output_tokens</code> × 单价，用账单说话，别凭直觉。</div>
-  <div class="action">🎯 行动建议：<b>本周做</b>——简单任务继续 Sonnet 5 默认；给分类/摘要类显式关 thinking；若有多步代理链，实测两模型账单再定，别默认 Sonnet 5 更省。</div>
-  <div class="links">🔗 <a href="https://www.mindstudio.ai/blog/claude-sonnet-5-token-efficiency-problem">Sonnet 5 token 效率问题（agentic 下贵过 Opus）</a><a href="https://www.finout.io/blog/claude-sonnet-5-pricing-2026-the-hidden-costs-and-real-savings-behind-the-cost-neutral-launch">"成本中性"背后的隐藏成本</a><a href="https://platform.claude.com/docs/en/about-claude/pricing">官方定价</a></div>
-</div>
-
-<div class="card" id="cc-v2-1-203">
-  <h3>2. Claude Code v2.1.203（7/7，37 项）：后台会话/子代理可靠性三修 + 登录过期预警<span class="badge">✅ 已证实</span></h3>
-  <div class="field"><b>是什么：</b>连着 v2.1.201/202 密集迭代，v2.1.203 重点修后台代理稳定性——延续本雷达 07-07（子代理默认后台）、07-08（v2.1.199 守护进程自杀修复）这条线：① <b>修复"返回 claude agents 时静默停掉在跑子代理并从头重跑 prompt"——现在子代理的工作会延续</b>；② 修复后台会话在守护进程 session token 过期后<b>永久无响应（无法 attach/回复/停止）——现自动恢复</b>；③ 修复 macOS 上打开/切换后台会话因误判低内存卡顿 15-20 秒（2.1.196 引入的回归）；④ 新增<b>登录即将过期预警</b>，让你在后台会话被中断前重新认证；⑤ 手动权限模式下页脚显示灰色 ⏸ 徽标。</div>
-  <div class="field"><b>对你的价值：</b>①②直接治你可能遇到的"后台子代理白跑/卡死"——尤其你已在用后台并行。④正好呼应我们之前的登录/授权中断痛点（如 github 需重新授权）：以后会提前预警而非静默断线。</div>
-  <div class="field"><b>怎么部署：</b>升级 Claude Code 到 ≥ v2.1.203。若之前遇到"回到 agents 子代理从头重跑"或"后台会话卡死连不上"，升级即解。</div>
-  <div class="field"><b>坑与验证：</b>验证子代理工作延续：派一个长任务后台子代理，中途返回 claude agents，确认它<b>接着跑</b>而非从头重来。</div>
-  <div class="action">🎯 行动建议：<b>今天就升</b>——你在用后台子代理，这三修正是你的稳定性地基。</div>
-  <div class="links">🔗 <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG（v2.1.201-203）</a><a href="https://code.claude.com/docs/en/changelog">Claude Code changelog</a><a href="https://github.com/anthropics/claude-code/releases">GitHub Releases</a></div>
-</div>
-
-<div class="card" id="connectors-directory">
-  <h3>3. 官方 Claude Connectors 目录已 554 个（经审核）——你接 WhatsApp+CRM 的可信货架<span class="badge">🔶 可复现</span></h3>
-  <div class="field"><b>是什么：</b>截至 7/2，Anthropic <b>官方 Claude Connectors 目录收录 554 个 MCP 集成，每个都经官方审核（安全/可靠/兼容）</b>。其中直接命中招商链路：WhatsApp 类（gaviwhatsapp 可在 Claude Code 收发 WhatsApp、TimelinesAI 接 WhatsApp Business）、CRM 类（Attio、Clarify——查询/创建记录、管线跟踪）。</div>
-  <div class="field"><b>对你的价值：</b>你 07-05 已看过"WhatsApp 线索机器人"打法；这条是<b>把它落地的可信元件货架</b>——不用自己从零找/审 MCP，用官方审核过的连接器把「WhatsApp 收线索 → CRM 建档/打标 → 管线跟进」串起来，一人团队也能搭起半自动招商漏斗。</div>
-  <div class="field"><b>怎么部署：</b>① 从官方 Connectors 目录（非第三方海量目录）挑 WhatsApp + 一个 CRM 连接器；② 先在测试账号跑通"收一条消息→CRM 建一条联系人"最小闭环；③ 再加资格判定/打标签规则。</div>
-  <div class="field"><b>坑与验证：</b>"经官方审核" ≠ "适配你的流程"——仍需验证它支持你要的字段/权限，且涉及客户数据要看合规。<b>只用官方审核目录，别碰无审核的"2 万+"海量目录</b>（见今日噪音）。验证：先跑最小闭环，确认一条真实线索能正确落到 CRM，再扩。</div>
-  <div class="action">🎯 行动建议：<b>观望到可试</b>——本周先在官方目录里筛出 WhatsApp+CRM 候选，测试账号跑最小闭环，别直接上真实客户数据。</div>
-  <div class="links">🔗 <a href="https://github.com/rdmgator12/awesome-claude-connectors">官方连接器目录整理（554 个）</a><a href="https://ezcontact.ai/en/blog/2026-02-26-connect-claude-ai-whatsapp-mcp-guide/">WhatsApp MCP 接入指南</a></div>
-</div>
-
-<h2>扩展区</h2>
-<div class="batch-sep">── 第 1 次采集 ──</div>
-<ul class="ext">
-  <li id="sonnet5-service-blip"><b>Sonnet 5 两日短暂服务抖动（已恢复）</b>（✅ 已证实）——7/7、7/8 官方状态页记录部分模型/Sonnet 5 出现<b>短暂错误率升高，均已恢复</b>，成功率回正常。对你的意义：与精选①的成本提示方向一致——新默认模型磨合期，关键任务留意重试与降级路径，别把唯一链路押在单模型单时段。<a href="https://status.claude.com/">Claude 官方状态页</a></li>
-  <li id="alberta-case"><b>Alberta 省政府用 Claude Code 20 小时扫 4.66 亿行代码修漏洞</b>（✅ 已证实，7/6 案例）——大规模 agentic 代码审计的能力信号。对你的意义：一人团队可借鉴思路——让 agent 做"大范围扫描 + 定位 + 修复建议"，把人力从逐行检查里解放；规模虽不同，模式可迁移到你的代码/内容资产审查。<a href="https://www.anthropic.com/news/alberta-government-claude-cybersecurity">官方案例</a></li>
-  <li id="claude-science"><b>Claude Science 上线（beta）</b>（✅ 已证实）——面向科研的 AI 工作台（集成常用科研工具、产出可审计工件、弹性算力），Pro/Max/Team/Enterprise beta。<b>备档：与充电场站招商/Marketing 无关，仅记录，不建议你投入时间。</b><a href="https://www.anthropic.com/news/claude-science-ai-workbench">官方公告</a></li>
-</ul>
-
-<h2 class="noise">今日噪音（已过滤）</h2>
-<div class="card noise-card">
-  <div class="field">🚫 <b>「2 万+ MCP 服务器 · 每日更新」类数量军备竞赛目录</b>——第三方目录以"21,330+ 连接器、每日新增"为卖点。<b>过滤理由：数量 ≠ 可信可用。</b>无审核的海量目录对一人团队是纯噪音——你需要的是<b>能安全接客户数据、字段对得上</b>的少数几个，而非两万个来路不明的。与今日精选③方向一致：<b>用官方审核过的 554 个货架，别被数量唬住。</b></div>
-</div>
-
-<footer>
-  AI Productivity Radar · 本期规则版本 <b>ROUTINE v4</b> · 2026-07-09（UTC+8）<br>
+<div class="br-app" id="app" data-theme="light">
+  <div class="br-wrap">
+    <header class="br-masthead">
+      <div class="br-masthead__meta"><span>2026-07-09 · 周四</span><a class="br-back" href="../index.html" style="margin:0">‹ 返回首页</a></div>
+      <div class="br-masthead__bar"><div>
+        <h1 class="br-masthead__title">AI 生产力雷达</h1>
+        <div class="br-masthead__sub">2026-07-09（周四）· 精选 3 条 · 扩展 3 条 · 噪音过滤 1 条 · 本日已采集 1 次</div>
+      </div></div>
+    </header>
+    <main class="br-view" role="main"><section class="br-report-block"><span class="br-kicker">今日精选</span><article class="br-report-card" id="topic-sonnet5-token-cost"><div class="br-report-card__head"><span class="br-kicker">成本与计费 · 已证实</span></div><h2 class="br-report-card__title">【自我修正】Sonnet 5 成默认后：多步 agentic 下 token 偏高，可能贵过 Opus——附降本手法</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>多个独立来源（MindStudio、Finout、SitePoint）与社区（Cursor 论坛）一致指出：Sonnet 5 <b>同任务约多用 30% token（新 tokenizer）+ 倾向更长、更多推理的输出</b>，两者叠加，在<b>多步骤 / 多工具调用 / 长推理链的 agentic 工作流里，单任务成本可能反超 Opus 4.8</b>——尽管单价"看似对等"($3/$15，促销 $2/$10)。这是对本雷达 <b>07-07 "Sonnet 5 成 CC 默认可降本" 判断的修正/补充</b>：在<b>简单任务</b>上 Sonnet 5 确实更省，但在<b>重 agentic 任务</b>上不一定。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>你的活分两类：① 日常采集/摘要/分类/招商文案生成——短、结构化，Sonnet 5 默认仍划算；② 若你未来搭多步代理链（如"抓取→清洗→出图→写报告"一条龙），别默认以为 Sonnet 5 一定比 Opus 便宜，要实测账单。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署（降本四招）</h3><p>① <b>按任务分级选模型</b>：简单任务 Sonnet 5 + <code>effort: low</code>，硬 agentic 任务实测对比 Sonnet 5 vs Opus 的 <code>usage</code> 再定；② <b>分类/格式化/抽取/摘要类任务关掉 extended thinking</b>（<code>thinking: disabled</code>）——这类任务思考几乎不提质却烧钱；③ 叠加 Prompt Caching（读取 0.1×）+ Batch（5 折）；④ 精简上下文、默认低 effort。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>别被"单价对等"误导——真实成本 = 单价 × token 量，而 Sonnet 5 的 token 量更大。验证：拿一个你的代表性 agentic 任务，Sonnet 5 与 Opus 4.8 各跑一次，直接比 <code>usage.output_tokens</code> × 单价，用账单说话，别凭直觉。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>本周做</b>——简单任务继续 Sonnet 5 默认；给分类/摘要类显式关 thinking；若有多步代理链，实测两模型账单再定，别默认 Sonnet 5 更省。</p></div><div class="br-tags"><span class="br-tag">#Sonnet 5</span><span class="br-tag">#token 成本</span><span class="br-tag">#effort</span><span class="br-tag">#降本</span><span class="br-tag">#agentic</span><span class="br-tag">#自我修正</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://www.mindstudio.ai/blog/claude-sonnet-5-token-efficiency-problem">Sonnet 5 token 效率问题（agentic 下贵过 Opus）</a> · <a href="https://www.finout.io/blog/claude-sonnet-5-pricing-2026-the-hidden-costs-and-real-savings-behind-the-cost-neutral-launch">"成本中性"背后的隐藏成本</a> · <a href="https://platform.claude.com/docs/en/about-claude/pricing">官方定价</a></p></div></article><article class="br-report-card" id="topic-cc-v2-1-203"><div class="br-report-card__head"><span class="br-kicker">工具与工作流 · 已证实</span></div><h2 class="br-report-card__title">Claude Code v2.1.203（7/7，37 项）：后台会话/子代理可靠性三修 + 登录过期预警</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>连着 v2.1.201/202 密集迭代，v2.1.203 重点修后台代理稳定性——延续本雷达 07-07（子代理默认后台）、07-08（v2.1.199 守护进程自杀修复）这条线：① <b>修复"返回 claude agents 时静默停掉在跑子代理并从头重跑 prompt"——现在子代理的工作会延续</b>；② 修复后台会话在守护进程 session token 过期后<b>永久无响应（无法 attach/回复/停止）——现自动恢复</b>；③ 修复 macOS 上打开/切换后台会话因误判低内存卡顿 15-20 秒（2.1.196 引入的回归）；④ 新增<b>登录即将过期预警</b>，让你在后台会话被中断前重新认证；⑤ 手动权限模式下页脚显示灰色 ⏸ 徽标。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>①②直接治你可能遇到的"后台子代理白跑/卡死"——尤其你已在用后台并行。④正好呼应我们之前的登录/授权中断痛点（如 github 需重新授权）：以后会提前预警而非静默断线。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>升级 Claude Code 到 ≥ v2.1.203。若之前遇到"回到 agents 子代理从头重跑"或"后台会话卡死连不上"，升级即解。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>验证子代理工作延续：派一个长任务后台子代理，中途返回 claude agents，确认它<b>接着跑</b>而非从头重来。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>今天就升</b>——你在用后台子代理，这三修正是你的稳定性地基。</p></div><div class="br-tags"><span class="br-tag">#Claude Code</span><span class="br-tag">#v2.1.203</span><span class="br-tag">#后台代理</span><span class="br-tag">#子代理</span><span class="br-tag">#可靠性</span><span class="br-tag">#登录预警</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG（v2.1.201-203）</a> · <a href="https://code.claude.com/docs/en/changelog">Claude Code changelog</a> · <a href="https://github.com/anthropics/claude-code/releases">GitHub Releases</a></p></div></article><article class="br-report-card" id="topic-connectors-directory"><div class="br-report-card__head"><span class="br-kicker">营销与获客 · 可复现</span></div><h2 class="br-report-card__title">官方 Claude Connectors 目录已 554 个（经审核）——你接 WhatsApp+CRM 的可信货架</h2><div class="br-field"><h3 class="br-field__h">是什么</h3><p>截至 7/2，Anthropic <b>官方 Claude Connectors 目录收录 554 个 MCP 集成，每个都经官方审核（安全/可靠/兼容）</b>。其中直接命中招商链路：WhatsApp 类（gaviwhatsapp 可在 Claude Code 收发 WhatsApp、TimelinesAI 接 WhatsApp Business）、CRM 类（Attio、Clarify——查询/创建记录、管线跟踪）。</p></div><div class="br-field"><h3 class="br-field__h">对你的价值</h3><p>你 07-05 已看过"WhatsApp 线索机器人"打法；这条是<b>把它落地的可信元件货架</b>——不用自己从零找/审 MCP，用官方审核过的连接器把「WhatsApp 收线索 → CRM 建档/打标 → 管线跟进」串起来，一人团队也能搭起半自动招商漏斗。</p></div><div class="br-field"><h3 class="br-field__h">怎么部署</h3><p>① 从官方 Connectors 目录（非第三方海量目录）挑 WhatsApp + 一个 CRM 连接器；② 先在测试账号跑通"收一条消息→CRM 建一条联系人"最小闭环；③ 再加资格判定/打标签规则。</p></div><div class="br-field"><h3 class="br-field__h">坑与验证</h3><p>"经官方审核" ≠ "适配你的流程"——仍需验证它支持你要的字段/权限，且涉及客户数据要看合规。<b>只用官方审核目录，别碰无审核的"2 万+"海量目录</b>（见今日噪音）。验证：先跑最小闭环，确认一条真实线索能正确落到 CRM，再扩。</p></div><div class="br-act-box"><span class="br-field__h">建议行动</span><p><b>观望到可试</b>——本周先在官方目录里筛出 WhatsApp+CRM 候选，测试账号跑最小闭环，别直接上真实客户数据。</p></div><div class="br-tags"><span class="br-tag">#Connectors</span><span class="br-tag">#MCP</span><span class="br-tag">#WhatsApp</span><span class="br-tag">#CRM</span><span class="br-tag">#招商</span><span class="br-tag">#线索</span></div><div class="br-field"><h3 class="br-field__h">来源</h3><p><a href="https://github.com/rdmgator12/awesome-claude-connectors">官方连接器目录整理（554 个）</a> · <a href="https://ezcontact.ai/en/blog/2026-02-26-connect-claude-ai-whatsapp-mcp-guide/">WhatsApp MCP 接入指南</a></p></div></article></section><section class="br-report-block"><span class="br-kicker">扩展阅读</span><div class="br-list"><div class="br-row" id="topic-sonnet5-service-blip"><div class="br-row__meta">07/09<br><span class="br-row__cat">可靠性工程</span></div><div class="br-row__body"><span class="br-row__title">Sonnet 5 两日短暂服务抖动（已恢复）</span><div class="br-row__brief">（已证实）——7/7、7/8 官方状态页记录部分模型/Sonnet 5 出现<b>短暂错误率升高，均已恢复</b>，成功率回正常。对你的意义：与精选①的成本提示方向一致——新默认模型磨合期，关键任务留意重试与降级路径，别把唯一链路押在单模型单时段。<a href="https://status.claude.com/">Claude 官方状态页</a></div></div></div><div class="br-row" id="topic-alberta-case"><div class="br-row__meta">07/09<br><span class="br-row__cat">可靠性工程</span></div><div class="br-row__body"><span class="br-row__title">Alberta 省政府用 Claude Code 20 小时扫 4.66 亿行代码修漏洞</span><div class="br-row__brief">（已证实，7/6 案例）——大规模 agentic 代码审计的能力信号。对你的意义：一人团队可借鉴思路——让 agent 做"大范围扫描 + 定位 + 修复建议"，把人力从逐行检查里解放；规模虽不同，模式可迁移到你的代码/内容资产审查。<a href="https://www.anthropic.com/news/alberta-government-claude-cybersecurity">官方案例</a></div></div></div><div class="br-row" id="topic-claude-science"><div class="br-row__meta">07/09<br><span class="br-row__cat">平台与合规</span></div><div class="br-row__body"><span class="br-row__title">Claude Science 上线（beta）</span><div class="br-row__brief">（已证实）——面向科研的 AI 工作台（集成常用科研工具、产出可审计工件、弹性算力），Pro/Max/Team/Enterprise beta。<b>备档：与充电场站招商/Marketing 无关，仅记录，不建议你投入时间。</b><a href="https://www.anthropic.com/news/claude-science-ai-workbench">官方公告</a></div></div></div></div></section><section class="br-report-block"><span class="br-kicker">今日噪音 · 已降权</span><ul class="br-noise"><li><b>「2 万+ MCP 服务器 · 每日更新」类数量军备竞赛目录</b>——第三方目录以"21,330+ 连接器、每日新增"为卖点。<b>过滤理由：数量 ≠ 可信可用。</b>无审核的海量目录对一人团队是纯噪音——你需要的是<b>能安全接客户数据、字段对得上</b>的少数几个，而非两万个来路不明的。与今日精选③方向一致：<b>用官方审核过的 554 个货架，别被数量唬住。</b></li></ul></section></main>
+    <footer class="br-footer"><span>AI Productivity Radar · 本期规则版本 <b>ROUTINE v4</b> · 2026-07-09（UTC+8）<br>
   时区核对：采集实际发生于 UTC 2026-07-08 23:37 = UTC+8 2026-07-09 07:37，跨零点，归属日期为 07-09（周四）。<br>
   自我修正：精选① 对本雷达 07-07「Sonnet 5 成默认可降本」判断作补充修正——简单任务省、重 agentic 任务未必省，须实测账单。<br>
   已做跨区一致性自检：精选/扩展/噪音无同源矛盾（Sonnet 5 成本与服务抖动方向一致；官方连接器与数量噪音价值一致）。<br>
-  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
-</footer>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。</span></footer>
+  </div>
+</div>
 </body>
 </html>

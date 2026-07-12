@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 生产力雷达 · 2026-07-05</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header>
+  <h1>📡 AI 生产力雷达</h1>
+  <div class="date" id="stats">2026-07-05（周日）· 精选 7 条 · 扩展 7 条 · 噪音过滤 5 条 · 本日已采集 3 次</div>
+  <a class="prev-link" href="../index.html">← 返回首页</a>
+</header>
+
+<h2>今日精选</h2>
+
+<div class="batch-sep">── 第 1 次采集 · 07:42（UTC+8）──</div>
+
+<div class="card" id="rate-limits">
+  <h3>1. API 限速全面提升：Sonnet/Haiku 现与 Opus 齐平，使用层级从 4 层并为 3 层<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>2026-06-26，Anthropic 重构 API 使用限制体系：① 使用层级从 4 个精简为 3 个（Start / Build / Scale），有更高需求可联系销售申请 Custom；② Claude Sonnet 和 Haiku 的 RPM、ITPM、OTPM 限制全面对齐 Opus，同层级内三族模型限速相同；③ 所有模型（Haiku 3.5 除外）的缓存读取 token 不再计入 ITPM，只有未缓存的新输入 token 和缓存写入才计入。<b>所有现有账号不降速，多数被自动升到更高层。</b></div>
+  <div class="field"><b>对你的价值：</b>如果你的日常工作流（行研采集、文案批处理、竞对扫描）用的是 Sonnet 而不是 Opus，此前你的 RPM 上限可能显著低于 Opus——现在不再如此。具体影响：相同预算下，可以并发更多任务而不触发 429 错误；使用提示词缓存后，缓存读取部分不再消耗速率配额，多轮长文档对话的吞吐量大幅提升。</div>
+  <div class="field"><b>怎么部署：</b>① 登录 platform.claude.com → Settings → Limits 确认当前层级和新限速数字；② 如果你的自动化脚本有手动限速逻辑（如 sleep 控制并发），可以相应调整；③ 启用提示词缓存的工作流现在可以放心扩规模，缓存命中不消耗 ITPM。</div>
+  <div class="field"><b>坑：</b>层级是按月累计消费自动晋升，新账号仍从 Start 开始。若你之前的脚本有针对旧限速写死的延迟时间，实际限速已提升但脚本还在人为降速，记得检查。</div>
+  <div class="action">🎯 行动建议：<b>今天就查</b>——登录控制台确认新层级和限速数字，同时检查自动化脚本里的 rate limit 配置是否仍贴合实际。</div>
+  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/about-claude/pricing">官方定价与限速文档</a><a href="https://docs.anthropic.com/en/release-notes/api">API Release Notes</a></div>
+</div>
+
+<div class="card" id="chrome-frontier">
+  <h3>2. Claude for Chrome 实战边界：LinkedIn 招商线索每条省 10-15 分钟，但这 3 类场景会失败<span class="badge">🔶 可复现</span></h3>
+  <div class="field"><b>是什么：</b>Claude for Chrome 已正式 GA，本条汇总社区实测数据，重点是"实际能干什么、哪里会翻车"。核心结论：对<b>低风险、重复性、界面稳定</b>的浏览器任务效果显著；对复杂动态 UI（自定义日期选择器、大量 JavaScript）或需要判断语义而非视觉的任务会系统性出错。</div>
+  <div class="field"><b>对你的价值（招商 + Marketing 直接对应）：</b>
+    <table class="cmp">
+      <tr><th>场景</th><th>实测结论</th><th>是否推荐</th></tr>
+      <tr><td>LinkedIn 候选加盟商研究</td><td>10-15 分钟/人 → 秒级提取现职、背景摘要</td><td>✅ 今天就试</td></tr>
+      <tr><td>竞对官网巡检 + 文字提取</td><td>稳定界面效果好，能标注"新增内容"</td><td>✅ 适合</td></tr>
+      <tr><td>广告后台读取 + 报告</td><td>能读 dashboard 并输出摘要，但复杂 UI 时会点错</td><td>⚠️ 监督运行</td></tr>
+      <tr><td>表单批量填写</td><td>低风险重复表单可行，涉及支付或权限操作绝对不用</td><td>⚠️ 限定范围</td></tr>
+    </table>
+  </div>
+  <div class="field"><b>系统性失败点：</b>① 复杂 JS 驱动的 UI（每步需截图确认，速度慢 3-5×）；② 需要理解语义而非看图的任务（如"改价格为去年同期的 1.1 倍"）；③ 任何有权限/财务后果的操作。</div>
+  <div class="field"><b>怎么部署：</b>安装 Claude for Chrome（需 Claude 账号），确保 claude.ai 已登录；从 LinkedIn 招商场景入手——提示词示例：<code>打开这 5 个 LinkedIn 主页，提取姓名/现职/所在城市/与 EV 充电或能源行业的关联，输出为表格</code>。</div>
+  <div class="action">🎯 行动建议：<b>今天就试</b>——LinkedIn 招商线索研究是你最直接的 ROI 场景。用 5 个候选加盟商档案做测试，测量实际节省时间。</div>
+  <div class="links">🔗 <a href="https://code.claude.com/docs/en/chrome">官方 Chrome 集成文档</a><a href="https://www.mindstudio.ai/blog/multi-agent-chrome-automation-claude-code">MindStudio 多 agent 实测</a><a href="https://dev.to/minatoplanb/i-tested-every-browser-automation-tool-for-claude-code-heres-my-final-verdict-3hb7">浏览器自动化工具横测</a></div>
+</div>
+
+<div class="card" id="self-hosted-sandbox">
+  <h3>3. Claude Managed Agents 自托管沙箱 GA + MCP 内网隧道（研究预览）<span class="badge">✅ 已证实</span><span class="badge badge-preview">MCP 隧道：研究预览</span></h3>
+  <div class="field"><b>是什么：</b>两个新能力打包上线：① <b>自托管沙箱（GA）</b>——Managed Agents 的编排逻辑仍在 Anthropic 侧，但工具执行（bash、文件读写、代码运行）可以移到你自己的服务器或 Serverless 环境（支持 AWS Lambda、Vercel、Modal、E2B 等）；② <b>MCP Tunnels（研究预览）</b>——可以将 Claude 连接到你私有网络里的 MCP 服务器，无需把内部系统暴露到公网。</div>
+  <div class="field"><b>对你的价值：</b>目前你是一人团队，多数工作流还在公共 API 层，这两个功能的直接刚需不高。但以下情形值得注意：① 如果未来你要处理加盟商的敏感协议数据或财务数据，自托管沙箱可以确保数据不离开你的服务器；② 如果你有内部 CRM 或私有数据库，MCP 隧道可以让 Claude 直接对接而无需数据外传。</div>
+  <div class="field"><b>怎么部署（先决条件）：</b>自托管沙箱需要已使用 Claude Managed Agents（API / Claude Platform on AWS 均支持）；MCP Tunnels 目前是研究预览，需申请访问权限。两者均有详细 provider 指南（Vercel/Modal 入门门槛最低）。</div>
+  <div class="action watch">🎯 行动建议：<b>观望</b>——现阶段对一人团队不是紧迫项。收藏留档，等业务规模需要数据合规隔离时再评估。MCP Tunnels 研究预览期间稳定性未知，不建议接入核心工作流。</div>
+  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes">自托管沙箱官方文档</a><a href="https://dev.to/akaranjkar08/claude-managed-agents-self-hosted-sandboxes-and-mcp-tunnels-setup-guide-4ha4">DEV.to 完整安装指南</a><a href="https://venturebeat.com/orchestration/claude-agents-can-finally-connect-to-enterprise-apis-without-leaking-credentials">VentureBeat 分析</a></div>
+</div>
+
+<div class="batch-sep">── 第 2 次采集 · 11:05（UTC+8）──</div>
+
+<div class="card" id="scheduled-agents">
+  <h3>4. Managed Agents 定时调度 + 凭证保险库公测：你的"每日例行 agent"可以官方托管了<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>Claude Managed Agents 两项能力进入公测：① <b>Scheduled Deployments</b>——给 agent 配一个 cron 表达式，到点自动启动新 session 完成任务，无需自建调度器，支持随时暂停/恢复/手动补跑；② <b>Vault 凭证保险库</b>——注册 API key 时绑定环境变量名和允许访问的域名，agent 沙箱里只有占位符，真实 key 在网络边界注入且只对白名单域名生效——<b>agent 全程接触不到你的真实密钥</b>。</div>
+  <div class="field"><b>对你的价值：</b>这正是你当前"每日信息雷达"这类例行任务的官方标准解法。适用场景：每日竞对巡检、每周加盟线索汇总、定期行研摘要。Vault 机制解决了"要让 agent 调用第三方服务（如 CRM、邮件 API）但不敢把密钥交给它"的核心顾虑——对需要对接外部系统的营销自动化尤其重要。</div>
+  <div class="field"><b>怎么部署：</b>在 Claude Platform 创建 Managed Agent → 配置 scheduled deployment（cron 表达式）→ 需要凭证的服务在 Vault 注册 key + 允许域名。官方文档有完整步骤。</div>
+  <div class="field"><b>坑与验证：</b>公测阶段，SLA 未定；每次调度触发都是全新 session（无跨次记忆，需要持久状态得自己落盘到外部存储）；计费按实际 token 消耗，跑之前先小规模验证单次成本。</div>
+  <div class="action">🎯 行动建议：<b>本周内试</b>——用一个低风险例行任务（如每日竞对页面摘要）验证调度稳定性和单次成本，跑通后再迁移核心工作流。</div>
+  <div class="links">🔗 <a href="https://claude.com/blog/whats-new-in-claude-managed-agents">官方公告</a><a href="https://platform.claude.com/docs/en/managed-agents/overview">Managed Agents 文档</a><a href="https://chatforest.com/builders-log/claude-managed-agents-scheduled-deployments-vault-env-vars-june-2026/">ChatForest 实操拆解</a></div>
+</div>
+
+<div class="card" id="opus41-retire">
+  <h3>5. 截止警报：Claude Opus 4.1 将于 8 月 5 日退役，届时 API 调用直接失败<span class="badge">✅ 已证实</span><span class="deadline-badge">⏰ 8/5 截止</span></h3>
+  <div class="field"><b>是什么：</b>Anthropic 已于 6 月 5 日通知：<code>claude-opus-4-1</code> 将于 <b>2026-08-05</b> 从 Claude API 退役。退役后所有请求直接报错（不是降级，是失败）。官方推荐迁移目标：<code>claude-opus-4-8</code>。</div>
+  <div class="field"><b>对你的价值：</b>与 Opus 4.7 Fast Mode（7/24 截止）是两件事，需分别排查。老项目、第三方工具模板、教程复制来的配置里最容易残留 <code>claude-opus-4-1</code>。一次全局搜索5分钟解决；漏掉则8月5日当天工作流静默中断。</div>
+  <div class="field"><b>怎么部署：</b>全局搜索 <code>claude-opus-4-1</code> → 替换为 <code>claude-opus-4-8</code>。注意 Opus 4.8 默认行为差异（adaptive thinking 默认开启），迁移后跑一次回归。</div>
+  <div class="field"><b>坑：</b>第三方自动化平台（Make、Zapier 等）里配置的模型 ID 也要查——这类平台不会替你自动迁移，Make 官方已单独发过提醒。</div>
+  <div class="action">🎯 行动建议：<b>今天就查</b>——连同 <code>claude-opus-4-7</code> fast mode 一起做一次全面模型 ID 体检，两个截止日一次清零。</div>
+  <div class="links">🔗 <a href="https://platform.claude.com/docs/en/about-claude/model-deprecations">官方 Model Deprecations</a><a href="https://therouter.ai/news/anthropic-deprecates-claude-opus-4-1-august-5-migration-guide/">TheRouter 迁移指南</a><a href="https://help.make.com/anthropic-claude-model-deprecations-on-june-15-2026">Make 平台提醒（同类先例）</a></div>
+</div>
+
+<div class="card" id="whatsapp-leads">
+  <h3>6. 印尼场景实操：WhatsApp AI 线索机器人已到"捕获-资格判定-路由"成熟度，Bahasa 本地化是关键差异点<span class="badge">🔶 可复现</span></h3>
+  <div class="field"><b>是什么：</b>多个东南亚市场报告与实操指南收敛出一致结论：WhatsApp AI 线索机器人在印尼/菲律宾/马来增长最快（WhatsApp 开信率 ~98%），标准漏斗为三段式——<b>捕获</b>（联系方式+基础背景）→ <b>资格判定</b>（预设问题筛选合格线索）→ <b>路由</b>（合格线索转人工）。关键洞察：处理 Bahasa Indonesia 口语和地域变体的本地化 NLP，体验显著优于纯英文训练的国际方案。</div>
+  <div class="field"><b>对你的价值：</b>直接命中加盟商招商漏斗。你的场景里，"资格判定"环节价值最大——加盟咨询中大量不合格线索（资金不足、区域不符、纯询价）消耗人工时间，AI 预筛后人只接触合格线索。印尼市场用 WhatsApp 谈生意是默认习惯，渠道匹配度天然高。</div>
+  <div class="field"><b>怎么部署（最小验证路径）：</b>① 梳理你现有加盟咨询的前 5 个高频问题和资格判定标准（资金门槛、意向城市、时间线）；② 选一个支持 WhatsApp Business API + Bahasa 的方案先跑单一入口（如官网咨询按钮）；③ 对比 AI 预筛前后你的人工接触线索合格率。</div>
+  <div class="field"><b>坑与验证：</b>行业文章的"1.5x 转化提升、30% 降本"类数字多来自厂商案例，不可直接套用——用自己漏斗的前后对比数据说话。WhatsApp Business API 有模板消息审核和封号风险，冷启动群发是红线。</div>
+  <div class="action">🎯 行动建议：<b>本周内规划</b>——先做第①步（梳理资格判定标准），这一步零成本且无论最终选什么工具都需要。</div>
+  <div class="links">🔗 <a href="https://helo.ai/resources/blog/whatsapp-lead-generation">WhatsApp 线索捕获策略</a><a href="https://chatzy.ai/blogs/automating-whatsapp-lead-generation-ai">2026 自动化实操指南</a><a href="https://www.marketing-interactive.com/next-in-digital-indonesia-s-marketers-brace-for-ai-led-discovery-and-owned-channel-revival">印尼市场趋势（Marketing-Interactive）</a></div>
+</div>
+
+<div class="batch-sep">── 第 3 次采集 · 11:20（UTC+8）──</div>
+
+<div class="card" id="small-business">
+  <h3>7. Claude for Small Business：Pro/Max 计划内免费开关，15 个开箱即用的小企业工作流<span class="badge">✅ 已证实</span></h3>
+  <div class="field"><b>是什么：</b>Anthropic 于 5 月 13 日推出的 Claude Cowork 内置开关（非新付费档位）：Pro/Max/Team 计划免费启用，含 <b>15 个 agentic 工作流</b>（覆盖财务、运营、销售、营销、HR、客服）+ 15 个可复用 Skill + 直连 QuickBooks、PayPal、HubSpot、Canva、DocuSign、Google Workspace、Microsoft 365 的连接器。典型工作流：发票催收、线索分诊（lead triage）、合同审查、营销活动创建、现金流监控、business pulse 报告。每个工作流执行前需你确认计划，熟悉后可放行端到端自动跑。<i>注：5 月发布，非本周新闻——按"一人团队可部署实操"白名单纳入，此前未覆盖。</i></div>
+  <div class="field"><b>对你的价值：</b>这基本是给你这类业务形态定制的能力包。最直接可用的三个：① <b>线索分诊</b>——加盟咨询自动分类打分（与今日第 6 条 WhatsApp 机器人是同一漏斗的不同环节，这个在 Claude 内、零搭建成本）；② <b>发票催收</b>——对加盟商的定期收款跟进；③ <b>营销活动创建</b>——接 Canva 连接器直接产出物料。如果你已付费 Pro/Max，边际成本为零。</div>
+  <div class="field"><b>怎么部署：</b>Claude Cowork 内打开 Small Business 开关 → 连接你在用的工具（Google Workspace 起步即可）→ 从单个工作流试起（建议先跑 lead triage）。配套有免费的 AI Fluency for Small Business 课程（与 PayPal 合作）。</div>
+  <div class="field"><b>坑与验证：</b>连接器以美国主流 SaaS 为中心（QuickBooks/PayPal），印尼本地工具（如本地银行、Xendit）需绕道 Google Sheets 或 API 中转；工作流是模板，首次运行务必逐步确认而非直接放行端到端。</div>
+  <div class="action">🎯 行动建议：<b>今天就开</b>——你已有付费计划的话开关免费，先用 lead triage 工作流对照你现有的加盟咨询处理流程跑一次对比。</div>
+  <div class="links">🔗 <a href="https://www.anthropic.com/news/claude-for-small-business">官方公告</a><a href="https://the-decoder.com/anthropic-launches-claude-for-small-business-to-embed-ai-into-the-tools-you-forgot-you-pay-for/">The Decoder 报道</a><a href="https://karozieminski.substack.com/p/claude-for-small-business-decision-tree-workflows">15 个工作流决策树拆解</a><a href="https://findskill.ai/blog/claude-for-small-business-pricing-explained/">定价说明（免费开关而非新档位）</a></div>
+</div>
+
+<h2>扩展区</h2>
+<div class="batch-sep">── 第 1 次采集 ──</div>
+<ul class="ext">
+  <li><b>Marketing Skills for Claude Code（GitHub 社区插件库）</b>（🔶 可复现）——社区维护的 Marketing 专属 Skill 集合，覆盖 CRO、文案、SEO、增长工程，可直接安装到 Claude Code。对招商文案、落地页优化场景有直接价值。质量参差不齐，使用前先看每个 Skill 的 README 和 star 数。<a href="https://github.com/coreyhaines31/marketingskills">GitHub 链接</a></li>
+  <li><b>Claude Code Computer Use 8 个业务实战场景（MindStudio 深度评测）</b>（🔶）——包含竞对调研、广告优化、客户研究等场景的详细实操步骤，比官方文档更贴近一人团队的实际工作流，可作为 Claude for Chrome 上手前的预习材料。<a href="https://www.mindstudio.ai/blog/claude-code-computer-use-business-use-cases">原文</a></li>
+</ul>
+<div class="batch-sep">── 第 2 次采集 ──</div>
+<ul class="ext">
+  <li><b>社区 Skill 精选实测："试了 100+ 个 Claude Skills，留下来的是这 15 个"</b>（🔶 待细验）——X 上流传的长文，按场景归类实测过的 Skill 并给出弃用理由。对你筛选 Marketing/研究类 Skill 有参考价值，但单一作者主观性强，用前对照自己场景验证。<a href="https://x.com/VaibhavSisinty/article/2063290847723192610">原文</a></li>
+  <li><b>Reddit 社区共识：多 agent 分工模式（主会话 Opus + 子任务 Sonnet）+ 短会话策略</b>（🔶）——高赞实践：自主任务开跑前先 commit 一个检查点，结果不对直接回滚；长会话拆短、按任务聚焦。与后台 subagent 编排形成互补的操作纪律。<a href="https://www.morphllm.com/claude-code-reddit">Reddit 实践汇总</a></li>
+</ul>
+<div class="batch-sep">── 第 3 次采集 ──</div>
+<ul class="ext">
+  <li><b>后续更新：Fable 5 分类器误报有了反馈通道与实操绕行指南</b>（✅ 昨日精选②的进展）——Anthropic 承诺"尽快收窄"分类器并明确以 <code>/feedback</code> 误报上报驱动改进（遇到误杀就报，真的在用）；社区已出实操指南（如何组织提示词减少触发误判：避免安全类术语开场、明确声明合法上下文）。维持"观望一周"结论不变，但受影响用户现在有事可做了。<a href="https://byteiota.com/claude-fable-5s-safety-filter-is-blocking-your-code/">byteiota 分析</a> · <a href="https://wavect.io/blog/coding-with-claude-fable-5/">Wavect 绕行实操</a></li>
+  <li><b>Claude 移动端 + 桌面端 Computer Use（Pro/Max 免配置）</b>（✅）——Pro/Max 用户可让 Claude 直接操作电脑（打开文件、点击、导航），移动 app 支持交互式图表与可分享资产。对你意味着 Chrome 之外多了一条桌面自动化路径，但同样适用实战边界结论：低风险重复任务先行，财务权限操作禁入。<a href="https://support.claude.com/en/articles/12138966-release-notes">官方 Release Notes</a></li>
+  <li><b>降幻觉评估新框架：四类失效模式（事实/接地/引用/推理）分开检测</b>（🔶）——对"分层降幻觉 Playbook"的补充：不同幻觉类型需要不同检测器，并行打分；对模型使用者（非训练者），可落地的是 best-of-N 重排（生成多个候选，用轻量事实性指标选最忠实的一个）。适合你的行研结论验证工作流。<a href="https://futureagi.com/blog/llm-hallucination-deep-dive-2026/">架构深拆</a> · <a href="https://www.lakera.ai/blog/guide-to-hallucinations-in-large-language-models">Lakera 2026 指南</a></li>
+</ul>
+
+<h2 class="noise">今日噪音（已过滤）</h2>
+<div class="card noise-card">
+  <div class="field">🚫 <b>"AI 将彻底颠覆加盟商招募体系，传统 BD 团队即将消亡"类标题文章</b>——多篇 franchise 行业媒体蹭 AI agent 热度，以"77% higher success rates"等统计数字制造紧迫感，但来源指向付费白皮书，无可验证的 A/B 测试数据。<b>过滤理由：T3 无可复现操作细节，数字来源不可查，与今日精选第 2 条的实测边界数据直接矛盾。</b></div>
+  <div class="field">🚫 <b>"2026 最佳 AI 营销工具 TOP 15"类汇总推荐文</b>——将 Jasper、Copy.ai、HubSpot AI 等混列，无评测标准、无成本对比、无场景细分，典型 SEO 内容农场产出。<b>过滤理由：T3 无方法论，不可复现，纳入白名单第 2 条（可部署实操）未达标。</b></div>
+  <div class="batch-sep">── 第 2 次采集 ──</div>
+  <div class="field">🚫 <b>"印尼 TOP 10 AI 营销代理商完全指南"类文章</b>——代理商目录型内容，由其中一家代理商的内容团队撰写，排名标准不透明。<b>过滤理由：利益相关方自评，T3 不可回溯，与"可部署实操"白名单不符。</b></div>
+  <div class="field">🚫 <b>"AI 正在改变社交媒体营销的 10 种方式（2026版）"类文章</b>——年度模板文改日期重发，10 条建议均无工具名、无步骤、无成本数据。<b>过滤理由：T3 无实操细节，SEO 内容农场特征明显。</b></div>
+  <div class="batch-sep">── 第 3 次采集 ──</div>
+  <div class="field">🚫 <b>"Fable 5 被削弱了吗？（Is Claude Fable 5 Nerfed?）"类标题内容</b>——把分类器误判问题包装成"模型变笨"叙事博点击，与实际机制（请求被路由到 Opus 4.8，模型本身未变）不符。<b>过滤理由：T3 误导性归因，扩展区的后续更新条目已提供准确机制与应对方式。</b></div>
+</div>
+
+<h2 class="review">本周复盘（07-04 ~ 07-05，第 1 周）</h2>
+<div class="card">
+  <div class="field">本系统 07-04 上线，本周为试运行周，样本仅 2 天，命中率统计从下周开始积累。本周已推行动建议的当前状态：</div>
+  <table class="review-table">
+    <tr><th>行动建议</th><th>首刊</th><th>当前状态</th></tr>
+    <tr><td>验证 2.1.200 无人值守不卡住</td><td>07-04</td><td>建议仍有效，等待你反馈实测结果</td></tr>
+    <tr><td>Fable 5 分类器 → 观望一周</td><td>07-04</td><td>观望中；已开放 /feedback 误报通道 + 社区绕行指南（见第 3 次采集扩展区）</td></tr>
+    <tr><td>Opus 4.7 fast mode 迁移</td><td>07-04</td><td>截止 7/24，未过期</td></tr>
+    <tr><td>Sonnet 5 tokenizer 自测计数</td><td>07-04（试运行版）</td><td>促销期至 8/31，建议窗口内有效</td></tr>
+    <tr><td>LinkedIn 招商线索 Chrome 实测</td><td>07-05 第 1 批</td><td>等待你反馈实际节省时间</td></tr>
+  </table>
+  <div class="field"><b>规则演进：</b>本周规则从 v0 → v3：确立追加制（每天一个入口）、7 天滚动窗口、采集深度规范（≥6 次搜索）、结构化数据层与数据驱动首页。均由你的反馈直接驱动。</div>
+  <div class="field"><b>下周关注：</b>① Fable 5 分类器修复进展；② 7/24 Opus 4.7 fast mode 截止前提醒；③ 你对已推行动建议的实测反馈将进入命中率统计。</div>
+</div>
+
+<footer>
+  AI Productivity Radar · 本期规则版本 <b>ROUTINE v3</b> · 2026-07-05<br>
+  注：本页第 1 次采集（07:42）内容原误标为 2026-07-04 第 2 期，已按 UTC+8 日期规则归并至本页。<br>
+  反馈方式：对话中直接说明（推多了/漏了/链接质量），规则将修订并升版本。
+</footer>
+</body>
+</html>
