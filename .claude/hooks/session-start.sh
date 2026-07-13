@@ -13,15 +13,16 @@ cat <<'RULES'
 3) Pages 部署：失败禁止 rerun_failed_jobs（会叠加同名 artifact 秒失败）；
    遇 "Deployment failed, try again later" 用 workflow_dispatch 起全新 run；
    判定上线前须确认 run conclusion==success 并提醒用户强刷缓存。
-4) 报告发布前做跨区一致性自检（ROUTINE 当前 v7）：通读全页核对精选↔扩展↔噪音有无
+4) 报告发布前做跨区一致性自检（ROUTINE 当前 v8）：通读全页核对精选↔扩展↔噪音有无
    同源矛盾（同一事实相反价值）；夸大说法并入精选卡「坑与验证」不另立噪音条；
    页脚写明"已做跨区一致性自检"再发。
 5) 页面结构（v6 改版）：全站去 emoji；报告用 br- 结构（br-app/br-report-card/br-field，
    表格必须裹 br-scroll-x）；样式表在 docs/style.css（报告以 ../style.css 引用）；
    话题锚点统一 id="topic-<id>"，topics.json url 为 reports/DATE.html#topic-<id>；
    旧工程文件已备份于仓库根 legacy-v1/（勿发布）。
-6) 发布门禁与部署分工（v7，用户 2026-07-13 授权）：推送前必须 python3 scripts/validate.py
-   通过（精选卡四字段+字数下限、links[] 原始信源非空、结构/锚点）；内容型提交
+6) 发布门禁与部署分工（v7/v8，用户 2026-07-13 授权）：推送前必须 python3 scripts/validate.py
+   通过（精选与扩展卡模板四字段+字数下限、topics.json fields{}四键、links[] 非空、
+   CSS ?v=N 版本一致、结构/锚点）；扩展条目须用 br-report-card--ext 模板卡；内容型提交
    （docs/reports/*、docs/data/topics.json）校验通过后直接 push main（Pages 自动部署，
    随后确认 run success）；工程/规则改动走 PR。禁止把每日例行内容滞留在分支。
    详见仓库根目录 CLAUDE.md 与 ROUTINE.md。

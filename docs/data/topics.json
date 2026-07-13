@@ -139,7 +139,13 @@
       "links": [
         "https://code.claude.com/docs/en/changelog",
         "https://code.claude.com/docs/en/permission-modes"
-      ]
+      ],
+      "fields": {
+        "what": "2026-07-03 发布的 2.1.200，将默认权限模式从\"自动\"改为 <code>Manual</code>（等同于原 <code>default</code>，但语义明确为\"每步需确认\"）。同步变更：<code>AskUserQuestion</code> 对话框不再在超时后自动继续——这意味着依赖\"超时→自动往下走\"的无人值守工作流，升级后会<b>静默卡住等人</b>。",
+        "value": "如果你有任何计划运行、夜间跑的 agent 任务，升级到 2.1.200+ 之后需要显式配置，否则工作流会在第一个需要确认的节点停下来，你不会收到任何错误提示——只是静止。",
+        "deploy": "① 升级到 2.1.200+；② 若需要无人值守：在 <code>/config</code> 里开启 idle timeout（<code>\"idleTimeout\": true</code>），或在启动时显式传 <code>--permission-mode auto</code>；③ CI 流水线建议明确写 <code>--permission-mode acceptEdits</code> 或 <code>auto</code>，不依赖默认值。",
+        "pitfall": "升级是静默的，原有工作流不会立即报错，只会在下次运行时卡住。<b class=\"w\">升级前先跑一次你最常用的无人值守任务做回归验证。</b>"
+      }
     },
     {
       "id": "fable5-classifier",
@@ -162,7 +168,12 @@
         "https://www.anthropic.com/news/redeploying-fable-5",
         "https://www.techtimes.com/articles/319413/20260701/claude-fable-5-debugging-scores-drop-70-safety-classifier-reroutes-tasks-weaker-fallback-model.htm",
         "https://www.digitalapplied.com/blog/claude-fable-5-safety-classifier-coding-tradeoffs-2026"
-      ]
+      ],
+      "fields": {
+        "what": "Fable 5 于 7 月 1 日复活（此前因越狱事件触发美国出口管制暂停约一周），重新上线时附带了一个新的网络安全分类器。实测数据（TechTimes）：12 个 TypeScript 调试任务中只有 3 个真正到达 Fable 5，其余 9 个被分类器静默路由到 Opus 4.8——调试基准分下降 70%。Anthropic 官方承认\"正常的网络安全工作和代码调试也可能触发误判\"，但未给出修复时间表。",
+        "value": "如果你付费使用 Fable 5 并在跑代码 agent、调试任务或带有安全相关词汇的工作流，你有可能在<b>付 Fable 5 的价格、实际收到 Opus 4.8 的结果</b>。这对质量期望有影响，对成本估算也有影响（fallback 计费按 Opus 4.8 费率重算，带 credit 补偿）。",
+        "pitfall": "在 API 响应中检查 <code>model</code> 字段（或 Claude Code 中查看 session 日志），确认实际服务你的是哪个模型。如果用了 <code>fallbacks</code> 参数，<code>stop_details.category</code> 会标注触发原因。"
+      }
     },
     {
       "id": "opus47-fast",
@@ -184,7 +195,13 @@
       "links": [
         "https://platform.claude.com/docs/en/about-claude/model-deprecations",
         "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8"
-      ]
+      ],
+      "fields": {
+        "what": "Anthropic 宣布 claude-opus-4-7 的 <code>speed: \"fast\"</code> 参数将于 <b>2026-07-24</b> 移除。移除后调用将返回错误。迁移路径：将模型 ID 改为 <code>claude-opus-4-8</code>，保留 <code>speed: \"fast\"</code>。",
+        "value": "如果你的 API 集成或 Claude Code 配置里有使用 Opus 4.7 Fast Mode，7 月 24 日之后会直接报错。检查成本：5 分钟搜一下代码里的 <code>claude-opus-4-7</code>。此外，Opus 4.8 Fast Mode 价格比 4.7 Fast Mode <b>便宜 3 倍</b>——迁移不只是避错，还能降本。",
+        "deploy": "将 <code>\"claude-opus-4-7\"</code> → <code>\"claude-opus-4-8\"</code>，speed 参数不变。无其他破坏性变更。",
+        "pitfall": "别等到最后几天，API 密集使用期间迁移风险低，但临近截止时可能遭遇服务中断排障窗口重叠。"
+      }
     },
     {
       "id": "stacked-skills",
@@ -205,7 +222,13 @@
       "links": [
         "https://code.claude.com/docs/en/changelog",
         "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
-      ]
+      ],
+      "fields": {
+        "what": "从 2.1.199 起，可以在一条命令里叠加多个 Skill：<code>/skill-a /skill-b /skill-c 任务描述</code>，系统一次性加载所有 Skill（上限 5 个），然后执行任务。此前需要分步调用。",
+        "value": "对一人团队最直接的应用：把常用组合写成记忆快捷方式。例如\"竞对研究 + 可视化报告格式\"、\"行研采集 + 结论卡片生成\"——一条命令触发，不需要多步切换。",
+        "deploy": "① 升级到 2.1.199+（2.1.200/2.1.201 已包含）；② 直接在对话框输入叠加指令，无需配置；③ 建议整理一份个人\"常用 Skill 组合\"备忘，对照你的工作流。",
+        "pitfall": "并发加载多个 Skill 会占用更多上下文窗口，任务本身留给模型的 token 预算会减少。选 Skill 要精准，不要堆砌不相关的。"
+      }
     },
     {
       "id": "bg-agent-patches",
@@ -288,7 +311,13 @@
       "links": [
         "https://platform.claude.com/docs/en/about-claude/pricing",
         "https://docs.anthropic.com/en/release-notes/api"
-      ]
+      ],
+      "fields": {
+        "what": "2026-06-26，Anthropic 重构 API 使用限制体系：① 使用层级从 4 个精简为 3 个（Start / Build / Scale），有更高需求可联系销售申请 Custom；② Claude Sonnet 和 Haiku 的 RPM、ITPM、OTPM 限制全面对齐 Opus，同层级内三族模型限速相同；③ 所有模型（Haiku 3.5 除外）的缓存读取 token 不再计入 ITPM，只有未缓存的新输入 token 和缓存写入才计入。<b>所有现有账号不降速，多数被自动升到更高层。</b>",
+        "value": "如果你的日常工作流（行研采集、文案批处理、竞对扫描）用的是 Sonnet 而不是 Opus，此前你的 RPM 上限可能显著低于 Opus——现在不再如此。具体影响：相同预算下，可以并发更多任务而不触发 429 错误；使用提示词缓存后，缓存读取部分不再消耗速率配额，多轮长文档对话的吞吐量大幅提升。",
+        "deploy": "① 登录 platform.claude.com → Settings → Limits 确认当前层级和新限速数字；② 如果你的自动化脚本有手动限速逻辑（如 sleep 控制并发），可以相应调整；③ 启用提示词缓存的工作流现在可以放心扩规模，缓存命中不消耗 ITPM。",
+        "pitfall": "层级是按月累计消费自动晋升，新账号仍从 Start 开始。若你之前的脚本有针对旧限速写死的延迟时间，实际限速已提升但脚本还在人为降速，记得检查。"
+      }
     },
     {
       "id": "chrome-frontier",
@@ -311,7 +340,12 @@
         "https://code.claude.com/docs/en/chrome",
         "https://www.mindstudio.ai/blog/multi-agent-chrome-automation-claude-code",
         "https://dev.to/minatoplanb/i-tested-every-browser-automation-tool-for-claude-code-heres-my-final-verdict-3hb7"
-      ]
+      ],
+      "fields": {
+        "what": "Claude for Chrome 已正式 GA，本条汇总社区实测数据，重点是\"实际能干什么、哪里会翻车\"。核心结论：对<b>低风险、重复性、界面稳定</b>的浏览器任务效果显著；对复杂动态 UI（自定义日期选择器、大量 JavaScript）或需要判断语义而非视觉的任务会系统性出错。",
+        "value": "<div class=\"br-scroll-x\"><table class=\"cmp\">\n      <tr><th>场景</th><th>实测结论</th><th>是否推荐</th></tr>\n      <tr><td>LinkedIn 候选加盟商研究</td><td>10-15 分钟/人 → 秒级提取现职、背景摘要</td><td>今天就试</td></tr>\n      <tr><td>竞对官网巡检 + 文字提取</td><td>稳定界面效果好，能标注\"新增内容\"</td><td>适合</td></tr>\n      <tr><td>广告后台读取 + 报告</td><td>能读 dashboard 并输出摘要，但复杂 UI 时会点错</td><td>监督运行</td></tr>\n      <tr><td>表单批量填写</td><td>低风险重复表单可行，涉及支付或权限操作绝对不用</td><td>限定范围</td></tr>\n    </table>",
+        "deploy": "安装 Claude for Chrome（需 Claude 账号），确保 claude.ai 已登录；从 LinkedIn 招商场景入手——提示词示例：<code>打开这 5 个 LinkedIn 主页，提取姓名/现职/所在城市/与 EV 充电或能源行业的关联，输出为表格</code>。"
+      }
     },
     {
       "id": "self-hosted-sandbox",
@@ -334,7 +368,12 @@
         "https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes",
         "https://dev.to/akaranjkar08/claude-managed-agents-self-hosted-sandboxes-and-mcp-tunnels-setup-guide-4ha4",
         "https://venturebeat.com/orchestration/claude-agents-can-finally-connect-to-enterprise-apis-without-leaking-credentials"
-      ]
+      ],
+      "fields": {
+        "what": "两个新能力打包上线：① <b>自托管沙箱（GA）</b>——Managed Agents 的编排逻辑仍在 Anthropic 侧，但工具执行（bash、文件读写、代码运行）可以移到你自己的服务器或 Serverless 环境（支持 AWS Lambda、Vercel、Modal、E2B 等）；② <b>MCP Tunnels（研究预览）</b>——可以将 Claude 连接到你私有网络里的 MCP 服务器，无需把内部系统暴露到公网。",
+        "value": "目前你是一人团队，多数工作流还在公共 API 层，这两个功能的直接刚需不高。但以下情形值得注意：① 如果未来你要处理加盟商的敏感协议数据或财务数据，自托管沙箱可以确保数据不离开你的服务器；② 如果你有内部 CRM 或私有数据库，MCP 隧道可以让 Claude 直接对接而无需数据外传。",
+        "deploy": "自托管沙箱需要已使用 Claude Managed Agents（API / Claude Platform on AWS 均支持）；MCP Tunnels 目前是研究预览，需申请访问权限。两者均有详细 provider 指南（Vercel/Modal 入门门槛最低）。"
+      }
     },
     {
       "id": "marketing-skills",
@@ -400,7 +439,13 @@
         "https://claude.com/blog/whats-new-in-claude-managed-agents",
         "https://platform.claude.com/docs/en/managed-agents/overview",
         "https://chatforest.com/builders-log/claude-managed-agents-scheduled-deployments-vault-env-vars-june-2026/"
-      ]
+      ],
+      "fields": {
+        "what": "Claude Managed Agents 两项能力进入公测：① <b>Scheduled Deployments</b>——给 agent 配一个 cron 表达式，到点自动启动新 session 完成任务，无需自建调度器，支持随时暂停/恢复/手动补跑；② <b>Vault 凭证保险库</b>——注册 API key 时绑定环境变量名和允许访问的域名，agent 沙箱里只有占位符，真实 key 在网络边界注入且只对白名单域名生效——<b>agent 全程接触不到你的真实密钥</b>。",
+        "value": "这正是你当前\"每日信息雷达\"这类例行任务的官方标准解法。适用场景：每日竞对巡检、每周加盟线索汇总、定期行研摘要。Vault 机制解决了\"要让 agent 调用第三方服务（如 CRM、邮件 API）但不敢把密钥交给它\"的核心顾虑——对需要对接外部系统的营销自动化尤其重要。",
+        "deploy": "在 Claude Platform 创建 Managed Agent → 配置 scheduled deployment（cron 表达式）→ 需要凭证的服务在 Vault 注册 key + 允许域名。官方文档有完整步骤。",
+        "pitfall": "公测阶段，SLA 未定；每次调度触发都是全新 session（无跨次记忆，需要持久状态得自己落盘到外部存储）；计费按实际 token 消耗，跑之前先小规模验证单次成本。"
+      }
     },
     {
       "id": "opus41-retire",
@@ -423,7 +468,13 @@
         "https://platform.claude.com/docs/en/about-claude/model-deprecations",
         "https://therouter.ai/news/anthropic-deprecates-claude-opus-4-1-august-5-migration-guide/",
         "https://help.make.com/anthropic-claude-model-deprecations-on-june-15-2026"
-      ]
+      ],
+      "fields": {
+        "what": "Anthropic 已于 6 月 5 日通知：<code>claude-opus-4-1</code> 将于 <b>2026-08-05</b> 从 Claude API 退役。退役后所有请求直接报错（不是降级，是失败）。官方推荐迁移目标：<code>claude-opus-4-8</code>。",
+        "value": "与 Opus 4.7 Fast Mode（7/24 截止）是两件事，需分别排查。老项目、第三方工具模板、教程复制来的配置里最容易残留 <code>claude-opus-4-1</code>。一次全局搜索5分钟解决；漏掉则8月5日当天工作流静默中断。",
+        "deploy": "全局搜索 <code>claude-opus-4-1</code> → 替换为 <code>claude-opus-4-8</code>。注意 Opus 4.8 默认行为差异（adaptive thinking 默认开启），迁移后跑一次回归。",
+        "pitfall": "第三方自动化平台（Make、Zapier 等）里配置的模型 ID 也要查——这类平台不会替你自动迁移，Make 官方已单独发过提醒。"
+      }
     },
     {
       "id": "whatsapp-leads",
@@ -447,7 +498,13 @@
         "https://helo.ai/resources/blog/whatsapp-lead-generation",
         "https://chatzy.ai/blogs/automating-whatsapp-lead-generation-ai",
         "https://www.marketing-interactive.com/next-in-digital-indonesia-s-marketers-brace-for-ai-led-discovery-and-owned-channel-revival"
-      ]
+      ],
+      "fields": {
+        "what": "多个东南亚市场报告与实操指南收敛出一致结论：WhatsApp AI 线索机器人在印尼/菲律宾/马来增长最快（WhatsApp 开信率 ~98%），标准漏斗为三段式——<b>捕获</b>（联系方式+基础背景）→ <b>资格判定</b>（预设问题筛选合格线索）→ <b>路由</b>（合格线索转人工）。关键洞察：处理 Bahasa Indonesia 口语和地域变体的本地化 NLP，体验显著优于纯英文训练的国际方案。",
+        "value": "直接命中加盟商招商漏斗。你的场景里，\"资格判定\"环节价值最大——加盟咨询中大量不合格线索（资金不足、区域不符、纯询价）消耗人工时间，AI 预筛后人只接触合格线索。印尼市场用 WhatsApp 谈生意是默认习惯，渠道匹配度天然高。",
+        "deploy": "① 梳理你现有加盟咨询的前 5 个高频问题和资格判定标准（资金门槛、意向城市、时间线）；② 选一个支持 WhatsApp Business API + Bahasa 的方案先跑单一入口（如官网咨询按钮）；③ 对比 AI 预筛前后你的人工接触线索合格率。",
+        "pitfall": "行业文章的\"1.5x 转化提升、30% 降本\"类数字多来自厂商案例，不可直接套用——用自己漏斗的前后对比数据说话。WhatsApp Business API 有模板消息审核和封号风险，冷启动群发是红线。"
+      }
     },
     {
       "id": "skills-100",
@@ -511,7 +568,13 @@
         "https://the-decoder.com/anthropic-launches-claude-for-small-business-to-embed-ai-into-the-tools-you-forgot-you-pay-for/",
         "https://karozieminski.substack.com/p/claude-for-small-business-decision-tree-workflows",
         "https://findskill.ai/blog/claude-for-small-business-pricing-explained/"
-      ]
+      ],
+      "fields": {
+        "what": "Anthropic 于 5 月 13 日推出的 Claude Cowork 内置开关（非新付费档位）：Pro/Max/Team 计划免费启用，含 <b>15 个 agentic 工作流</b>（覆盖财务、运营、销售、营销、HR、客服）+ 15 个可复用 Skill + 直连 QuickBooks、PayPal、HubSpot、Canva、DocuSign、Google Workspace、Microsoft 365 的连接器。典型工作流：发票催收、线索分诊（lead triage）、合同审查、营销活动创建、现金流监控、business pulse 报告。每个工作流执行前需你确认计划，熟悉后可放行端到端自动跑。<i>注：5 月发布，非本周新闻——按\"一人团队可部署实操\"白名单纳入，此前未覆盖。</i>",
+        "value": "这基本是给你这类业务形态定制的能力包。最直接可用的三个：① <b>线索分诊</b>——加盟咨询自动分类打分（与今日第 6 条 WhatsApp 机器人是同一漏斗的不同环节，这个在 Claude 内、零搭建成本）；② <b>发票催收</b>——对加盟商的定期收款跟进；③ <b>营销活动创建</b>——接 Canva 连接器直接产出物料。如果你已付费 Pro/Max，边际成本为零。",
+        "deploy": "Claude Cowork 内打开 Small Business 开关 → 连接你在用的工具（Google Workspace 起步即可）→ 从单个工作流试起（建议先跑 lead triage）。配套有免费的 AI Fluency for Small Business 课程（与 PayPal 合作）。",
+        "pitfall": "连接器以美国主流 SaaS 为中心（QuickBooks/PayPal），印尼本地工具（如本地银行、Xendit）需绕道 Google Sheets 或 API 中转；工作流是模板，首次运行务必逐步确认而非直接放行端到端。"
+      }
     },
     {
       "id": "fable5-followup",
@@ -598,7 +661,13 @@
         "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
         "https://platform.claude.com/docs/en/about-claude/pricing",
         "https://www.aimagicx.com/blog/prompt-caching-claude-api-cost-optimization-2026"
-      ]
+      ],
+      "fields": {
+        "what": "两个官方降本杠杆可叠加：① <b>Prompt Caching</b>——缓存<b>读取仅 0.1×</b> 基础输入价，5 分钟写入 1.25×、1 小时写入 2×；稳定内容（system prompt、工具定义、知识包）首次之后省 70-90%。② <b>Batch API</b>——异步批处理，输入输出<b>各打 5 折</b>。两者叠加时缓存读取在 batch 下有效低至 <b>0.05×</b>。以 Opus 4.8 为例：基础输入 $5/MTok，缓存读取降至 $0.50，叠加 batch 后约 $0.25。",
+        "value": "直接压低你两类长期成本。① 本雷达系统 + 行研工作流有大量<b>固定不变的规则文档、知识包、system prompt</b>，正是缓存的理想对象——这些内容每次运行原样重发，加缓存后从第二次起省 90%。② 招商话术批量生成、竞对批量摘要这类<b>不要求实时</b>的任务走 Batch API，直接砍半。两者对一人团队的月度 API 账单影响显著。",
+        "deploy": "① 缓存：在稳定前缀（system prompt / 规则文档 / 知识包）末尾加 <code>\"cache_control\": {\"type\": \"ephemeral\"}</code>；间隔较长的跟进用 <code>\"ttl\": \"1h\"</code>。② 批处理：非实时任务改走 <code>/v1/messages/batches</code>。③ 组合：批处理请求里同样可带 cache_control。",
+        "pitfall": "① <b>最小可缓存长度 512-4096 token（因模型而异）</b>，短 prompt 不会缓存；② 缓存写入有成本（1.25×/2×），只对<b>高频复用</b>内容划算，一次性内容别加；③ 2026-02 起缓存隔离改为 <b>workspace 级</b>，多 workspace 不共享缓存前缀。验证：对比加缓存前后账单的 <code>cache_read_input_tokens</code> 字段。"
+      }
     },
     {
       "id": "skills-ecosystem",
@@ -647,7 +716,13 @@
         "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
         "https://code.claude.com/docs/en/changelog",
         "https://github.com/anthropics/claude-code/releases"
-      ]
+      ],
+      "fields": {
+        "what": "7/1 的 Claude Code v2.1.198 起，用 Agent 工具派生的<b>子代理默认在后台运行</b>——主 Claude 不再干等，可继续手头工作，子代理完成或需要输入时通过 <code>Notification</code> hook 触发（新增 <code>agent_needs_input</code> / <code>agent_completed</code> 事件）。同版还修了「子代理/MCP 并行初始化」相关问题。",
+        "value": "一人团队最缺的是并行度。以后可以让主线继续采集/写报告，同时甩一个子代理去跑「竞对批量摘要」或「招商线索初筛」这类独立活，完成时收到通知回来收口——把原本串行的两小时压成并行。配合你已有的 CLAUDE.md 铁律，子代理各自独立上下文、互不污染。",
+        "deploy": "① 升级 Claude Code 到 ≥ v2.1.198；② 派生子代理时默认即后台，无需额外参数；③ 想收完成提醒，在 <code>settings.json</code> 配 <code>Notification</code> hook 监听 <code>agent_completed</code> / <code>agent_needs_input</code>（本仓库已有 hook 基建，加一条 matcher 即可）。",
+        "pitfall": "后台化意味着你不再\"盯着\"子代理——务必给子代理明确的完成判据和产物落点，否则它跑偏了你也不知道。验证：派一个\"读 X 目录并返回摘要\"的子代理，确认主线不阻塞、且 <code>agent_completed</code> 通知如期到达。"
+      }
     },
     {
       "id": "claude-chrome-ga",
@@ -670,7 +745,13 @@
       "links": [
         "https://code.claude.com/docs/en/changelog",
         "https://www.anthropic.com/news"
-      ]
+      ],
+      "fields": {
+        "what": "7/1 起 <b>Claude in Chrome 从预览转为正式可用（GA）</b>。它让 Claude 直接在浏览器里读页面、填表单、跨标签页操作——相当于把 Computer Use 的浏览器子集做成了随手可用的扩展形态。",
+        "value": "招商与 Marketing 有大量\"人肉浏览器\"活：查竞对官网/定价页、抓取行业目录里的潜在加盟商信息、在后台批量填表。GA 意味着不必再自己搭 Computer Use 环境，装上就能让 Claude 代你在浏览器里跑这些重复动作。",
+        "deploy": "① 在 Chrome 装 Claude 扩展并用你的 Pro/Max 账号登录；② 从一个低风险只读任务起步（如\"打开这 5 个竞对定价页，汇总成表\"）；③ 涉及登录态/提交动作的，先在沙箱账号验证再上真实数据。",
+        "pitfall": "浏览器自动化天然踩「登录态、验证码、误点提交」三个雷——务必先只读、后写入，且对任何\"提交/发送\"动作保留人工确认。验证：先跑纯抓取任务，核对汇总结果与人工一致后，再逐步放开写操作。"
+      }
     },
     {
       "id": "hook-silent-fail",
@@ -694,7 +775,13 @@
       "links": [
         "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
         "https://code.claude.com/docs/en/changelog"
-      ]
+      ],
+      "fields": {
+        "what": "7/1 版本修了两个隐蔽的 hook bug：① <b>逗号分隔的 matcher（如 <code>\"Bash,PowerShell\"</code>）此前会静默从不触发</b>；② <b>SessionStart / Setup / SubagentStart hook 以退出码 2 失败时，stderr 被静默吞掉</b>，现在会显示在 transcript 里。此外修复了 Windows 上 <code>CLAUDE_ENV_FILE</code> 与 SessionStart env 文件不生效的问题。",
+        "value": "直接命中你——本仓库刚建了 <code>.claude/hooks/session-start.sh</code>（SessionStart hook，注入工作铁律）。这条警报的含义：<b>(a)</b> 若你写多事件 matcher，务必用官方支持的写法而非逗号拼接（旧版逗号会静默不触发）；<b>(b)</b> 若 hook 脚本以退出码 2 报错，旧版你根本看不到原因——现在升级后能看到 stderr，排障不再抓瞎。",
+        "deploy": "① 升级 Claude Code；② 检查现有 <code>settings.json</code> 里的 hook matcher 是否用了逗号拼接，改为官方数组/多条目写法；③ 给 hook 脚本加 <code>set -euo pipefail</code> 并主动 echo 关键状态，配合修复后的 stderr 显示排障。",
+        "pitfall": "本仓库的 hook 目前是单事件（SessionStart）、无逗号 matcher，不受第一个 bug 影响；但要留意退出码——脚本末尾正常退出即 0。验证：故意让 hook 脚本 <code>exit 2</code> 跑一次，确认升级后能在 transcript 看到 stderr。"
+      }
     },
     {
       "id": "sonnet5-cc-default",
@@ -719,7 +806,13 @@
         "https://code.claude.com/docs/en/changelog",
         "https://www.anthropic.com/news/claude-opus-4-8",
         "https://platform.claude.com/docs/en/about-claude/pricing"
-      ]
+      ],
+      "fields": {
+        "what": "随 7/1 版本，<b>Claude Sonnet 5 成为 Claude Code 的默认模型</b>，原生 1M 上下文，且享<b>促销价 $2/$10 每 MTok（输入/输出），有效期至 2026-08-31</b>（此后恢复 $3/$15）。Sonnet 5 在编码/代理任务上接近 Opus 档，成本却远低于 Opus（$5/$25）。",
+        "value": "你的日常采集、批量摘要、招商话术生成等大多数活不需要 Opus 顶配。默认切到 Sonnet 5 意味着<b>同等产出下每月账单可观下降</b>，且促销窗口内输入端再打 6-7 折。对一人团队的月度 API 支出是直接利好。",
+        "deploy": "① 升级后默认即 Sonnet 5，无需操作；② 只在确实需要最强推理的硬任务（复杂重构、深度行研）手动切 Opus 4.8；③ 促销窗口内把可批处理的活尽量前移，叠加 Batch 5 折进一步降本。",
+        "pitfall": "① Sonnet 5 换了 tokenizer，同样文本 token 数比旧 Sonnet 约 +30%——按 token 计的预算/上限要重新标定；② 促销价 8/31 到期，别把长期成本模型建在促销价上。验证：跑一批代表性任务对比 Sonnet 5 与 Opus 的产出质量与 <code>usage</code>，按路由分级用模型。"
+      }
     },
     {
       "id": "refusal-no-bill",
@@ -837,7 +930,13 @@
         "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
         "https://www.claudeupdates.dev/version/2.1.199",
         "https://code.claude.com/docs/en/changelog"
-      ]
+      ],
+      "fields": {
+        "what": "7/2 发布的 v2.1.199 以稳定性修复为主，几条直接关系到昨天刚上的「子代理默认后台运行」：① 修复 <b>Linux 上后台代理守护进程在非正常关闭后、每 ~50 秒自杀并杀掉所有在跑代理</b>（损坏的 worker 记录所致）；② 修复<b>流式响应在 API 中途报 overloaded/server error 时整段被丢弃</b>——现在保留已产出部分并附\"响应不完整\"提示；③ <b>叠加式斜杠技能调用 <code>/skill-a /skill-b</code> 现会加载全部前置技能（最多 5 个）</b>，而非只加载第一个；④ SSL 证书错误快速失败并给修复提示；⑤ JetBrains 终端闪烁、Kitty 键盘协议下 Shift+非 ASCII 丢字等修复。",
+        "value": "你昨天刚开始用后台子代理并行干活——①②正是这套玩法的稳定性地基：守护进程自杀 bug 会让你\"以为在跑其实全死了\"，流式丢弃会让长任务白跑。升级后这两个隐性坑消失。③让你把「趋势研究→文案→改写→排期」这类多技能链一次性挂上，不用再逐个触发。",
+        "deploy": "① 升级 Claude Code 到 ≥ v2.1.199；② 若之前遇到后台代理莫名全停，就是那个守护进程 bug，升级即解；③ 想链式挂技能，直接 <code>/skill-a /skill-b</code> 连写（≤5 个）。",
+        "pitfall": "升级后验证后台代理稳定性：派一个跑 &gt;1 分钟的后台子代理，确认它不会在 ~50 秒被守护进程杀掉；再用 <code>/a /b</code> 连写确认两个技能都加载。"
+      }
     },
     {
       "id": "cache-diagnostics",
@@ -861,7 +960,13 @@
       "links": [
         "https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics",
         "https://platform.claude.com/docs/en/build-with-claude/prompt-caching"
-      ]
+      ],
+      "fields": {
+        "what": "官方缓存诊断能力（beta header <code>cache-diagnosis-2026-04-07</code>，4/7 起公测——<b>非本周新，此前本雷达漏报，现补录</b>）。用法：请求带 <code>diagnostics.previous_message_id</code>（首个请求设 <code>null</code> 开启，之后传上一次响应的 <code>id</code>），API 会对比前后两次请求的前缀指纹，返回 <code>cache_miss_reason</code>，精确告诉你缓存前缀在哪一处开始分叉（如 <code>system_changed</code> / <code>tools_changed</code>）。仅 Claude API 支持，Bedrock/Vertex 不支持。",
+        "value": "直接补齐我们前几天聊的缓存降本闭环。你把规则文档/知识包做成缓存前缀后，最怕的就是\"明明加了 cache_control，<code>cache_read_input_tokens</code> 却是 0\"——某个隐形变量（时间戳、未排序 JSON、工具集变动）把前缀改了。以前只能靠肉眼 diff，现在 API 直接点名分叉点，排缓存失效从\"猜\"变成\"看\"。",
+        "deploy": "① 请求加 beta header <code>cache-diagnosis-2026-04-07</code>；② 首次传 <code>diagnostics={\"previous_message_id\": null}</code>，之后传上一次响应 <code>id</code>；③ 读响应里的 <code>diagnostics.cache_miss_reason.type</code> 定位（<code>system_changed</code> 说明 system 前缀变了，<code>tools_changed</code> 说明工具集变了）。",
+        "pitfall": "① <code>cache_miss_reason</code> 为 <code>null</code> 表示比对还在挂起，看下一轮；② 只在 Claude API 生效。验证：故意在 system 前缀塞个 <code>datetime.now()</code>，跑两次，确认返回 <code>system_changed</code>。"
+      }
     },
     {
       "id": "marketing-skills-workflow",
@@ -887,7 +992,13 @@
         "https://www.mindstudio.ai/blog/5-skill-agent-workflow-content-marketing-claude-code",
         "https://ahrefs.com/blog/claude-skills/",
         "https://github.com/coreyhaines31/marketingskills"
-      ]
+      ],
+      "fields": {
+        "what": "社区把 Marketing/SEO 沉淀成了成熟的 Skills 工作流打法（非单一新品，是**可复现的组织模式**）：核心是<b>一个共享的 <code>product-marketing-context</code> 文件</b>——把你的产品、受众、定位<b>定义一次</b>，之后每个技能的产出都自动遵守它；再把「趋势研究→文案→多渠道改写→UGC 脚本→排期」<b>链成一条技能链</b>。现成技能库涵盖 CRO、文案、SEO、GEO/AEO、schema、本地 SEO、客户报告等。",
+        "value": "一人团队做招商 Marketing 最痛的是\"每次都要重讲一遍我是谁、卖给谁\"。这个模式把上下文抽成单文件复用，等于给所有营销技能装了统一的\"品牌大脑\"——写加盟商招募文案、场站本地 SEO、竞对定价页汇总时，产出口径一致、不用反复交代背景。",
+        "deploy": "① 先写一个 <code>product-marketing-context.md</code>：印尼公共充电场站业务、目标（加盟商招募 + Marketing）、受众画像、定位、禁忌；② 从社区库挑 3-5 个真正用得上的技能（如本地 SEO、文案、客户报告），让每个技能开头引用该 context 文件；③ 用 <code>/skill-a /skill-b</code> 连写成链（配合精选①的多技能加载）。",
+        "pitfall": "<b>星标 ≠ 质量</b>（某库 22K stars 不代表适配你的场景）——务必逐个看 README 和实测，对照充电场站/东南亚语境验证后再纳入。别整库照搬。验证：先用 1 个技能 + context 文件跑一篇招商文案，人工核对口径是否贴合你的业务，再扩链。"
+      }
     },
     {
       "id": "ma-output-spill",
@@ -979,7 +1090,13 @@
         "https://www.mindstudio.ai/blog/claude-sonnet-5-token-efficiency-problem",
         "https://www.finout.io/blog/claude-sonnet-5-pricing-2026-the-hidden-costs-and-real-savings-behind-the-cost-neutral-launch",
         "https://platform.claude.com/docs/en/about-claude/pricing"
-      ]
+      ],
+      "fields": {
+        "what": "多个独立来源（MindStudio、Finout、SitePoint）与社区（Cursor 论坛）一致指出：Sonnet 5 <b>同任务约多用 30% token（新 tokenizer）+ 倾向更长、更多推理的输出</b>，两者叠加，在<b>多步骤 / 多工具调用 / 长推理链的 agentic 工作流里，单任务成本可能反超 Opus 4.8</b>——尽管单价\"看似对等\"($3/$15，促销 $2/$10)。这是对本雷达 <b>07-07 \"Sonnet 5 成 CC 默认可降本\" 判断的修正/补充</b>：在<b>简单任务</b>上 Sonnet 5 确实更省，但在<b>重 agentic 任务</b>上不一定。",
+        "value": "你的活分两类：① 日常采集/摘要/分类/招商文案生成——短、结构化，Sonnet 5 默认仍划算；② 若你未来搭多步代理链（如\"抓取→清洗→出图→写报告\"一条龙），别默认以为 Sonnet 5 一定比 Opus 便宜，要实测账单。",
+        "deploy": "① <b>按任务分级选模型</b>：简单任务 Sonnet 5 + <code>effort: low</code>，硬 agentic 任务实测对比 Sonnet 5 vs Opus 的 <code>usage</code> 再定；② <b>分类/格式化/抽取/摘要类任务关掉 extended thinking</b>（<code>thinking: disabled</code>）——这类任务思考几乎不提质却烧钱；③ 叠加 Prompt Caching（读取 0.1×）+ Batch（5 折）；④ 精简上下文、默认低 effort。",
+        "pitfall": "别被\"单价对等\"误导——真实成本 = 单价 × token 量，而 Sonnet 5 的 token 量更大。验证：拿一个你的代表性 agentic 任务，Sonnet 5 与 Opus 4.8 各跑一次，直接比 <code>usage.output_tokens</code> × 单价，用账单说话，别凭直觉。"
+      }
     },
     {
       "id": "cc-v2-1-203",
@@ -1005,7 +1122,13 @@
         "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
         "https://code.claude.com/docs/en/changelog",
         "https://github.com/anthropics/claude-code/releases"
-      ]
+      ],
+      "fields": {
+        "what": "连着 v2.1.201/202 密集迭代，v2.1.203 重点修后台代理稳定性——延续本雷达 07-07（子代理默认后台）、07-08（v2.1.199 守护进程自杀修复）这条线：① <b>修复\"返回 claude agents 时静默停掉在跑子代理并从头重跑 prompt\"——现在子代理的工作会延续</b>；② 修复后台会话在守护进程 session token 过期后<b>永久无响应（无法 attach/回复/停止）——现自动恢复</b>；③ 修复 macOS 上打开/切换后台会话因误判低内存卡顿 15-20 秒（2.1.196 引入的回归）；④ 新增<b>登录即将过期预警</b>，让你在后台会话被中断前重新认证；⑤ 手动权限模式下页脚显示灰色 ⏸ 徽标。",
+        "value": "①②直接治你可能遇到的\"后台子代理白跑/卡死\"——尤其你已在用后台并行。④正好呼应我们之前的登录/授权中断痛点（如 github 需重新授权）：以后会提前预警而非静默断线。",
+        "deploy": "升级 Claude Code 到 ≥ v2.1.203。若之前遇到\"回到 agents 子代理从头重跑\"或\"后台会话卡死连不上\"，升级即解。",
+        "pitfall": "验证子代理工作延续：派一个长任务后台子代理，中途返回 claude agents，确认它<b>接着跑</b>而非从头重来。"
+      }
     },
     {
       "id": "connectors-directory",
@@ -1030,7 +1153,13 @@
       "links": [
         "https://github.com/rdmgator12/awesome-claude-connectors",
         "https://ezcontact.ai/en/blog/2026-02-26-connect-claude-ai-whatsapp-mcp-guide/"
-      ]
+      ],
+      "fields": {
+        "what": "截至 7/2，Anthropic <b>官方 Claude Connectors 目录收录 554 个 MCP 集成，每个都经官方审核（安全/可靠/兼容）</b>。其中直接命中招商链路：WhatsApp 类（gaviwhatsapp 可在 Claude Code 收发 WhatsApp、TimelinesAI 接 WhatsApp Business）、CRM 类（Attio、Clarify——查询/创建记录、管线跟踪）。",
+        "value": "你 07-05 已看过\"WhatsApp 线索机器人\"打法；这条是<b>把它落地的可信元件货架</b>——不用自己从零找/审 MCP，用官方审核过的连接器把「WhatsApp 收线索 → CRM 建档/打标 → 管线跟进」串起来，一人团队也能搭起半自动招商漏斗。",
+        "deploy": "① 从官方 Connectors 目录（非第三方海量目录）挑 WhatsApp + 一个 CRM 连接器；② 先在测试账号跑通\"收一条消息→CRM 建一条联系人\"最小闭环；③ 再加资格判定/打标签规则。",
+        "pitfall": "\"经官方审核\" ≠ \"适配你的流程\"——仍需验证它支持你要的字段/权限，且涉及客户数据要看合规。<b>只用官方审核目录，别碰无审核的\"2 万+\"海量目录</b>（见今日噪音）。验证：先跑最小闭环，确认一条真实线索能正确落到 CRM，再扩。"
+      }
     },
     {
       "id": "sonnet5-service-blip",
@@ -1122,7 +1251,13 @@
         "https://www.anthropic.com/engineering/claude-code-auto-mode",
         "https://www.techtimes.com/articles/319874/20260707/claude-code-defaults-human-approval-auto-mode-requires-explicit-opt.htm",
         "https://paddo.dev/blog/claude-code-auto-mode-absent-human/"
-      ]
+      ],
+      "fields": {
+        "what": "① <b>v2.1.200（7/3）把默认权限模式从 Auto 改成 Manual</b>（CLI/VS Code/JetBrains 全线，仅一行 changelog、无公告）——现在危险动作默认需你点头，auto 需显式开启。② v2.1.205（7/8）给 auto 模式加了\"禁止篡改会话 transcript 文件\"的安全阀。③ 背景警报：微软安全团队（6月）发现 <b>Claude Code GitHub Action 可被 prompt 注入诱导泄露 CI/CD 密钥</b>；4月有 GitHub issue 记录一次会话<b>误删文件导致生产宕机+数据丢失</b>。",
+        "value": "你天天跑 CC agent（还在用后台子代理），这条直接关系到你的资产安全。默认改 Manual 是好事——别急着为图省事全开 auto。真实教训是：<b>AI 层的安全防护是非确定性的</b>（Simon Willison 明确不信任 AI 安全、只信 OS 级沙箱），一旦 agent 被诱导或误解指令，代价是密钥泄露或误删。",
+        "deploy": "① 保持默认 Manual，只对**明确低风险、可回滚**的重复动作开 auto；② 关键项目用 <b>OS 级隔离</b>（受限文件访问 + 网络白名单 + 单独低权限账号/容器）兜底，别只靠 CC 的权限模式；③ 涉密操作（含 GitHub Action）警惕 prompt 注入——不要把密钥暴露在 agent 可读上下文；④ 破坏性命令（删除/部署/改配置）保留人工确认。",
+        "pitfall": "auto 模式\"不是安全，只是比 dangerous 模式安全些\"（Boris Cherny 原话）。验证你的隔离是否真生效：在沙箱里让 agent 尝试写 <code>/</code> 或访问白名单外域名，确认被 OS 层拦截，而非指望 agent 自觉。"
+      }
     },
     {
       "id": "marketing-mcp-live",
@@ -1147,7 +1282,13 @@
       "links": [
         "https://newsletter.mkt1.co/p/build-marketing-strategy-skill-in-claude-code",
         "https://customer.io/learn/how-we-work/claude-skills-for-marketers"
-      ]
+      ],
+      "fields": {
+        "what": "与 07-08 讲的\"静态 Skills 技能链\"是**不同层**：MCP 是\"通用适配器\"，让 Claude <b>直接调广告平台 / CRM 的 API 拉实时数据</b>——不用再导 CSV，Claude 能直接读当前投放表现、实时预算、搜索词，相当于给它开了广告后台的只读权限。配合 Marketing Operations 类技能，可做线索生命周期建模与流程自动化。",
+        "value": "招商 Marketing 的实时性痛点——\"这周哪个渠道 CPL 涨了\"\"预算烧到哪了\"——以前要人肉导数据，用 MCP 后 Claude 直接连数据源答。对一人团队，等于把\"数据搬运 + 初步诊断\"这一层交给 agent，你只看结论。",
+        "deploy": "① 从官方审核的 Connectors 目录（见 07-09）选广告平台 / CRM 的 MCP；② 先只给<b>只读</b>权限跑通\"拉本周投放表现→给一句诊断\"；③ 再叠加你的 <code>product-marketing-context</code>（07-08）让输出口径统一。",
+        "pitfall": "① 实时数据接入=把客户/投放数据暴露给 agent，务必最小权限 + 只读起步 + 看合规；② 结合精选①：给这类连数据的 agent 也上权限约束，别 auto 全开。验证：先对一个渠道跑只读诊断，人工核对数字与后台一致再扩。"
+      }
     },
     {
       "id": "api-rate-tiers",
@@ -1171,7 +1312,13 @@
       "links": [
         "https://platform.claude.com/docs/en/api/rate-limits",
         "https://releasebot.io/updates/anthropic/claude-developer-platform"
-      ]
+      ],
+      "fields": {
+        "what": "Claude 开发者平台<b>提高 API 限速并简化用量分级</b>：Sonnet 与 Haiku 的限速<b>在各档均对齐 Opus</b>；用量档位收敛为三档——Start / Build / Scale。",
+        "value": "你若用 API 跑批量采集/摘要/招商话术，以前 Sonnet/Haiku 的低限速会在批量任务里卡你；现在对齐 Opus，<b>同一档下批量吞吐更高、更少被限流</b>。分档简化也让\"我该在哪档、花多少\"更清楚。",
+        "deploy": "① 查你当前所在档（Start/Build/Scale）与对应 RPM/TPM；② 之前因 Sonnet/Haiku 限速被迫拆分的批量任务，可重新合并跑；③ 配合 Batch API（5 折）+ 缓存进一步压成本与限流压力。",
+        "pitfall": "限速提高 ≠ 无限，仍按档计；别把长期用量模型建在\"促销/临时放宽\"上。验证：跑一次你典型的批量任务，看是否还触发 429（限流），对比调整前后的吞吐。"
+      }
     },
     {
       "id": "cc-v2-1-205-fixes",
@@ -1266,7 +1413,13 @@
         "https://artificialanalysis.ai/articles/gpt-5-6-has-landed",
         "https://www.datacamp.com/blog/claude-sonnet-5-vs-gpt-5-6",
         "https://www.vellum.ai/blog/gpt-5-6-benchmarks-explained"
-      ]
+      ],
+      "fields": {
+        "what": "7/9 GPT-5.6 结束两周门控预览、正式 GA，一次给三档：<b>Sol（旗舰 $5/$30）</b>、<b>Terra（均衡 $2.50/$15）</b>、<b>Luna（最快最便宜 $1/$6）</b>（每百万 token 输入/输出）。编码基准（Artificial Analysis Coding Agent Index）：Sol 80、Terra 77、Luna 75；Sol 在 Claude Code 里每任务成本比 Opus 4.8(max) 约低 ~10%。",
+        "value": "你的工作流深绑 Claude Code + skills，<b>不建议整体迁移</b>（迁移成本远大于省下的钱）。但知道价格地板有用：① Terra $2.50/$15 在输入端压过 Sonnet 4.6 的 $3/$15；② Luna $1/$6 在 Claude 侧没有对位的同价产品；③ Sol 输出 $30 比 Opus 4.8 的 $25 贵。",
+        "deploy": "把它当**批量/低风险任务的备选降本池**，而非主力——例如大批量摘要/分类这类不吃工作流集成的活，可测 Luna/Terra 的性价比；主力编码/agent 仍留 Claude Code。别为省钱把招商/行研的核心流程搬离你已经调顺的 Claude 环境。",
+        "pitfall": "① 基准≠你的真实任务，务必用**你自己的代表性任务**实测成本与质量再决定；② 换供应商=换 SDK/密钥/合规面，隐性成本高；③ 编码 review 场景有报告称 Sonnet 5 注释质量更干净。验证：拿一批你的真实摘要任务，Luna/Terra 与 Sonnet 5 各跑一遍比 <code>成本×质量</code>。"
+      }
     },
     {
       "id": "gemini-agents",
@@ -1291,7 +1444,13 @@
       "links": [
         "https://ai.google.dev/gemini-api/docs/changelog",
         "https://felloai.com/best-ai-models/"
-      ]
+      ],
+      "fields": {
+        "what": "① <b>Gemini 3.5 Flash 正式 GA</b>，主打 agentic/编码性价比（3.5 Pro 因推理/编码问题从 6 月滑到 7 月）；② <b>Gemini Managed Agents 进入公测</b>——在 Google 托管的隔离 Linux 沙箱里构建/部署有状态自主代理，思路与 Anthropic 的 Managed Agents 同类。",
+        "value": "又一个\"托管沙箱跑代理\"的选项，说明 agentic 平台在同质化竞争。对一人团队：<b>暂无迁移必要</b>——你若已在用 Claude 侧的代理/Skills，Gemini 侧是平行生态，重复搭建不划算；仅在你需要 Google 生态深度集成（如 Workspace/Search 数据）时才值得评估。",
+        "deploy": "不必动。若你重度用 Google Workspace 做招商资料，可留意 Gemini Agents 对 Google 数据的原生连接是否比走 MCP 更省事——但先等它出公测期。",
+        "pitfall": "公测阶段能力/稳定性未定型；托管沙箱的数据驻留与合规要看清。验证：仅在有明确 Google 生态刚需时做一次小 POC，否则观望。"
+      }
     },
     {
       "id": "model-routing-decision",
@@ -1316,7 +1475,13 @@
       "links": [
         "https://platform.claude.com/docs/en/about-claude/pricing",
         "https://www.finout.io/blog/anthropic-api-pricing"
-      ]
+      ],
+      "fields": {
+        "what": "把本周价格重排落到你的决策上。关键事实：<b>Sonnet 5 促销价 $2/$10 到 8/31 到期，之后回 $3/$15</b>；届时 GPT-5.6 Terra（$2.50/$15）在输入端会比 Sonnet 5 更便宜；Luna（$1/$6）是最低价档。也就是说，<b>8/31 是你成本结构的一个拐点</b>。",
+        "value": "与其纠结\"换不换\"，不如现在就把任务<b>按价值分级路由</b>，把拐点变成一次主动优化而非被动涨价。",
+        "deploy": "① <b>核心/高风险</b>（招商决策、行研结论、代码）——留 Opus 4.8 / Sonnet 5，质量优先；② <b>日常量产</b>（摘要、分类、话术初稿）——Sonnet 5 促销期先用满，配 <code>effort: low</code> + 关 thinking + Prompt Caching + Batch；③ <b>超大批量、不吃集成</b>——在 8/31 前后测一次 Luna/Terra 做备选降本池；④ 在日历上标 <b>8/31</b>，到期前重算一次账单再定主力。",
+        "pitfall": "别为\"账面单价\"频繁切模型——切换有 tokenizer/缓存失效/质量波动的隐性成本（见 07-09 Sonnet 5 成本自我修正）。验证：8/31 前用真实一周用量，把\"分级路由 vs 全 Sonnet 5\"两种方案各估一次月账单。"
+      }
     },
     {
       "id": "opus47-fast-deadline",
@@ -1389,7 +1554,13 @@
         "https://github.com/anthropics/claude-code/releases/tag/v2.1.206",
         "https://dev.classmethod.jp/en/articles/20260711-cc-updates-v2-1-207/",
         "https://code.claude.com/docs/en/changelog"
-      ]
+      ],
+      "fields": {
+        "what": "两版以稳定性收尾，几条正中日常痛点：① <b>修复 OAuth 认证的 MCP 服务器在单次 token 刷新失败后就要求手动重新认证</b>（这很可能正是\"MCP 反复掉线要重授权\"的根因之一）；② 修复 <code>--mcp-config</code>/<code>.mcp.json</code> 的 <code>request_timeout_ms</code> 被忽略、新会话里长任务 MCP 调用卡在 60 秒默认超时；③ 修复登录过期时所有模型报错误信息而非提示 <code>/login</code>；④ 修复 <code>--resume</code>/<code>--continue</code> 启动时键盘无响应；⑤ <b>修复流式输出超长列表/表格/代码块时终端卡顿、按键延迟</b>；⑥ 云平台侧：Bedrock/Vertex/Foundry 开放 auto 模式、AWS/Vertex 默认切 Opus 4.8。",
+        "value": "你整套雷达流水线跑在 Claude Code + MCP 上，①②③直接治你我这周反复遇到的\"github MCP 掉线/需重授权/超时\"类摩擦——升级后这类中断应显著减少。⑤对你写长报告/看长 diff 的体验是实打实改善。",
+        "deploy": "升级 Claude Code 到 ≥ v2.1.207。若之前 MCP 频繁要重授权或长调用莫名超时，升级后观察是否消失；仍频繁的话再查 <code>request_timeout_ms</code> 配置。",
+        "pitfall": "OAuth 修复只解\"单次刷新失败即掉线\"这一类，不代表所有授权问题消失。验证：升级后连续跑几天，看 MCP 是否还像本周这样频繁需要重新授权。"
+      }
     },
     {
       "id": "m365-write",
@@ -1494,7 +1665,13 @@
         "https://www.androidauthority.com/claude-fable-5-free-extension-3685103/",
         "https://www.techtimes.com/articles/319767/20260706/fable-5-subscription-ends-tomorrow-per-token-costs-who-gets-hit-hardest.htm",
         "https://www.digitalapplied.com/blog/anthropic-fable-5-access-extended-july-12-2026"
-      ]
+      ],
+      "fields": {
+        "what": "Anthropic 把 Fable 5 的「计划内额度」（Pro/Max/Team/Enterprise 每周用量 50% 以内不额外计费）延长到 <b>7/12 23:59 PT</b> 后正式结束；<b>7/13 起 Fable 5 仅按 API 计量收费，$10/百万输入、$50/百万输出</b>。背景：Fable 5 于 6/9 上线，曾因出口管制全球暂停 19 天，6/30 解禁后压缩为六天窗口、封顶周用量 50%，本次到期即该窗口终点。",
+        "value": "你此前把部分分类 / 轻任务路由给过 Fable 5（见 7/4「Fable 5 分类器误伤」）。今天起这些调用不再「含在套餐里」，而是按 $10/$50 计量——<b>输出单价是 Opus 4.8（约 $25/百万输出）的 2 倍</b>。对一人团队：若无 Fable 5 刚需，今天就把相关调用切走，别让它静默计费。",
+        "deploy": "① 盘一遍你的脚本 / Skill 里是否显式或默认调用 Fable 5；② 轻量分类 / 抽取改用 <b>Haiku 4.5 或 Sonnet</b>（性价比更高）；③ 确需 Fable 5 能力的，改为显式 API 调用并设预算上限（可借本期扩展区 Copilot 的「会话开销封顶」思路，自建用量护栏）。",
+        "pitfall": "① $10/$50 为多源一致口径 + 官方 Fable 页，已证实；② 「计划内额度到期」只影响套餐内免费部分，不影响你主动的 API 按量使用；③ 时区坑——官方口径是 <b>7/12 23:59 PT（= UTC+8 7/13 约 14:59）</b>，今天上午你可能仍在旧窗口尾巴。验证：在 Console 用量页看 Fable 5 是否开始计入 API 账单。"
+      }
     },
     {
       "id": "copilot-spend-guardrails",
@@ -1518,7 +1695,13 @@
       "links": [
         "https://github.blog/changelog/2026-07-01-set-ai-credit-session-limits-in-copilot-cli-and-sdk/",
         "https://www.techtimes.com/articles/319982/20260709/github-closes-agentic-loop-vs-code-browser-tools-go-ga-sessions-run-parallel.htm"
-      ]
+      ],
+      "fields": {
+        "what": "Copilot CLI/SDK 现可给单次 agent 会话设 AI 额度上限，到顶自动收尾（公测，CLI ≥1.0.66 / SDK ≥1.0.5，覆盖模型调用、子代理与压缩开销）；VS Code 内浏览器工具转 GA、默认开启。",
+        "value": "竞品在补「无人值守 agent 花费封顶」。你用 Claude Code 跑后台/自动化，目前只有账户级限额、无逐会话美元封顶——正是无人值守的成本盲区；浏览器 GA 与 Claude in Chrome 同向。",
+        "deploy": "不必迁移。给 Claude Code 自动化自建护栏：脚本层按 API usage 字段记录每会话 token 并设阈值中断，或用 --max-turns 限步数兜底；留意 CC 是否跟进逐会话预算。",
+        "pitfall": "会话上限是公测功能，「到顶自动收尾」的收尾质量未经充分验证；两家口径不同（AI credits vs tokens）。验证：小任务设低上限试触发一次，看收尾行为。"
+      }
     },
     {
       "id": "apikey-expiry",
@@ -1542,7 +1725,13 @@
       "links": [
         "https://platform.claude.com/docs/en/release-notes/overview",
         "https://platform.claude.com/docs/en/manage-claude/authentication"
-      ]
+      ],
+      "fields": {
+        "what": "Console 新建 API key / Admin key 可选过期时间（预设/自定义/永不）；≥7 天期的 key 到期前邮件提醒创建者；Admin API 以 expires_at 可查。存量 key 不受影响（7/8 上线，补录）。",
+        "value": "雷达采集与营销自动化都在无人值守跑，长命 key 泄露就是长期风险敞口；设过期日=零成本安全护栏，到期自动失效、泄露损失有界。",
+        "deploy": "Console → Settings → API keys → 新建时选过期；给「每日雷达」类脚本建 90 天专用 key、日历记轮换日；存量长命 key 逐把替换。",
+        "pitfall": "过期只作用于新建 key，存量不自动加期限——不替换就没有护栏；到期当天脚本会 401，收到提醒邮件及时轮换。验证：Admin API 列 key 核对 expires_at。"
+      }
     }
   ],
   "picks": [

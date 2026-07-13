@@ -52,12 +52,23 @@ for k, v in D.get("categories", {}).items():
         fail("分类名含 emoji: %s=%s" % (k, v))
 
 allids = {t["id"] for t in D["topics"]}
+MIN_FIELD_EXT = 15            # 扩展条目每字段的最少字数（较精选低）
+FKEYS = ("what", "value", "deploy", "pitfall")
+
 for t in D["topics"]:
     tid, date = t["id"], t.get("date", "")
     if not t.get("links"):
         (fail if date >= ENFORCE_FROM else warn)("topic %s links[] 为空（原始信源缺失）" % tid)
     if len(t.get("brief", "")) < MIN_BRIEF:
         (fail if date >= ENFORCE_FROM else warn)("topic %s brief 少于 %d 字" % (tid, MIN_BRIEF))
+    # v8：新条目（精选与扩展）必须带结构化 fields 四键，供单条详情页渲染完整模板
+    fd = t.get("fields") or {}
+    fmin = MIN_FIELD if t.get("tier") == "featured" else MIN_FIELD_EXT
+    for k in FKEYS:
+        body = strip_tags(fd.get(k, "")).strip()
+        if len(body) < fmin:
+            (fail if date >= ENFORCE_FROM else warn)(
+                "topic %s fields.%s 缺失或少于 %d 字（详情页模板不完整）" % (tid, k, fmin))
     u = t.get("url") or ""
     if u.startswith("reports/") and "#" in u and "#topic-" not in u:
         fail("topic %s url 锚点缺 topic- 前缀: %s" % (tid, u))
@@ -92,9 +103,14 @@ for rp in sorted(glob.glob(os.path.join(REPO, "docs/reports/20*.html"))):
     if re.search(r"<p>\s*</p>", s): fail("%s 有空段落" % date)
     report_ids[date] = set(re.findall(r'id="topic-([^"]+)"', s))
 
-    # 精选卡内容模板（带 id 的 br-report-card；复盘卡无 id，豁免）
-    for m in re.finditer(r'<article class="br-report-card" id="topic-([^"]+)">', s):
-        cid = m.group(1)
+    # v8：新报告的扩展条目必须为模板化卡（br-report-card--ext），禁止一段式 br-row
+    if hard and re.search(r'<div class="br-row" id="topic-', s):
+        fail("%s 扩展条目仍为一段式 br-row（v8 起须用 br-report-card--ext 模板卡）" % date)
+
+    # 精选/扩展卡内容模板（带 id 的 br-report-card[--ext]；复盘卡无 id，豁免）
+    for m in re.finditer(r'<article class="br-report-card( br-report-card--ext)?" id="topic-([^"]+)">', s):
+        is_ext = bool(m.group(1)); cid = m.group(2)
+        min_f = MIN_FIELD_EXT if is_ext else MIN_FIELD
         block = s[m.start():matching_close(s, m.start(), "article")]
         heads = re.findall(r'br-field__h">([^<]+)</h3>', block)
         def has(spec):
@@ -108,8 +124,8 @@ for rp in sorted(glob.glob(os.path.join(REPO, "docs/reports/20*.html"))):
         for fm in re.finditer(r'<div class="br-field"><h3 class="br-field__h">([^<]+)</h3>(.*?)</div>', block, re.S):
             name, body = fm.group(1), strip_tags(fm.group(2)).strip()
             if name.startswith(("来源",)): continue
-            if len(body) < MIN_FIELD:
-                say("%s #%s 字段「%s」仅 %d 字（<%d，疑似偷薄）" % (date, cid, name, len(body), MIN_FIELD))
+            if len(body) < min_f:
+                say("%s #%s 字段「%s」仅 %d 字（<%d，疑似偷薄）" % (date, cid, name, len(body), min_f))
 
 # 锚点解析：topics/picks 的站内 url 必须指到真实 id
 def resolve(u, who):
@@ -132,6 +148,16 @@ idx = open(os.path.join(REPO, "docs/index.html"), encoding="utf-8").read()
 if "topics.json" not in idx: fail("index 未接 topics.json")
 if "hashchange" not in idx: fail("index 缺 hash 路由（问题1回归）")
 if "t.links" not in idx: fail("index 详情页未渲染原始信源（问题2回归）")
+if "t.fields" not in idx: fail("index 详情页未渲染结构化模板 fields（v8 回归）")
+
+# ---------- CSS 防缓存版本一致性（v8）----------
+vers = set()
+for hp in [os.path.join(REPO, "docs/index.html")] + glob.glob(os.path.join(REPO, "docs/reports/20*.html")):
+    hs = open(hp, encoding="utf-8").read()
+    vm = re.search(r'href="(?:\.\./)?style\.css\?v=(\d+)"', hs)
+    if not vm: fail("%s 的 style.css 引用缺 ?v= 防缓存参数" % os.path.relpath(hp, REPO))
+    else: vers.add(vm.group(1))
+if len(vers) > 1: fail("style.css 版本参数不一致: %s（改 CSS 须全站同步递增）" % sorted(vers))
 
 # ---------- 汇总 ----------
 for w in warns: print("  ⚠ 告警(历史存档，不判失败):", w)
