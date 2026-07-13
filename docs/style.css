@@ -190,6 +190,11 @@ html,body{ margin:0; padding:0; }
 .br-tag{ font-family:var(--font-mono); font-size:11px; color:var(--muted); border:1px solid var(--rule); border-radius:2px; padding:3px 9px; white-space:nowrap; }
 .br-app a.br-source{ display:inline-block; font-family:var(--font-serif); font-size:14px; font-weight:600; color:var(--paper); background:var(--ink); padding:11px 24px; border-radius:3px; margin-bottom:44px; }
 .br-app a.br-source:hover{ color:var(--paper); background:var(--red); }
+/* 扩展阅读的模板化紧凑卡（v8）：同结构、缩一号，保持与精选区隔 */
+.br-report-card--ext{ padding:20px 22px 14px; }
+.br-report-card--ext .br-report-card__title{ font-size:clamp(16px,2.6cqi,20px); margin:6px 0 10px; }
+.br-report-card--ext .br-field p, .br-report-card--ext .br-act-box p{ font-size:13.5px; line-height:1.75; }
+.br-report-card--ext .br-field{ margin-bottom:10px; }
 .br-srcs{ border-top:1px solid var(--rule); padding-top:18px; margin:6px 0 28px; }
 .br-srcs .br-kicker{ display:block; margin-bottom:10px; }
 .br-srcs ul{ list-style:none; margin:0; padding:0; }
