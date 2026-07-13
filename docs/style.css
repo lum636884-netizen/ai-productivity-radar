@@ -188,7 +188,14 @@ html,body{ margin:0; padding:0; }
 .br-act-box p{ font-family:var(--font-serif); font-size:15px; line-height:1.7; color:var(--ink); margin:8px 0 0; }
 .br-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:30px; }
 .br-tag{ font-family:var(--font-mono); font-size:11px; color:var(--muted); border:1px solid var(--rule); border-radius:2px; padding:3px 9px; white-space:nowrap; }
-.br-source{ display:inline-block; font-family:var(--font-serif); font-size:14px; font-weight:600; color:var(--paper); background:var(--ink); padding:11px 24px; border-radius:3px; margin-bottom:44px; }
+.br-app a.br-source{ display:inline-block; font-family:var(--font-serif); font-size:14px; font-weight:600; color:var(--paper); background:var(--ink); padding:11px 24px; border-radius:3px; margin-bottom:44px; }
+.br-app a.br-source:hover{ color:var(--paper); background:var(--red); }
+.br-srcs{ border-top:1px solid var(--rule); padding-top:18px; margin:6px 0 28px; }
+.br-srcs .br-kicker{ display:block; margin-bottom:10px; }
+.br-srcs ul{ list-style:none; margin:0; padding:0; }
+.br-srcs li{ padding:7px 0; border-bottom:1px solid var(--hair); font-size:13px; }
+.br-srcs li a{ font-weight:600; color:var(--red); margin-right:10px; }
+.br-srcs__u{ font-family:var(--font-mono); font-size:11px; color:var(--faint); word-break:break-all; }
 .br-related{ border-top:1px solid var(--rule); padding-top:24px; }
 .br-related .br-kicker{ margin-bottom:16px; display:block; }
 

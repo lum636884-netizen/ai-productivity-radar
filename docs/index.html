@@ -263,7 +263,11 @@
         '<p class="br-detail__brief">'+esc(t.brief)+'</p>'+
         (t.act ? '<div class="br-act-box"><span class="br-field__h">建议行动</span><p>'+esc(t.act)+'</p></div>' : '')+
         (tags ? '<div class="br-tags">'+tags+'</div>' : '')+
-        '<a class="br-source" href="'+esc(t.url)+'">阅读原文 / 来源 →</a>'+
+        ((t.links&&t.links.length) ? '<div class="br-srcs"><span class="br-kicker">原始信源 · '+t.links.length+' 条</span><ul>'+
+          t.links.map(function(u){ var host=String(u).replace(/^https?:\/\//,"").split("/")[0];
+            return '<li><a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(host)+'</a><span class="br-srcs__u">'+esc(u)+'</span></li>'; }).join("")+
+          '</ul></div>' : '')+
+        (t.url ? '<a class="br-source" href="'+esc(t.url)+'">完整分析（是什么 / 价值 / 部署 / 坑与验证）· 当日报告 →</a>' : '')+
         related+
       '</article>';
   }
@@ -279,22 +283,42 @@
     viewEl.style.animation = "none"; void viewEl.offsetWidth; viewEl.style.animation = "";
   }
 
+  /* ---------- hash 路由（后退可用 · URL 可分享）---------- */
+  var TAB_KEYS = ["today","picks","all","days","fav"];
+  var histCount = 0; // 本页内发生过的 hash 跳转次数（判断"返回"能否安全 history.back()）
+  function applyHash(){
+    var h = location.hash || "", m;
+    if((m = h.match(/^#\/topic\/(.+)$/))){
+      S.detailId = decodeURIComponent(m[1]);
+    } else {
+      S.detailId = null;
+      if((m = h.match(/^#\/tab\/([a-z]+)$/)) && TAB_KEYS.indexOf(m[1])!==-1) S.tab = m[1];
+      else if(!h || h==="#") S.tab = "today"; // 空 hash = 首页默认「今日」（后退到起点时复位）
+    }
+    renderTabs(); render(); window.scrollTo(0,0);
+  }
+  function nav(hash){
+    if(location.hash === hash){ applyHash(); } else { location.hash = hash; }
+  }
+  window.addEventListener("hashchange", function(){ histCount++; applyHash(); });
+
   /* ---------- 事件委托 ---------- */
   document.addEventListener("click", function(e){
     var el;
     if((el = e.target.closest("[data-theme-toggle]"))){ toggleTheme(); return; }
     if((el = e.target.closest("[data-fav]"))){ e.preventDefault(); toggleFav(el.getAttribute("data-fav")); return; }
-    if((el = e.target.closest("[data-open]"))){ e.preventDefault(); var id=el.getAttribute("data-open"); if(id){ S.detailId=id; window.scrollTo(0,0); renderTabs(); render(); } return; }
-    if((el = e.target.closest("[data-close]"))){ e.preventDefault(); S.detailId=null; renderTabs(); render(); return; }
-    if((el = e.target.closest("[data-tab]"))){ S.tab=el.getAttribute("data-tab"); S.detailId=null; renderTabs(); render(); window.scrollTo(0,0); return; }
+    if((el = e.target.closest("[data-open]"))){ e.preventDefault(); var id=el.getAttribute("data-open"); if(id){ nav("#/topic/"+encodeURIComponent(id)); } return; }
+    if((el = e.target.closest("[data-close]"))){ e.preventDefault(); if(histCount>0){ history.back(); } else { nav("#/tab/"+S.tab); } return; }
+    if((el = e.target.closest("[data-tab]"))){ nav("#/tab/"+el.getAttribute("data-tab")); return; }
     if((el = e.target.closest("[data-cat]"))){ S.cat=el.getAttribute("data-cat"); S.hot=""; render(); return; }
     if((el = e.target.closest("[data-hot]"))){ var idx=el.getAttribute("data-hot"); S.hot=(S.hot===idx?"":idx); if(S.hot!=="") S.cat="all"; render(); return; }
   });
 
   qEl.addEventListener("input", function(){
-    S.query = qEl.value; S.tab="all"; S.detailId=null; S.hot="";
+    S.query = qEl.value; S.hot="";
     qClearEl.hidden = !S.query;
-    renderTabs(); render();
+    if(S.detailId || S.tab!=="all"){ S.tab="all"; nav("#/tab/all"); }
+    else { renderTabs(); render(); }
   });
   qClearEl.addEventListener("click", function(){ qEl.value=""; S.query=""; qClearEl.hidden=true; render(); });
 
@@ -313,7 +337,7 @@
         var d0 = (DATA.days||[])[0];
         ISSUE = d0 ? (d0.label + " · " + String(d0.date).replace(/-/g,"/")) : "每日情报";
         issueEl.textContent = ISSUE;
-        renderTabs(); render();
+        applyHash(); // 支持 #/topic/<id> / #/tab/<key> 直达链接；无 hash 走默认「今日」
       })
       .catch(function(err){
         viewEl.innerHTML = '<div class="br-empty">数据加载失败:'+esc(err.message)+'<br>请确认 data/topics.json 存在且为合法 JSON。</div>';

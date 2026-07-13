@@ -136,7 +136,10 @@
         "无人值守"
       ],
       "url": "reports/2026-07-04.html#topic-manual-mode",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://code.claude.com/docs/en/permission-modes"
+      ]
     },
     {
       "id": "fable5-classifier",
@@ -155,7 +158,11 @@
         "模型选型"
       ],
       "url": "reports/2026-07-04.html#topic-fable5-classifier",
-      "links": []
+      "links": [
+        "https://www.anthropic.com/news/redeploying-fable-5",
+        "https://www.techtimes.com/articles/319413/20260701/claude-fable-5-debugging-scores-drop-70-safety-classifier-reroutes-tasks-weaker-fallback-model.htm",
+        "https://www.digitalapplied.com/blog/claude-fable-5-safety-classifier-coding-tradeoffs-2026"
+      ]
     },
     {
       "id": "opus47-fast",
@@ -174,7 +181,10 @@
         "截止"
       ],
       "url": "reports/2026-07-04.html#topic-opus47-fast",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+        "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8"
+      ]
     },
     {
       "id": "stacked-skills",
@@ -192,7 +202,10 @@
         "Skill"
       ],
       "url": "reports/2026-07-04.html#topic-stacked-skills",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+      ]
     },
     {
       "id": "bg-agent-patches",
@@ -210,7 +223,9 @@
         "后台 agent"
       ],
       "url": "reports/2026-07-04.html#topic-bg-agent-patches",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/changelog"
+      ]
     },
     {
       "id": "mcp-tunnels-move",
@@ -228,7 +243,9 @@
         "API 变更"
       ],
       "url": "reports/2026-07-04.html#topic-mcp-tunnels-move",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/changelog"
+      ]
     },
     {
       "id": "streaming-watchdog",
@@ -246,7 +263,10 @@
         "稳定性"
       ],
       "url": "reports/2026-07-04.html#topic-streaming-watchdog",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+      ]
     },
     {
       "id": "rate-limits",
@@ -265,7 +285,10 @@
         "层级"
       ],
       "url": "reports/2026-07-05.html#topic-rate-limits",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/about-claude/pricing",
+        "https://docs.anthropic.com/en/release-notes/api"
+      ]
     },
     {
       "id": "chrome-frontier",
@@ -284,7 +307,11 @@
         "招商线索"
       ],
       "url": "reports/2026-07-05.html#topic-chrome-frontier",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/chrome",
+        "https://www.mindstudio.ai/blog/multi-agent-chrome-automation-claude-code",
+        "https://dev.to/minatoplanb/i-tested-every-browser-automation-tool-for-claude-code-heres-my-final-verdict-3hb7"
+      ]
     },
     {
       "id": "self-hosted-sandbox",
@@ -303,7 +330,11 @@
         "MCP Tunnels"
       ],
       "url": "reports/2026-07-05.html#topic-self-hosted-sandbox",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes",
+        "https://dev.to/akaranjkar08/claude-managed-agents-self-hosted-sandboxes-and-mcp-tunnels-setup-guide-4ha4",
+        "https://venturebeat.com/orchestration/claude-agents-can-finally-connect-to-enterprise-apis-without-leaking-credentials"
+      ]
     },
     {
       "id": "marketing-skills",
@@ -344,7 +375,9 @@
         "竞对调研"
       ],
       "url": "reports/2026-07-05.html#topic-computeruse-cases",
-      "links": []
+      "links": [
+        "https://www.mindstudio.ai/blog/claude-code-computer-use-business-use-cases"
+      ]
     },
     {
       "id": "scheduled-agents",
@@ -363,7 +396,11 @@
         "Vault 凭证"
       ],
       "url": "reports/2026-07-05.html#topic-scheduled-agents",
-      "links": []
+      "links": [
+        "https://claude.com/blog/whats-new-in-claude-managed-agents",
+        "https://platform.claude.com/docs/en/managed-agents/overview",
+        "https://chatforest.com/builders-log/claude-managed-agents-scheduled-deployments-vault-env-vars-june-2026/"
+      ]
     },
     {
       "id": "opus41-retire",
@@ -382,7 +419,11 @@
         "截止"
       ],
       "url": "reports/2026-07-05.html#topic-opus41-retire",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+        "https://therouter.ai/news/anthropic-deprecates-claude-opus-4-1-august-5-migration-guide/",
+        "https://help.make.com/anthropic-claude-model-deprecations-on-june-15-2026"
+      ]
     },
     {
       "id": "whatsapp-leads",
@@ -402,7 +443,11 @@
         "Bahasa"
       ],
       "url": "reports/2026-07-05.html#topic-whatsapp-leads",
-      "links": []
+      "links": [
+        "https://helo.ai/resources/blog/whatsapp-lead-generation",
+        "https://chatzy.ai/blogs/automating-whatsapp-lead-generation-ai",
+        "https://www.marketing-interactive.com/next-in-digital-indonesia-s-marketers-brace-for-ai-led-discovery-and-owned-channel-revival"
+      ]
     },
     {
       "id": "skills-100",
@@ -420,7 +465,9 @@
         "社区实测"
       ],
       "url": "reports/2026-07-05.html#topic-skills-100",
-      "links": []
+      "links": [
+        "https://x.com/VaibhavSisinty/article/2063290847723192610"
+      ]
     },
     {
       "id": "reddit-discipline",
@@ -438,7 +485,9 @@
         "操作纪律"
       ],
       "url": "reports/2026-07-05.html#topic-reddit-discipline",
-      "links": []
+      "links": [
+        "https://www.morphllm.com/claude-code-reddit"
+      ]
     },
     {
       "id": "small-business",
@@ -457,7 +506,12 @@
         "lead triage"
       ],
       "url": "reports/2026-07-05.html#topic-small-business",
-      "links": []
+      "links": [
+        "https://www.anthropic.com/news/claude-for-small-business",
+        "https://the-decoder.com/anthropic-launches-claude-for-small-business-to-embed-ai-into-the-tools-you-forgot-you-pay-for/",
+        "https://karozieminski.substack.com/p/claude-for-small-business-decision-tree-workflows",
+        "https://findskill.ai/blog/claude-for-small-business-pricing-explained/"
+      ]
     },
     {
       "id": "fable5-followup",
@@ -475,7 +529,10 @@
         "分类器误判"
       ],
       "url": "reports/2026-07-05.html#topic-fable5-followup",
-      "links": []
+      "links": [
+        "https://byteiota.com/claude-fable-5s-safety-filter-is-blocking-your-code/",
+        "https://wavect.io/blog/coding-with-claude-fable-5/"
+      ]
     },
     {
       "id": "mobile-computer-use",
@@ -493,7 +550,9 @@
         "移动端"
       ],
       "url": "reports/2026-07-05.html#topic-mobile-computer-use",
-      "links": []
+      "links": [
+        "https://support.claude.com/en/articles/12138966-release-notes"
+      ]
     },
     {
       "id": "hallu-4types",
@@ -512,7 +571,10 @@
         "行研验证"
       ],
       "url": "reports/2026-07-05.html#topic-hallu-4types",
-      "links": []
+      "links": [
+        "https://futureagi.com/blog/llm-hallucination-deep-dive-2026/",
+        "https://www.lakera.ai/blog/guide-to-hallucinations-in-large-language-models"
+      ]
     },
     {
       "id": "prompt-caching-batch",
@@ -532,7 +594,11 @@
         "API 成本"
       ],
       "url": "reports/2026-07-06.html#topic-prompt-caching-batch",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+        "https://platform.claude.com/docs/en/about-claude/pricing",
+        "https://www.aimagicx.com/blog/prompt-caching-claude-api-cost-optimization-2026"
+      ]
     },
     {
       "id": "skills-ecosystem",
@@ -577,7 +643,11 @@
         "Notification hook"
       ],
       "url": "reports/2026-07-07.html#topic-cc-subagent-bg",
-      "links": []
+      "links": [
+        "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
+        "https://code.claude.com/docs/en/changelog",
+        "https://github.com/anthropics/claude-code/releases"
+      ]
     },
     {
       "id": "claude-chrome-ga",
@@ -597,7 +667,10 @@
         "竞对调研"
       ],
       "url": "reports/2026-07-07.html#topic-claude-chrome-ga",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://www.anthropic.com/news"
+      ]
     },
     {
       "id": "hook-silent-fail",
@@ -618,7 +691,10 @@
         "matcher"
       ],
       "url": "reports/2026-07-07.html#topic-hook-silent-fail",
-      "links": []
+      "links": [
+        "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
+        "https://code.claude.com/docs/en/changelog"
+      ]
     },
     {
       "id": "sonnet5-cc-default",
@@ -639,7 +715,11 @@
         "默认模型"
       ],
       "url": "reports/2026-07-07.html#topic-sonnet5-cc-default",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://www.anthropic.com/news/claude-opus-4-8",
+        "https://platform.claude.com/docs/en/about-claude/pricing"
+      ]
     },
     {
       "id": "refusal-no-bill",
@@ -659,7 +739,10 @@
         "成本"
       ],
       "url": "reports/2026-07-07.html#topic-refusal-no-bill",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals",
+        "https://docs.anthropic.com/en/api/handling-stop-reasons"
+      ]
     },
     {
       "id": "codeexec-repl",
@@ -679,7 +762,9 @@
         "程序化工具调用"
       ],
       "url": "reports/2026-07-07.html#topic-codeexec-repl",
-      "links": []
+      "links": [
+        "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+      ]
     },
     {
       "id": "dataviz-skill",
@@ -700,7 +785,9 @@
         "skill"
       ],
       "url": "reports/2026-07-07.html#topic-dataviz-skill",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/changelog"
+      ]
     },
     {
       "id": "sea-agentic-marketing",
@@ -722,7 +809,10 @@
         "WhatsApp"
       ],
       "url": "reports/2026-07-07.html#topic-sea-agentic-marketing",
-      "links": []
+      "links": [
+        "https://www.marketing-interactive.com/next-in-digital-indonesia-s-marketers-brace-for-ai-led-discovery-and-owned-channel-revival",
+        "https://ismartcom.com/blog/ai-lead-generation-in-singapore-and-asia-in-2026-whats-actually-changed/"
+      ]
     },
     {
       "id": "cc-v2-1-199",
@@ -743,7 +833,11 @@
         "stacked skills"
       ],
       "url": "reports/2026-07-08.html#topic-cc-v2-1-199",
-      "links": []
+      "links": [
+        "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
+        "https://www.claudeupdates.dev/version/2.1.199",
+        "https://code.claude.com/docs/en/changelog"
+      ]
     },
     {
       "id": "cache-diagnostics",
@@ -764,7 +858,10 @@
         "API"
       ],
       "url": "reports/2026-07-08.html#topic-cache-diagnostics",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics",
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-caching"
+      ]
     },
     {
       "id": "marketing-skills-workflow",
@@ -786,7 +883,11 @@
         "技能链"
       ],
       "url": "reports/2026-07-08.html#topic-marketing-skills-workflow",
-      "links": []
+      "links": [
+        "https://www.mindstudio.ai/blog/5-skill-agent-workflow-content-marketing-claude-code",
+        "https://ahrefs.com/blog/claude-skills/",
+        "https://github.com/coreyhaines31/marketingskills"
+      ]
     },
     {
       "id": "ma-output-spill",
@@ -806,7 +907,9 @@
         "上下文"
       ],
       "url": "reports/2026-07-08.html#topic-ma-output-spill",
-      "links": []
+      "links": [
+        "https://releasebot.io/updates/anthropic/claude"
+      ]
     },
     {
       "id": "websearch-sec",
@@ -826,7 +929,9 @@
         "财务研究"
       ],
       "url": "reports/2026-07-08.html#topic-websearch-sec",
-      "links": []
+      "links": [
+        "https://www.anthropic.com/engineering/advanced-tool-use"
+      ]
     },
     {
       "id": "cowork-expansion",
@@ -846,7 +951,9 @@
         "Max"
       ],
       "url": "reports/2026-07-08.html#topic-cowork-expansion",
-      "links": []
+      "links": [
+        "https://support.claude.com/en/articles/12138966-release-notes"
+      ]
     },
     {
       "id": "sonnet5-token-cost",
@@ -868,7 +975,11 @@
         "自我修正"
       ],
       "url": "reports/2026-07-09.html#topic-sonnet5-token-cost",
-      "links": []
+      "links": [
+        "https://www.mindstudio.ai/blog/claude-sonnet-5-token-efficiency-problem",
+        "https://www.finout.io/blog/claude-sonnet-5-pricing-2026-the-hidden-costs-and-real-savings-behind-the-cost-neutral-launch",
+        "https://platform.claude.com/docs/en/about-claude/pricing"
+      ]
     },
     {
       "id": "cc-v2-1-203",
@@ -890,7 +1001,11 @@
         "登录预警"
       ],
       "url": "reports/2026-07-09.html#topic-cc-v2-1-203",
-      "links": []
+      "links": [
+        "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
+        "https://code.claude.com/docs/en/changelog",
+        "https://github.com/anthropics/claude-code/releases"
+      ]
     },
     {
       "id": "connectors-directory",
@@ -912,7 +1027,10 @@
         "线索"
       ],
       "url": "reports/2026-07-09.html#topic-connectors-directory",
-      "links": []
+      "links": [
+        "https://github.com/rdmgator12/awesome-claude-connectors",
+        "https://ezcontact.ai/en/blog/2026-02-26-connect-claude-ai-whatsapp-mcp-guide/"
+      ]
     },
     {
       "id": "sonnet5-service-blip",
@@ -932,7 +1050,9 @@
         "状态页"
       ],
       "url": "reports/2026-07-09.html#topic-sonnet5-service-blip",
-      "links": []
+      "links": [
+        "https://status.claude.com/"
+      ]
     },
     {
       "id": "alberta-case",
@@ -952,7 +1072,9 @@
         "案例"
       ],
       "url": "reports/2026-07-09.html#topic-alberta-case",
-      "links": []
+      "links": [
+        "https://www.anthropic.com/news/alberta-government-claude-cybersecurity"
+      ]
     },
     {
       "id": "claude-science",
@@ -972,7 +1094,9 @@
         "备档"
       ],
       "url": "reports/2026-07-09.html#topic-claude-science",
-      "links": []
+      "links": [
+        "https://www.anthropic.com/news/claude-science-ai-workbench"
+      ]
     },
     {
       "id": "cc-permission-safety",
@@ -994,7 +1118,11 @@
         "prompt注入"
       ],
       "url": "reports/2026-07-10.html#topic-cc-permission-safety",
-      "links": []
+      "links": [
+        "https://www.anthropic.com/engineering/claude-code-auto-mode",
+        "https://www.techtimes.com/articles/319874/20260707/claude-code-defaults-human-approval-auto-mode-requires-explicit-opt.htm",
+        "https://paddo.dev/blog/claude-code-auto-mode-absent-human/"
+      ]
     },
     {
       "id": "marketing-mcp-live",
@@ -1016,7 +1144,10 @@
         "实时数据"
       ],
       "url": "reports/2026-07-10.html#topic-marketing-mcp-live",
-      "links": []
+      "links": [
+        "https://newsletter.mkt1.co/p/build-marketing-strategy-skill-in-claude-code",
+        "https://customer.io/learn/how-we-work/claude-skills-for-marketers"
+      ]
     },
     {
       "id": "api-rate-tiers",
@@ -1037,7 +1168,10 @@
         "吞吐"
       ],
       "url": "reports/2026-07-10.html#topic-api-rate-tiers",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/api/rate-limits",
+        "https://releasebot.io/updates/anthropic/claude-developer-platform"
+      ]
     },
     {
       "id": "cc-v2-1-205-fixes",
@@ -1059,7 +1193,9 @@
         "修复"
       ],
       "url": "reports/2026-07-10.html#topic-cc-v2-1-205-fixes",
-      "links": []
+      "links": [
+        "https://github.com/anthropics/claude-code/releases/tag/v2.1.205"
+      ]
     },
     {
       "id": "artifacts-dashboards",
@@ -1079,7 +1215,9 @@
         "Team/Enterprise"
       ],
       "url": "reports/2026-07-10.html#topic-artifacts-dashboards",
-      "links": []
+      "links": [
+        "https://claude.com/blog/artifacts-in-claude-code"
+      ]
     },
     {
       "id": "claude-reflect",
@@ -1100,7 +1238,9 @@
         "个人效率"
       ],
       "url": "reports/2026-07-10.html#topic-claude-reflect",
-      "links": []
+      "links": [
+        "https://support.claude.com/en/articles/12138966-release-notes"
+      ]
     },
     {
       "id": "gpt56-ga",
@@ -1122,7 +1262,11 @@
         "模型选择"
       ],
       "url": "reports/2026-07-11.html#topic-gpt56-ga",
-      "links": []
+      "links": [
+        "https://artificialanalysis.ai/articles/gpt-5-6-has-landed",
+        "https://www.datacamp.com/blog/claude-sonnet-5-vs-gpt-5-6",
+        "https://www.vellum.ai/blog/gpt-5-6-benchmarks-explained"
+      ]
     },
     {
       "id": "gemini-agents",
@@ -1144,7 +1288,10 @@
         "agentic"
       ],
       "url": "reports/2026-07-11.html#topic-gemini-agents",
-      "links": []
+      "links": [
+        "https://ai.google.dev/gemini-api/docs/changelog",
+        "https://felloai.com/best-ai-models/"
+      ]
     },
     {
       "id": "model-routing-decision",
@@ -1166,7 +1313,10 @@
         "降本"
       ],
       "url": "reports/2026-07-11.html#topic-model-routing-decision",
-      "links": []
+      "links": [
+        "https://platform.claude.com/docs/en/about-claude/pricing",
+        "https://www.finout.io/blog/anthropic-api-pricing"
+      ]
     },
     {
       "id": "opus47-fast-deadline",
@@ -1187,7 +1337,9 @@
         "迁移"
       ],
       "url": "reports/2026-07-11.html#topic-opus47-fast-deadline",
-      "links": []
+      "links": [
+        "https://code.claude.com/docs/en/fast-mode"
+      ]
     },
     {
       "id": "admin-analytics",
@@ -1208,7 +1360,9 @@
         "connectors"
       ],
       "url": "reports/2026-07-11.html#topic-admin-analytics",
-      "links": []
+      "links": [
+        "https://releasebot.io/updates/anthropic/claude-developer-platform"
+      ]
     },
     {
       "id": "cc-week-closer",
@@ -1231,7 +1385,11 @@
         "稳定性"
       ],
       "url": "reports/2026-07-12.html#topic-cc-week-closer",
-      "links": []
+      "links": [
+        "https://github.com/anthropics/claude-code/releases/tag/v2.1.206",
+        "https://dev.classmethod.jp/en/articles/20260711-cc-updates-v2-1-207/",
+        "https://code.claude.com/docs/en/changelog"
+      ]
     },
     {
       "id": "m365-write",
@@ -1253,7 +1411,10 @@
         "SharePoint"
       ],
       "url": "reports/2026-07-12.html#topic-m365-write",
-      "links": []
+      "links": [
+        "https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector",
+        "https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide"
+      ]
     },
     {
       "id": "gpt56-sol-ultra",
@@ -1274,7 +1435,9 @@
         "顶配"
       ],
       "url": "reports/2026-07-12.html#topic-gpt56-sol-ultra",
-      "links": []
+      "links": [
+        "https://jls42.org/en/news/ia-actualites-10-jul-2026"
+      ]
     },
     {
       "id": "ev-market-context",
