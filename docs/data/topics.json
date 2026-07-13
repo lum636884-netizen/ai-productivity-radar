@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-13T07:38+08:00",
+  "updated": "2026-07-14T07:37+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -1648,9 +1648,9 @@
       "cat": "cost",
       "conf": "✅",
       "act": "今天就做:盘点并切走非必要 Fable 5 调用",
-      "deadline": "2026-07-13",
+      "deadline": "2026-07-19",
       "title": "Fable 5 计划内访问 7/12 到期，转 API-only $10/$50——用了就要重算账",
-      "brief": "Anthropic 把 Fable 5「计划内额度」(套餐周用量50%内不额外计费)延到7/12 23:59 PT后结束;7/13起仅按API计量$10/百万输入、$50/百万输出(输出是Opus 4.8约$25的2倍)。你此前把部分分类路由给Fable 5(见7/4误伤),今起不再含在套餐里。应对:盘脚本/Skill是否调用Fable 5;轻量任务改Haiku 4.5/Sonnet;确需的改显式API调用+设预算护栏。",
+      "brief": "Anthropic 把 Fable 5「计划内额度」(套餐周用量50%内不额外计费)延到7/12 23:59 PT后结束;7/13起仅按API计量$10/百万输入、$50/百万输出(输出是Opus 4.8约$25的2倍)。你此前把部分分类路由给Fable 5(见7/4误伤),今起不再含在套餐里。应对:盘脚本/Skill是否调用Fable 5;轻量任务改Haiku 4.5/Sonnet;确需的改显式API调用+设预算护栏。（更新 07-14：官方已三延至 7/19，详见当日头条。）",
       "tags": [
         "Fable 5",
         "定价",
@@ -1732,18 +1732,84 @@
         "deploy": "Console → Settings → API keys → 新建时选过期；给「每日雷达」类脚本建 90 天专用 key、日历记轮换日；存量长命 key 逐把替换。",
         "pitfall": "过期只作用于新建 key，存量不自动加期限——不替换就没有护栏；到期当天脚本会 401，收到提醒邮件及时轮换。验证：Admin API 列 key 核对 expires_at。"
       }
+    },
+    {
+      "id": "fable5-extend-719",
+      "date": "2026-07-14",
+      "batch": "07:37",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "本周内完成盘点与切换预案，日历改标 7/18",
+      "deadline": "2026-07-19",
+      "title": "【更新】Fable 5 计划内访问第三次延期至 7/19——转档没取消，只是又缓了 6 天",
+      "brief": "7/12 截止前数小时，官方 @claudeai 宣布计划内额度（付费套餐周用量50%内免费）三延至 7/19 23:59 PT；CC 周限额 +50% 同步延长。五周内第三次到期前眨眼（6/22→7/7→7/12→7/19），背景是 GitHub issue 数百 upvote 反弹。到期后仍 $10/$50。修正昨日'今天就切走'的紧迫性：窗口放宽，终点未取消。",
+      "tags": [
+        "Fable 5",
+        "延期",
+        "计费",
+        "截止",
+        "更新",
+        "Claude Code 限额"
+      ],
+      "url": "reports/2026-07-14.html#topic-fable5-extend-719",
+      "links": [
+        "https://www.bleepingcomputer.com/news/artificial-intelligence/claude-fable-5-stays-free-for-paid-users-until-july-19-as-anthropic-buys-more-time/",
+        "https://www.forbes.com/sites/sandycarter/2026/07/13/claude-fable-5-extends-to-july-19-7-days-7-power-moves/",
+        "https://dataconomy.com/2026/07/13/claude-fable-5-free-access-extended-july-19/",
+        "https://www.anthropic.com/claude/fable"
+      ],
+      "fields": {
+        "what": "7/12 截止前数小时（周日深夜 PT），官方 @claudeai 宣布 Fable 5 计划内额度三延至 7/19 23:59:59 PT；Claude Code 周限额 +50% 加成同步延长。五周内第三次延期（6/22→7/7→7/12→7/19），背景是 GitHub issue 数百 upvote 用户反弹。到期后计费不变：$10/$50，仍是最贵 GA 模型。",
+        "value": "直接修正昨日建议的紧迫性：切换不必赶在今天，但终点没取消。反复延期是官方在定价与留存间摇摆的信号，别把工作流建立在'还会再延'的侥幸上；CC 周限额 +50% 延长对跑每日雷达+后台任务是实惠。",
+        "deploy": "① 昨日盘点照做，窗口放宽到 7/19 前；② 轻量任务照旧 Haiku 4.5 / Sonnet 5；③ 免费窗口把每周 50% 额度用在最吃推理的活上（复杂行研、长链路分析）；④ 日历提醒从 7/13 改到 7/18（留缓冲）。",
+        "pitfall": "延期经官方 X + Forbes/BleepingComputer/Dataconomy 多源确认；别据'三连延'推断会无限延——每次都是到期前数小时才宣布，无法计划。验证：应用内 Fable 5 是否仍显示计划内；7/19 后看 Console 是否计费。"
+      }
+    },
+    {
+      "id": "meta-business-agent",
+      "date": "2026-07-14",
+      "batch": "07:37",
+      "tier": "extended",
+      "cat": "marketing",
+      "conf": "⚠️",
+      "act": "观望：记录动向不投时间，自建 WhatsApp 链路照常推进",
+      "deadline": null,
+      "title": "Meta Business Agent：WhatsApp 官方 AI 销售代理押注东南亚（场景加分项）",
+      "brief": "Meta 在 WhatsApp/Messenger 内测官方 Business Agent：商家侧 AI 自动接客、答询、荐品、跟单，把东南亚（印尼是最大市场之一）当首要试验场。与你自建线索机器人是竞合：零集成兜底接待 vs 数据被锁进 Meta 生态。现阶段媒体转述为主、缺印尼实测，标待观察。",
+      "tags": [
+        "WhatsApp",
+        "Meta",
+        "Business Agent",
+        "东南亚",
+        "招商",
+        "线索",
+        "场景加分项"
+      ],
+      "url": "reports/2026-07-14.html#topic-meta-business-agent",
+      "links": [
+        "https://techwireasia.com/2026/06/meta-business-agent-whatsapp-southeast-asia/",
+        "https://hashmeta.com/blog/whatsapp-business-statistics-southeast-asia-complete-guide-to-messaging-growth/"
+      ],
+      "fields": {
+        "what": "Meta 在 WhatsApp/Messenger 内测试官方 Business Agent：商家侧 AI 代理自动接客、答询、荐品、跟单，明确把东南亚当首要试验场；属平台原生能力，与第三方 BSP 工具和自建 bot 形成竞合。",
+        "value": "你的招商漏斗第一环就是 WhatsApp 收线索。官方代理放量后：好处是零集成兜底接待；风险是对话与数据锁进 Meta 生态、难接你的 CRM/评分体系——自建线索机器人仍是可控性更高的主线。",
+        "deploy": "现在不动手：功能未对印尼中小商户全面开放。持续观察：① 是否开放 API/webhook 供外部 CRM 接管线索；② 是否按对话收费。自建方案照既定路线推进，不等它。",
+        "pitfall": "标待观察：主要为科技媒体转述+Meta 吹风，缺印尼实测数据；'东南亚决定成败'是分析判断非承诺。验证：WhatsApp Business 应用内是否向你的商户号推送 Agent 开通入口。"
+      }
     }
   ],
   "picks": [
     {
       "cat": "cost",
       "conf": "✅",
-      "title": "Fable 5 计划内访问 7/12 到期，转 API-only $10/$50——盘点并切走非必要调用",
+      "title": "Fable 5 计划内访问三延至 7/19——终点仍是 API-only $10/$50，本周完成切换预案",
       "topicIds": [
+        "fable5-extend-719",
         "fable5-plan-end"
       ],
-      "url": "reports/2026-07-13.html#topic-fable5-plan-end",
-      "why": "套餐内免费额度今日终止,输出 $50 是 Opus 4.8 的 2 倍;一人团队若无刚需应今天切走、避免静默计费。"
+      "url": "reports/2026-07-14.html#topic-fable5-extend-719",
+      "why": "五周三次到期前深夜延期，无法按'还会再延'做计划；免费窗口用满 50% 额度跑高价值推理，7/18 前完成调用盘点与切换预案。"
     },
     {
       "title": "模型退役双截止：7/24 Opus 4.7 Fast Mode · 8/5 Opus 4.1",
@@ -1848,6 +1914,15 @@
   ],
   "hot": [
     {
+      "tag": "Fable 5 计费",
+      "note": "三延至 7/19·到期转 $10/$50",
+      "topicIds": [
+        "fable5-extend-719",
+        "fable5-plan-end"
+      ],
+      "expire": "2026-07-19"
+    },
+    {
       "tag": "竞品与模型选择",
       "note": "GPT-5.6 GA/Gemini代理/8-31成本拐点",
       "topicIds": [
@@ -1940,6 +2015,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-14",
+      "label": "周二 · 精选 1 条（Fable 5 三延至 7/19·更新昨日结论）",
+      "url": "reports/2026-07-14.html"
+    },
     {
       "date": "2026-07-13",
       "label": "周一 · 精选 1 条（Fable 5 计费转档 · 清淡日）",
