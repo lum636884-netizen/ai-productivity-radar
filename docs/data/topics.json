@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-14T07:37+08:00",
+  "updated": "2026-07-15T07:31+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -1797,6 +1797,100 @@
         "deploy": "现在不动手：功能未对印尼中小商户全面开放。持续观察：① 是否开放 API/webhook 供外部 CRM 接管线索；② 是否按对话收费。自建方案照既定路线推进，不等它。",
         "pitfall": "标待观察：主要为科技媒体转述+Meta 吹风，缺印尼实测数据；'东南亚决定成败'是分析判断非承诺。验证：WhatsApp Business 应用内是否向你的商户号推送 Agent 开通入口。"
       }
+    },
+    {
+      "id": "cc-v2-1-208",
+      "date": "2026-07-15",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "今天就升到 v2.1.209",
+      "deadline": null,
+      "title": "Claude Code v2.1.208/209（7/14）大版本：修掉社区最恨的内存泄漏，长会话性能全面翻修",
+      "brief": "近几周最大一版：修多处长会话内存泄漏（120GB OOM issue 群的病根，转录最多缩79倍）；工具调用最快7×、权限规则缓存、大表格不卡死；后台代理回复丢失/守护进程 attach/长上下文被重置200k 均修；bypass 模式下 $() 灾难性删除也弹确认。209 回滚一个误伤后台会话的过宽守卫——别停在 208。",
+      "tags": [
+        "Claude Code",
+        "v2.1.208",
+        "内存泄漏",
+        "性能",
+        "后台代理",
+        "稳定性"
+      ],
+      "url": "reports/2026-07-15.html#topic-cc-v2-1-208",
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://github.com/anthropics/claude-code/issues/4953",
+        "https://github.com/anthropics/claude-code/issues/22968",
+        "https://medium.com/@joe.njenga/claude-code-high-memory-usage-hits-crazy-129gb-ram-my-investigation-fixes-38bd44dfcfce"
+      ],
+      "fields": {
+        "what": "v2.1.208：修多处长会话内存泄漏（粘贴图片、MCP stderr 64MB/服务器、LSP 常开、大工具结果——正是 GitHub'120GB OOM'issue 群病根），编辑缓存收敛 16MB、转录最多缩 79 倍；工具调用最快 7×、权限规则缓存、200+ 行表格不卡死；后台代理回复投递失败不丢、守护进程升级 attach 修复、长上下文被重置 200k 修复；bypass 下 $() 灾难删除弹确认；新增屏幕阅读器模式。209 回滚误伤后台会话对话框的过宽守卫。",
+        "value": "每日雷达正是'长会话+后台任务+MCP'典型负载：跑一晚不怕内存爬满、后台代理消息不静默丢失；多规则权限配置卡顿直接改善；无人值守脚本多一道防误删保险。",
+        "deploy": "升级到 ≥v2.1.209（含 208 全部+回滚修复）。此前遇'越用越卡/内存爬升/后台代理没反应'的，升级后跑一天长会话对比。",
+        "pitfall": "内存修复覆盖已定位泄漏源，不保证根除所有场景（GitHub 仍有开着的变体 issue）；208 有误伤、209 才修——别停在 208。验证：长会话跑 2-3 小时看进程内存是否稳定（此前社区实测 30 分钟即显著爬升）。"
+      }
+    },
+    {
+      "id": "gemini35pro-delay",
+      "date": "2026-07-15",
+      "batch": "07:31",
+      "tier": "extended",
+      "cat": "model",
+      "conf": "✅",
+      "act": "观望：日历记 7/17，等独立基准",
+      "deadline": "2026-07-17",
+      "title": "Google 把 Gemini 3.5 Pro 延到 7/17：弃旧架构重建（2M 上下文 + Deep Think）",
+      "brief": "DeepMind 宣布延期至 7/17：放弃 2.5 Pro 架构完整重建，目标改进数学推理/SVG/图像质量，引入 2M token 上下文与 Deep Think 推理层，与上海 WAIC 同日。对你结论不变：审慎不迁、分级路由；等发布后独立基准再评估。规格以官方发布为准（现为媒体转述）。",
+      "tags": [
+        "Gemini",
+        "竞品",
+        "2M上下文",
+        "Deep Think",
+        "延期"
+      ],
+      "url": "reports/2026-07-15.html#topic-gemini35pro-delay",
+      "links": [
+        "https://finance.biggo.com/news/6f0c6bb2-795f-4c57-9d09-6db691d7638a",
+        "https://ai.google.dev/gemini-api/docs/changelog",
+        "https://www.buildfastwithai.com/blogs/ai-news-today-july-14-2026"
+      ],
+      "fields": {
+        "what": "DeepMind 宣布 Gemini 3.5 Pro 延期至 7/17：放弃 2.5 Pro 既有架构完整重建，目标改进数学推理、SVG 场景生成与图像质量，引入 2M token 上下文与 Deep Think 推理层；与上海世界人工智能大会同日。",
+        "value": "竞品下一变量：2M 上下文若属实是 Claude 1M 的两倍，对超长文档/多文件行研有想象空间；但既定结论不变——审慎不迁、按价值分级路由，等真发布+独立基准再评估。",
+        "deploy": "不动手。7/17 后看两点：独立基准（Artificial Analysis 等）实测；定价与 Claude/GPT-5.6 对位。有实质冲击将按 §9 再入选。",
+        "pitfall": "'完整重建/2M/Deep Think'来自媒体转述吹风，规格以 7/17 官方发布为准；延期本身多源一致已证实。验证：7/17 看 Google 官方博客与 Gemini API changelog。"
+      }
+    },
+    {
+      "id": "ce-admin-api",
+      "date": "2026-07-15",
+      "batch": "07:31",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "备档：扩编评估 Enterprise 时回看",
+      "deadline": null,
+      "title": "Claude Enterprise 成员管理开放 Admin API（beta·7/14）——一人团队仅备档",
+      "brief": "7/14 平台更新：Enterprise 组织可用 Admin API 管理成员（查人/改角色/移除/邀请/群组/自定义角色，群组类需 beta 头 ce-user-management-2026-07-13）。你是 Pro/Max 一人团队暂不可用；信号：组织管理在快速 API 化，扩编上 Enterprise 时人员进出可脚本化。",
+      "tags": [
+        "Enterprise",
+        "Admin API",
+        "成员管理",
+        "平台",
+        "备档"
+      ],
+      "url": "reports/2026-07-15.html#topic-ce-admin-api",
+      "links": [
+        "https://platform.claude.com/docs/en/release-notes/overview",
+        "https://platform.claude.com/docs/en/manage-claude/user-management"
+      ],
+      "fields": {
+        "what": "7/14 平台更新：Claude Enterprise（claude.ai）组织可用 Admin API 管理成员——按邮箱查人、改角色、移除、发/撤邀请、管理群组与自定义角色（群组/角色类请求需 anthropic-beta: ce-user-management-2026-07-13 头），全组织 beta。",
+        "value": "Pro/Max 一人团队暂不可用、仅备档。信号意义：Claude 组织管理在快速 API 化（上周用量看板、本周成员管理）——未来招商团队扩编上 Enterprise 时，人员进出可脚本化管理。",
+        "deploy": "现在无动作。备档触发条件：团队扩到多席位、评估 Enterprise 时，把'成员管理可 API 化'计入运维成本对比。",
+        "pitfall": "beta 接口可能变动；群组/自定义角色需 beta 头，别在生产脚本硬编码。验证：官方 User management 文档的端点与权限范围。"
+      }
     }
   ],
   "picks": [
@@ -1810,6 +1904,17 @@
       ],
       "url": "reports/2026-07-14.html#topic-fable5-extend-719",
       "why": "五周三次到期前深夜延期，无法按'还会再延'做计划；免费窗口用满 50% 额度跑高价值推理，7/18 前完成调用盘点与切换预案。"
+    },
+    {
+      "cat": "tools",
+      "conf": "✅",
+      "title": "Claude Code 稳定性线收口：v2.1.208 终修长会话内存泄漏 + 7× 工具性能",
+      "topicIds": [
+        "cc-v2-1-208",
+        "cc-week-closer"
+      ],
+      "url": "reports/2026-07-15.html#topic-cc-v2-1-208",
+      "why": "从 7/7 后台代理到 7/14 内存泄漏终修，一条连贯的'放心跑长会话/后台代理'建设线落地——今天就升 v2.1.209。"
     },
     {
       "title": "模型退役双截止：7/24 Opus 4.7 Fast Mode · 8/5 Opus 4.1",
@@ -1899,16 +2004,6 @@
       "topicIds": [
         "sonnet5-tokenizer",
         "sonnet5-launch"
-      ]
-    },
-    {
-      "title": "2.1.200 破坏性变更：默认 Manual 模式，无人值守会静默卡住",
-      "why": "不报错、只静止——最隐蔽的一类故障。所有定时/夜间任务升级后必须回归验证一次。",
-      "cat": "pitfall",
-      "conf": "✅",
-      "url": "reports/2026-07-04.html#topic-manual-mode",
-      "topicIds": [
-        "manual-mode"
       ]
     }
   ],
@@ -2015,6 +2110,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-15",
+      "label": "周三 · 精选 1 条（CC v2.1.208 大版本·内存泄漏终修）",
+      "url": "reports/2026-07-15.html"
+    },
     {
       "date": "2026-07-14",
       "label": "周二 · 精选 1 条（Fable 5 三延至 7/19·更新昨日结论）",
