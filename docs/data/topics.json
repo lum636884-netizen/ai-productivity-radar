@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15T07:31+08:00",
+  "updated": "2026-07-16T07:31+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -1891,19 +1891,155 @@
         "deploy": "现在无动作。备档触发条件：团队扩到多席位、评估 Enterprise 时，把'成员管理可 API 化'计入运维成本对比。",
         "pitfall": "beta 接口可能变动；群组/自定义角色需 beta 头，别在生产脚本硬编码。验证：官方 User management 文档的端点与权限范围。"
       }
+    },
+    {
+      "id": "fable5-final-3days",
+      "date": "2026-07-16",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "7/18 前收尾切换预案，剩余免费额度投高价值推理",
+      "deadline": "2026-07-19",
+      "title": "【倒计时·剩3天】Fable 5 免费窗 7/19 收口——无第四延迹象，切换预案该收尾",
+      "brief": "今晨核查：仍定 7/19 23:59 PT 结束、无第四延公告，官方对之后'不作承诺'（解释：解禁后需求难预测，用50%周上限配给）。7/20 起走预付 credits $10/$50，CC 周限额+50% 同步结束。前三次都最后数小时才宣布——不能按'还会再延'安排。§9-② 截止≤3天再入选提醒。",
+      "tags": [
+        "Fable 5",
+        "截止",
+        "剩3天",
+        "计费",
+        "再入选提醒"
+      ],
+      "url": "reports/2026-07-16.html#topic-fable5-final-3days",
+      "links": [
+        "https://thenewstack.io/fable-5-honeycomb-opus/",
+        "https://www.digitalapplied.com/blog/claude-fable-5-extended-july-19-access-uncertainty-2026",
+        "https://www.anthropic.com/claude/fable"
+      ],
+      "fields": {
+        "what": "今晨核查：Fable 5 计划内访问仍定 7/19 23:59 PT 结束，无第四延公告；官方支持文档对 7/19 后'不作承诺'，解释为解禁后需求高且难预测、以 50% 周上限配给。7/20 起全部用量走预付 credits $10/$50；CC 周限额 +50% 同步到 7/19。本条为 §9 截止≤3天再入选提醒（07-13/14 已连续跟踪）。",
+        "value": "前三次都是到期前数小时才宣布——不能按'还会再延'安排工作。07-14 定的调用盘点与切换预案本周到期；CC 周限额加成结束后长任务周配额回落，重负载安排在 7/19 前更划算。",
+        "deploy": "① 7/18 前确认脚本/Skill 无隐式 Fable 5 依赖、轻任务已回 Haiku/Sonnet；② 最后 3 天把免费 50% 额度集中投最高价值推理；③ 若又延，视为红利、预案不变。",
+        "pitfall": "'无第四延'是今晨时点结论，官方惯例最后一刻宣布——7/19 当天以应用内标识与官方 X 为准；7/20 后忘切走会静默消耗预付 credits。验证：7/20 看 Console 用量页。"
+      }
+    },
+    {
+      "id": "wa-pricing-change",
+      "date": "2026-07-16",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "marketing",
+      "conf": "✅",
+      "act": "8/1 前用真实对话样本核算两种路线成本，压缩话术轮次",
+      "deadline": "2026-08-01",
+      "title": "Meta 改 WhatsApp Business 计费：8/1 起 AI agent 按 token 收 $2/百万——招商漏斗要重算成本",
+      "brief": "Meta 7/1 官宣、8/1 生效：经 Meta Business Agent Platform 的消息按 token 计费 $2/百万（AI 用量+投递合并）；一批曾免费的消息类型恢复收费。你的 WhatsApp 收线索→bot 资格化环节成本模型直接受影响；BSP 会转嫁加价。应对：真实对话样本核算、话术压轮次、向 BSP 要 8 月报价；自建短话术 bot 成本可控性优势扩大。",
+      "tags": [
+        "WhatsApp",
+        "Meta",
+        "计费",
+        "招商漏斗",
+        "8/1生效",
+        "token计费"
+      ],
+      "url": "reports/2026-07-16.html#topic-wa-pricing-change",
+      "links": [
+        "https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing/ai-providers",
+        "https://dapta.ai/blog-posts/ai-news-whatsapp-api-pricing/",
+        "https://techcrunch.com/2026/06/03/metas-ai-agent-for-whatsapp-business-is-now-available-globally/"
+      ],
+      "fields": {
+        "what": "Meta 7/1 官宣 WhatsApp Business 平台定价更新、8/1 生效：① 经新 Meta Business Agent Platform 的消息按 token 计费 $2/百万（AI 用量+消息投递合并一笔）；② 一批此前免费的消息类型恢复收费。官方开发者文档已挂 AI Providers 定价页。",
+        "value": "招商漏斗第一环（WhatsApp 收线索→bot 资格化）成本模型直接受影响：走官方 Agent Platform 则长对话资格化可能显著贵于预期；走第三方 BSP+自建 bot（你当前路线）消息类恢复收费也抬底价。昨日 Meta Business Agent 的商业化路径就此清晰——平台原生 agent 不是免费午餐。",
+        "deploy": "① 8/1 前用真实对话样本算账：每线索轮次×token×$2/百万 vs 现有 BSP 会话计费；② 资格化话术更短更结构化（少轮次双重省钱）；③ 向 BSP 确认 8/1 后转嫁定价；④ 自建短话术 bot 路线不变、优势扩大。",
+        "pitfall": "$2/百万是 Meta 平台口径≠BSP 最终报价（会加价/打包）；'恢复收费'的具体消息类别以官方 pricing 文档逐条为准；印尼费率可能与全球价目有差异。验证：官方定价页+BSP 的 8 月账单预估。"
+      }
+    },
+    {
+      "id": "skill-gotchas",
+      "date": "2026-07-16",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "reliability",
+      "conf": "🔶",
+      "act": "本周试点：给 1 个高频营销 Skill 补「常见翻车点」章节",
+      "deadline": null,
+      "title": "社区共识落地：给每个 Skill 写「坑区」比写流程更提可靠性 + 自动修复分级放权",
+      "brief": "HN/社区年中共识：① 每个 Skill 附 gotchas（常见翻车点）章节，比 happy-path 更提可靠性；② CLAUDE.md 放全局硬规则、Skill 放领域流程；③ 自动修复分级：先 lint/类型→信任后测试→安全扫描永不自动；④ 编排>自主。可直接搬到你的营销技能链：给每个 Skill 补'这环节怎么翻车'。T2 可复现。",
+      "tags": [
+        "Skill",
+        "gotchas",
+        "可靠性",
+        "自动修复分级",
+        "编排",
+        "T2实践"
+      ],
+      "url": "reports/2026-07-16.html#topic-skill-gotchas",
+      "links": [
+        "https://www.developersdigest.tech/blog/what-hacker-news-gets-right-about-ai-coding-agents-2026",
+        "https://www.developersdigest.tech/blog/best-claude-code-skills-2026",
+        "https://dev.to/galian/claude-code-workflow-best-practices-that-ship-code-na"
+      ],
+      "fields": {
+        "what": "HN/开发者社区年中共识收敛为可操作原则：① 每个 Skill 附「gotchas 常见翻车点」章节——列任务通常怎么失败，比 happy-path 步骤更提可靠性；② CLAUDE.md（每次加载）放全局硬规则、Skill（按需加载）放领域工作流；③ 自动修复分级放权：先 lint/类型错误、信任后再放测试失败、安全扫描永不自动修；④ 编排>自主：拆有界子任务+人在关键点把关。",
+        "value": "与本仓库实践互相印证（CLAUDE.md 铁律+ROUTINE 强制步骤正是 gotchas 编码化）。可直接搬到营销技能链（07-08 已建）：给每个营销 Skill 补一节'这个环节通常怎么翻车'（文案口径漂移、线索误分类等），可靠性立竿见影。",
+        "deploy": "① 每个 Skill 加「## 常见翻车点」小节，写 3-5 条真实失败模式与对策；② 自动化按 lint→测试→绝不安全类 顺序放开修复权限；③ 新工作流先拆有界子任务，关键节点人工确认。",
+        "pitfall": "社区共识属 T2 非官方规范——别照抄清单不结合自己失败案例；gotchas 要用真实踩过的坑填，凭空想的没有防御价值。验证：给高频 Skill 加坑区后跑一周对比翻车率。"
+      }
+    },
+    {
+      "id": "cc-v2-1-210",
+      "date": "2026-07-16",
+      "batch": "07:31",
+      "tier": "extended",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "随手升到 ≥v2.1.210（与昨日建议合并）",
+      "deadline": null,
+      "title": "CC v2.1.210（7/14 第三版）：worktree 隔离修复 + Agent 防注入加固（后续更新）",
+      "brief": "同日第三版：修 isolation:'worktree' 子代理把 git 跑在主仓（数据完整性风险）；Agent 工具对子代理读到的内容做间接注入加固；auto 权限分类器外部会话默认 Sonnet 5；工具摘要行加实时耗时。昨日 208/209 稳定性线的收尾补丁，目标版本改 ≥210。",
+      "tags": [
+        "Claude Code",
+        "v2.1.210",
+        "worktree",
+        "防注入",
+        "后续更新"
+      ],
+      "url": "reports/2026-07-16.html#topic-cc-v2-1-210",
+      "links": [
+        "https://code.claude.com/docs/en/changelog"
+      ],
+      "fields": {
+        "what": "7/14 同日第三版：① 修复 isolation:'worktree' 子代理把 git 命令跑在主仓而非隔离树（数据完整性风险）；② Agent 工具对子代理读到内容做间接提示注入加固；③ auto 权限分类器外部会话默认 Sonnet 5；④ 工具摘要行实时耗时计数；⑤ 修插件 MCP 服务器中途被拆除。",
+        "value": "①②③ 与无人值守流水线直接相关：worktree 隔离是并行子代理不互相污染的前提；注入加固降低子代理读外部内容（网页/PR 评论）被带偏的风险。昨日稳定性线的收尾补丁。",
+        "deploy": "直接升 ≥v2.1.210（覆盖 208/209 全部）。若用 worktree 隔离跑并行子代理，升级后抽查子代理 git 操作是否落在隔离树内。",
+        "pitfall": "注入加固是缓解不是免疫——子代理读不可信内容仍应最小化工具权限。验证：changelog 原文核对版本条目。"
+      }
     }
   ],
   "picks": [
     {
       "cat": "cost",
       "conf": "✅",
-      "title": "Fable 5 计划内访问三延至 7/19——终点仍是 API-only $10/$50，本周完成切换预案",
+      "title": "Fable 5 免费窗 7/19 收口（剩 3 天）——切换预案 7/18 前收尾",
       "topicIds": [
+        "fable5-final-3days",
         "fable5-extend-719",
         "fable5-plan-end"
       ],
-      "url": "reports/2026-07-14.html#topic-fable5-extend-719",
-      "why": "五周三次到期前深夜延期，无法按'还会再延'做计划；免费窗口用满 50% 额度跑高价值推理，7/18 前完成调用盘点与切换预案。"
+      "url": "reports/2026-07-16.html#topic-fable5-final-3days",
+      "why": "三延之后无第四延迹象、官方不作承诺；7/20 起 $10/$50 预付 credits，忘切走会静默扣费。"
+    },
+    {
+      "cat": "marketing",
+      "conf": "✅",
+      "title": "Meta 改 WhatsApp Business 计费（8/1）：AI agent 按 token $2/百万——招商漏斗重算成本",
+      "topicIds": [
+        "wa-pricing-change",
+        "meta-business-agent"
+      ],
+      "url": "reports/2026-07-16.html#topic-wa-pricing-change",
+      "why": "WhatsApp 收线索是你漏斗第一环：8/1 前核算两种路线成本、压缩话术轮次，自建短话术 bot 优势扩大。"
     },
     {
       "cat": "tools",
@@ -1994,17 +2130,6 @@
         "prompt-caching-batch",
         "rate-limits"
       ]
-    },
-    {
-      "title": "Sonnet 5 tokenizer 计费坑：同文本多计 ~30% token",
-      "why": "影响你所有常驻工作流的模型选型决策；促销价（至 8/31）掩盖了真实成本，9 月前必须重估。",
-      "cat": "cost",
-      "conf": "🔶",
-      "url": "https://simonwillison.net/2026/Jun/30/claude-sonnet-5/",
-      "topicIds": [
-        "sonnet5-tokenizer",
-        "sonnet5-launch"
-      ]
     }
   ],
   "hot": [
@@ -2016,6 +2141,15 @@
         "fable5-plan-end"
       ],
       "expire": "2026-07-19"
+    },
+    {
+      "tag": "WhatsApp 计费",
+      "note": "8/1 起 agent 按 token $2/百万",
+      "topicIds": [
+        "wa-pricing-change",
+        "meta-business-agent"
+      ],
+      "expire": "2026-08-01"
     },
     {
       "tag": "竞品与模型选择",
@@ -2110,6 +2244,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-16",
+      "label": "周四 · 精选 3 条（Fable 5 剩 3 天 + WhatsApp 计费改革 + Skill 坑区实践）",
+      "url": "reports/2026-07-16.html"
+    },
     {
       "date": "2026-07-15",
       "label": "周三 · 精选 1 条（CC v2.1.208 大版本·内存泄漏终修）",
