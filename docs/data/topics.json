@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-16T07:31+08:00",
+  "updated": "2026-07-17T07:32+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -1837,11 +1837,11 @@
       "batch": "07:31",
       "tier": "extended",
       "cat": "model",
-      "conf": "✅",
+      "conf": "⚠️",
       "act": "观望：日历记 7/17，等独立基准",
-      "deadline": "2026-07-17",
+      "deadline": null,
       "title": "Google 把 Gemini 3.5 Pro 延到 7/17：弃旧架构重建（2M 上下文 + Deep Think）",
-      "brief": "DeepMind 宣布延期至 7/17：放弃 2.5 Pro 架构完整重建，目标改进数学推理/SVG/图像质量，引入 2M token 上下文与 Deep Think 推理层，与上海 WAIC 同日。对你结论不变：审慎不迁、分级路由；等发布后独立基准再评估。规格以官方发布为准（现为媒体转述）。",
+      "brief": "DeepMind 宣布延期至 7/17：放弃 2.5 Pro 架构完整重建，目标改进数学推理/SVG/图像质量，引入 2M token 上下文与 Deep Think 推理层，与上海 WAIC 同日。对你结论不变：审慎不迁、分级路由；等发布后独立基准再评估。规格以官方发布为准（现为媒体转述）。（更新 07-17：'7/17 目标日'经核查系媒体口径、官方从未确认，置信降级为待观察，见当日头条勘误。）",
       "tags": [
         "Gemini",
         "竞品",
@@ -2014,6 +2014,126 @@
         "value": "①②③ 与无人值守流水线直接相关：worktree 隔离是并行子代理不互相污染的前提；注入加固降低子代理读外部内容（网页/PR 评论）被带偏的风险。昨日稳定性线的收尾补丁。",
         "deploy": "直接升 ≥v2.1.210（覆盖 208/209 全部）。若用 worktree 隔离跑并行子代理，升级后抽查子代理 git 操作是否落在隔离树内。",
         "pitfall": "注入加固是缓解不是免疫——子代理读不可信内容仍应最小化工具权限。验证：changelog 原文核对版本条目。"
+      }
+    },
+    {
+      "id": "gemini35pro-rumor-fix",
+      "date": "2026-07-17",
+      "batch": "07:32",
+      "tier": "featured",
+      "cat": "model",
+      "conf": "✅",
+      "act": "不动：等官方 model card，移除'今天等发布'预期",
+      "deadline": null,
+      "title": "【修正】Gemini 3.5 Pro「7/17 发布」是媒体传闻，Google 从未官宣——07-15 条目置信降级",
+      "brief": "逐源核查：'7/17 发布'与'2M/Deep Think/弃架构重建'全部来自第三方与匿名信源，官方从未确认——API 文档无 gemini-3.5-pro 条目、无 model card、无定价页。且 UTC+8 今晨=美西 7/16 下午，'7/17'在美国尚未开始。本雷达 07-15 条目按诚实原则降级为待观察。只认官方博客与 API changelog 为发布信号。",
+      "tags": [
+        "Gemini",
+        "传闻修正",
+        "置信降级",
+        "竞品"
+      ],
+      "url": "reports/2026-07-17.html#topic-gemini35pro-rumor-fix",
+      "links": [
+        "https://www.techtimes.com/articles/320308/20260713/gemini-35-pro-targets-july-17-after-full-rebuild-every-spec-remains-unconfirmed.htm",
+        "https://coursiv.io/blog/gemini-3-5-pro",
+        "https://ai.google.dev/gemini-api/docs/changelog"
+      ],
+      "fields": {
+        "what": "逐源核查发现：'7/17 发布'及'2M 上下文/Deep Think/弃架构重建'全部来自第三方报道与匿名信源，Google 官方从未确认——截至今晨 Gemini API 公开文档无 gemini-3.5-pro 条目、无 model card、无定价页；I/O 未公布任何 3.5 Pro 跑分。UTC+8 今晨=美西 7/16 下午，'7/17'在美国尚未开始。",
+        "value": "① 别按'今天有大发布'安排评估时间——无任何官方承诺；② 本雷达 07-15 曾把'延期至 7/17'当已证实转述——今日按诚实原则降级为待观察，是 ROUTINE 自我纠错纪律的执行。",
+        "deploy": "只认两个官方渠道：Google 官方博客与 Gemini API changelog——出现 model card+定价才算真发布，届时按 §9 评估对模型路由的影响；此前不为'内部消息'投时间。",
+        "pitfall": "'2M/Deep Think/内部跑分碾压'类帖子全部属规格猜测（并入本卡，不另立噪音）；传闻密集说明期待值高，真发布时留意期货规格与实际交付的差距。验证：API 文档出现模型条目即发布信号。"
+      }
+    },
+    {
+      "id": "cc-v2-1-211",
+      "date": "2026-07-17",
+      "batch": "07:32",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "今天就升 ≥v2.1.211（安全修复+MCP 重连）",
+      "deadline": null,
+      "title": "CC v2.1.211（7/15）：修「批准消息可被视觉伪装」安全漏洞——官方建议尽快升级",
+      "brief": "37 项变更，最要紧：权限确认预览此前未净化双向覆盖/零宽/易混引号字符——你看到并批准的可能与实际执行不一致（视觉欺骗审批），已修。同版修并行会话唤醒集体登出、插件 MCP 空闲唤醒不重连（我们反复遇到的掉线场景之一）、auto 覆盖 hook ask 决定；新增 --forward-subagent-text。用云模型/后台代理的尽快升级。",
+      "tags": [
+        "Claude Code",
+        "v2.1.211",
+        "安全",
+        "视觉欺骗",
+        "MCP 重连"
+      ],
+      "url": "reports/2026-07-17.html#topic-cc-v2-1-211",
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://dev.classmethod.jp/en/articles/20260711-cc-updates-v2-1-211/"
+      ],
+      "fields": {
+        "what": "v2.1.211（7/15，37 项）：安全修复——转发到聊天渠道的权限确认预览未净化双向覆盖字符、零宽字符与易混引号，工具输入外观可被伪装（视觉欺骗审批），已修。另修：并行会话共享凭据睡眠唤醒集体登出、插件 MCP 空闲唤醒不重连、auto 模式覆盖 PreToolUse hook 的 ask；新增 --forward-subagent-text 把子代理文本/思考并入 stream-json。",
+        "value": "① 审批安全直接相关——尤其经聊天渠道批准工具调用的远程场景；② 'MCP 唤醒不重连'正是这套流水线反复遇到的掉线场景之一；③ hook ask 优先级修复让护栏在 auto 下不被绕过。",
+        "deploy": "升级到 ≥v2.1.211（本周目标从 210 上调）。升级后仍遇 MCP 掉线则记录场景——已修的是'空闲唤醒不重连'一类，不代表全部。",
+        "pitfall": "视觉欺骗修复针对预览渲染层，不改变权限模型——高危操作仍应人工细看；批准前留意异常字符本就是好习惯。验证：changelog v2.1.211 条目；升级后观察 MCP 唤醒重连。"
+      }
+    },
+    {
+      "id": "fable5-not-permanent",
+      "date": "2026-07-17",
+      "batch": "07:32",
+      "tier": "extended",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "预案不变：7/18 前收尾；'恢复'入观察清单",
+      "deadline": "2026-07-19",
+      "title": "Fable 5 官方新口径：「不会永久离开订阅，算力足够时恢复」——剩 2 天，预案不变",
+      "brief": "官方向媒体澄清：7/19 后 Fable 5 不会永久退出订阅，算力充足时恢复套餐内访问；转 API 计费是配给手段非永久定价。软化'终点'叙事但无时间表——'将来恢复'不构成本周行动依据，切换预案价值不变。",
+      "tags": [
+        "Fable 5",
+        "后续更新",
+        "恢复口径",
+        "截止"
+      ],
+      "url": "reports/2026-07-17.html#topic-fable5-not-permanent",
+      "links": [
+        "https://www.androidauthority.com/claude-fable-5-access-extended-3686668/",
+        "https://www.anthropic.com/claude/fable"
+      ],
+      "fields": {
+        "what": "官方向媒体澄清：7/19 免费窗结束后 Fable 5 不会永久退出订阅，计划算力充足时恢复套餐内访问；当前转 API 计费是算力配给手段而非永久定价决定。免费窗仍 7/19 23:59 PT 结束，7/20 起 $10/$50。",
+        "value": "软化'终点'叙事但没有时间表——'将来会恢复'不构成本周行动依据；中断期无论一周或三个月，无预案就会静默扣费，切换预案价值不变。",
+        "deploy": "预案照旧 7/18 前收尾；把'套餐内恢复'设为观察项——恢复公告出现时再评估哪些高价值任务路由回 Fable 5。",
+        "pitfall": "'算力足够时'无日期承诺，别当短期预期；恢复时用量上限未说明（未必回 50%）。验证：官方 X/支持文档后续公告。"
+      }
+    },
+    {
+      "id": "id-marketing-gap",
+      "date": "2026-07-17",
+      "batch": "07:32",
+      "tier": "extended",
+      "cat": "marketing",
+      "conf": "⚠️",
+      "act": "低成本试点：本月上线结构化加盟 FAQ 页；Email 简报入下月实验",
+      "deadline": null,
+      "title": "印尼营销错位数字：72% 用 AI 产内容 vs 12% 做 GEO；Email 22% 低配但 ROI 最高（场景加分项）",
+      "brief": "行业 benchmark：72% 印尼营销人用 AI 产内容、仅 12% 做 GEO（AI 可见性优化）；Email 在 SME 渗透仅 22%（企业 81%）却是 ROI/成本比最高渠道。两个低竞争窗口：加盟问答做结构化 FAQ 供 AI 引用（几乎无同行竞争）；Email 做 B2B 线索培育补充。数据来自行业报告，趋势可参考、精确值勿引用。",
+      "tags": [
+        "印尼",
+        "GEO",
+        "Email",
+        "营销",
+        "场景加分项",
+        "招商"
+      ],
+      "url": "reports/2026-07-17.html#topic-id-marketing-gap",
+      "links": [
+        "https://www.arfadia.com/resources/digital-marketing-benchmark-indonesia-2026",
+        "https://www.pertamapartners.com/insights/indonesia-ai-opportunity-65-million-msmes"
+      ],
+      "fields": {
+        "what": "行业 benchmark（Arfadia 2026/Pertama SEA 指数）：72% 印尼营销人用 AI 生产内容，仅 12% 做 GEO（让品牌出现在 AI 助手回答里）；Email 营销在印尼 SME 渗透 22%（企业级 81%）却是 ROI/成本比最高渠道；整体 AI 采用处早期实验段（27/100，低于区域均值 31）。",
+        "value": "两个低竞争窗口：① 潜在加盟商问 AI'印尼充电桩加盟哪家好'时几乎无同行做 GEO——官网结构化内容被 AI 引用门槛低；② Email 在印尼 B2B 招商竞争小成本低，适合线索培育补充渠道。",
+        "deploy": "① 把加盟核心问答整理成结构化 FAQ 页（清晰标题+直接答案+数据来源），同时利好传统 SEO；② 用现有技能链起双周 Email 简报（面向已留资线索），与 WhatsApp 触达做 A/B。",
+        "pitfall": "数字来自行业报告（方法论/样本未独立核验）——趋势可参考、精确值别引用；GEO 属新兴实践无保证公式。验证：在主流 AI 助手问加盟问题，看你的内容是否被引用。"
       }
     }
   ],
@@ -2244,6 +2364,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-17",
+      "label": "周五 · 精选 2 条（Gemini 传闻修正 + CC v2.1.211 安全修复）",
+      "url": "reports/2026-07-17.html"
+    },
     {
       "date": "2026-07-16",
       "label": "周四 · 精选 3 条（Fable 5 剩 3 天 + WhatsApp 计费改革 + Skill 坑区实践）",
