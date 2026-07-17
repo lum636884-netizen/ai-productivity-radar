@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-17T07:32+08:00",
+  "updated": "2026-07-18T07:30+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -2135,20 +2135,145 @@
         "deploy": "① 把加盟核心问答整理成结构化 FAQ 页（清晰标题+直接答案+数据来源），同时利好传统 SEO；② 用现有技能链起双周 Email 简报（面向已留资线索），与 WhatsApp 触达做 A/B。",
         "pitfall": "数字来自行业报告（方法论/样本未独立核验）——趋势可参考、精确值别引用；GEO 属新兴实践无保证公式。验证：在主流 AI 助手问加盟问题，看你的内容是否被引用。"
       }
+    },
+    {
+      "id": "fable5-last-day",
+      "date": "2026-07-18",
+      "batch": "07:30",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "今天收尾：依赖确认+重推理清仓；7/20 下午核验计费",
+      "deadline": "2026-07-19",
+      "title": "【最后一天】Fable 5 免费窗明晚 7/19 23:59 PT 收口——预案今天必须就位",
+      "brief": "今晨核查无第四延：仍定 7/19 23:59 PT（=UTC+8 7/20 约 14:59）结束，7/20 起走预付 credits $10/$50，CC 周限额+50% 同步结束。今天两件事必须完成态：脚本/Skill 无隐式 Fable 依赖；高价值推理任务今明清仓。社区'不会真收'预测（四延或 Opus 5 先来）是预测不是依据——前三次都最后数小时才宣布。",
+      "tags": [
+        "Fable 5",
+        "最后一天",
+        "截止",
+        "计费",
+        "CC 限额"
+      ],
+      "url": "reports/2026-07-18.html#topic-fable5-last-day",
+      "links": [
+        "https://www.anthropic.com/claude/fable",
+        "https://news.ycombinator.com/item?id=48882730",
+        "https://x.com/PawelHuryn/status/2076398143407546385",
+        "https://www.digitalapplied.com/blog/claude-fable-5-extended-july-19-access-uncertainty-2026"
+      ],
+      "fields": {
+        "what": "今晨核查无第四次延期公告：Fable 5 计划内访问仍定 7/19 23:59:59 PT 结束（=UTC+8 7/20 约 14:59），7/20 起全部用量走预付 credits $10/$50；CC 周限额 +50% 加成同步结束。07-13 以来连续第 4 期跟踪的收口点。",
+        "value": "两件事今天必须完成态：① 脚本/Skill 无隐式 Fable 5 依赖（07-14 布置）；② 想用免费额度收尾的高价值推理今明是最后窗口。CC 加成结束后下周配额回落，重负载别排下周初。",
+        "deploy": "① 今天 grep 脚本与 Skill 的模型 ID 确认无 fable 残留；② 攒着的重推理任务今明清掉；③ 7/20（UTC+8 下午3点后）Console 用量页核验是否计入 credits；若又延视为红利、预案不变。",
+        "pitfall": "社区公开下注'不会真收'（四延或 Opus 5 先落地）——是预测不是依据，前三次均到期前数小时才宣布；时区坑：收口是 UTC+8 的 7/20 下午。验证：官方 @claudeai X + 应用内标识。"
+      }
+    },
+    {
+      "id": "cc-v2-1-212",
+      "date": "2026-07-18",
+      "batch": "07:30",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "本周末升 ≥v2.1.212；确认两个 200 默认值够用",
+      "deadline": null,
+      "title": "CC v2.1.212（7/17）：/fork 变后台会话 + 会话级搜索/子代理上限——官方内建防失控护栏",
+      "brief": "/fork 重设计为复制到新后台会话（claude agents 可见），原会话内子代理改名 /subtask；WebSearch 每会话默认 200 次、子代理默认 200 个上限（环境变量可调），官方明说为止住失控委派循环；MCP >2 分钟调用自动转后台；/resume 变会话选择器。正是 07-13/16 成本护栏主线的官方回应。注意 /fork 语义变化别混用。",
+      "tags": [
+        "Claude Code",
+        "v2.1.212",
+        "fork",
+        "subtask",
+        "会话上限",
+        "防失控"
+      ],
+      "url": "reports/2026-07-18.html#topic-cc-v2-1-212",
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://github.com/anthropics/claude-code/releases",
+        "https://releasebot.io/updates/anthropic/claude-code"
+      ],
+      "fields": {
+        "what": "① /fork 重设计：当前对话复制成新后台会话（claude agents 可见），原会话内子代理行为改名 /subtask；② 会话级上限：WebSearch 默认 200 次/会话、子代理默认 200 个（CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION / MAX_SUBAGENTS 可调），官方称为止住失控委派循环；③ MCP >2 分钟调用自动转后台（阈值可配）；④ /resume 变会话选择器（含已删）并后台恢复；⑤ worktree/hook/计划模式误执行修复。",
+        "value": "07-13（Copilot 会话开销上限）与 07-16（分级放权）主线的官方回应：CC 开始内建每会话防失控护栏。子代理上限挡委派死循环烧配额；MCP 自动后台让长采集不阻塞；/fork 后台化改善'边跑雷达边开新任务'并行。",
+        "deploy": "升级 ≥v2.1.212。检查两个默认值：单会话搜索可能超 200 或并行子代理依赖大量派生的，用环境变量上调；习惯 /fork 开分支的注意它现在落到后台会话列表。",
+        "pitfall": "/fork 语义变了——老肌肉记忆'fork=当前会话子代理'现在要用 /subtask；上限触顶是收尾不是硬断，建议先在非关键任务碰一次看表现。验证：升级后 claude agents 能看到 /fork 出的后台会话。"
+      }
+    },
+    {
+      "id": "usage-limit-incident",
+      "date": "2026-07-18",
+      "batch": "07:30",
+      "tier": "extended",
+      "cat": "pitfall",
+      "conf": "⚠️",
+      "act": "中招先看 status 页与刷新时间，别查自己配置",
+      "deadline": null,
+      "title": "踩坑警报：7/17 起大量 Max 用户突遇「usage limit reached」无预警（待观察）",
+      "brief": "7/17 上午起社区集中报告（称数百名）Max 用户仅数百次请求即被限额拦下，无通知无文档更新，官方未说明。单一媒体+社区帖，标待观察。你在 Max 上跑雷达：若遇异常限额先别排查自己配置，大概率平台侧；时点恰在 Fable 窗口收口前 48h（是否相关无证据不归因）。也可能与 7/17 新版会话级上限被误读混淆。",
+      "tags": [
+        "踩坑",
+        "Max",
+        "限额",
+        "待观察",
+        "平台事件"
+      ],
+      "url": "reports/2026-07-18.html#topic-usage-limit-incident",
+      "links": [
+        "https://www.datastudios.org/post/anthropic-imposes-sudden-limits-on-claude-code-the-developer-community-rebels-against-the-platform",
+        "https://status.claude.com/"
+      ],
+      "fields": {
+        "what": "7/17 上午起社区集中报告：大量（报道称数百名）Max 订阅用户仅数百次请求后被「Claude usage limit reached」拦下，无事前通知、无文档更新；截至发稿官方未出说明。单一媒体梳理+社区帖，缺官方口径，标待观察。",
+        "value": "你在 Max 计划跑每日雷达与后台任务——若今明遇异常限额，先别排查自己的配置，大概率平台侧收紧或故障。时点敏感：恰在 Fable 5 免费窗收口前 48 小时（是否相关无证据，不做归因）。",
+        "deploy": "① 遇到时记录时间与请求量截图，对照 status.claude.com；② 关键任务错峰到限额刷新后；③ 等官方说明再判断是否持久策略变化，本雷达持续跟踪。",
+        "pitfall": "'数百人''仅数百次'均为二手转述，样本口径不明；也可能与 7/17 新版会话级上限（今日精选二）被误读混淆。验证：官方 status 页与 @claudeai 是否发声明。"
+      }
+    },
+    {
+      "id": "agent-memory-beta",
+      "date": "2026-07-18",
+      "batch": "07:30",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "备档：接入 Managed Agents 记忆时回看",
+      "deadline": null,
+      "title": "平台预告 agent-memory-2026-07-22 beta 头：Managed Agents 记忆 API 行为将变（备档）",
+      "brief": "新 beta 头：记忆列表改服务端稳定排序（忽略 order_by/order）、depth 仅 0/1/省略、path_prefix 须以 / 结尾按整段匹配；全家桶 SDK 新版已切到该头。你未用 Managed Agents 记忆，仅备档；未来挂招商知识库时按新语义。",
+      "tags": [
+        "Managed Agents",
+        "memory",
+        "beta",
+        "平台",
+        "备档"
+      ],
+      "url": "reports/2026-07-18.html#topic-agent-memory-beta",
+      "links": [
+        "https://platform.claude.com/docs/en/release-notes/overview",
+        "https://releasebot.io/updates/anthropic/claude-developer-platform"
+      ],
+      "fields": {
+        "what": "平台新增 agent-memory-2026-07-22 beta 头：记忆列表改为服务端稳定排序（忽略 order_by/order）、depth 仅接受 0/1/省略、path_prefix 必须以 / 结尾并按整段匹配；Python/TS/Go/Java/Ruby/PHP/C#/CLI 新版 SDK 已把记忆存储调用从 managed-agents-2026-04-01 切到该头。",
+        "value": "你当前未用 Managed Agents 记忆存储，仅备档。信号：Agents 记忆 API 快速定型——未来把招商知识库挂上去时，排序/路径匹配语义按新头为准。",
+        "deploy": "无动作。将来接入：升级 SDK 到新版本线，不依赖 order_by 自定义排序，path_prefix 以 / 收尾。",
+        "pitfall": "beta 语义可能继续调整；旧头下线时间未公布。验证：平台 release notes 与 Memory API 文档。"
+      }
     }
   ],
   "picks": [
     {
       "cat": "cost",
       "conf": "✅",
-      "title": "Fable 5 免费窗 7/19 收口（剩 3 天）——切换预案 7/18 前收尾",
+      "title": "Fable 5 免费窗最后一天（7/19 收口）——依赖确认+重推理清仓，7/20 核验计费",
       "topicIds": [
+        "fable5-last-day",
         "fable5-final-3days",
         "fable5-extend-719",
         "fable5-plan-end"
       ],
-      "url": "reports/2026-07-16.html#topic-fable5-final-3days",
-      "why": "三延之后无第四延迹象、官方不作承诺；7/20 起 $10/$50 预付 credits，忘切走会静默扣费。"
+      "url": "reports/2026-07-18.html#topic-fable5-last-day",
+      "why": "无第四延迹象；收口=UTC+8 7/20 下午；社区'不会真收'是预测不是依据，预案照做。"
     },
     {
       "cat": "marketing",
@@ -2255,8 +2380,10 @@
   "hot": [
     {
       "tag": "Fable 5 计费",
-      "note": "三延至 7/19·到期转 $10/$50",
+      "note": "最后一天·7/19 收口转 $10/$50",
       "topicIds": [
+        "fable5-last-day",
+        "fable5-final-3days",
         "fable5-extend-719",
         "fable5-plan-end"
       ],
@@ -2364,6 +2491,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-18",
+      "label": "周六 · 精选 2 条（Fable 5 最后一天 + CC v2.1.212 防失控护栏）",
+      "url": "reports/2026-07-18.html"
+    },
     {
       "date": "2026-07-17",
       "label": "周五 · 精选 2 条（Gemini 传闻修正 + CC v2.1.211 安全修复）",
