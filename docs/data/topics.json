@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T07:30+08:00",
+  "updated": "2026-07-19T07:31+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -2259,21 +2259,111 @@
         "deploy": "无动作。将来接入：升级 SDK 到新版本线，不依赖 order_by 自定义排序，path_prefix 以 / 收尾。",
         "pitfall": "beta 语义可能继续调整；旧头下线时间未公布。验证：平台 release notes 与 Memory API 文档。"
       }
+    },
+    {
+      "id": "fable5-dday",
+      "date": "2026-07-19",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "今天清仓高价值推理；明天 UTC+8 15:00 后核验计费",
+      "deadline": "2026-07-19",
+      "title": "【收口日】Fable 5 免费窗今晚 PT 23:59 结束（=UTC+8 明天约 14:59）——无第四延",
+      "brief": "今晨核查无第四延：今晚 PT 收口，7/20 起走预付 credits $10/$50；CC 负责人 Thariq 口径维持'算力允许时回归订阅'但无时间表；CC 周限额+50% 同步结束。免费额度最后一整天（UTC+8 到明天下午3点前）：清仓高价值推理；切换预案保持可逆，等回归订阅时可低成本切回。明日雷达报收口实况。",
+      "tags": [
+        "Fable 5",
+        "收口日",
+        "计费",
+        "回归订阅"
+      ],
+      "url": "reports/2026-07-19.html#topic-fable5-dday",
+      "links": [
+        "https://www.vincentschmalbach.com/fable-july-19-extension/",
+        "https://aitoolsrecap.com/Blog/fable-5-deadline-july-19-opus-5-fourth-extension-2026",
+        "https://www.anthropic.com/claude/fable"
+      ],
+      "fields": {
+        "what": "今晨核查无第四次延期：Fable 5 计划内访问今晚 PT 23:59:59 收口（美西此刻 7/18 下午，前三次惯例延期也在最后数小时才出）。7/20 起全部用量走预付 credits $10/$50；Thariq 口径维持'算力允许时让 Fable 5 回归订阅'但无时间表；CC 周限额+50% 同步结束。",
+        "value": "免费额度最后一整天（UTC+8 口径到明天下午 3 点前）——攒着的高价值推理今天清仓；预案 07-18 已收尾则无需新动作。'会回归订阅'意味着切走的调用未来可能切回——保持切换脚本可逆。",
+        "deploy": "① 今天至明天 UTC+8 ~14:59 清仓高价值推理；② 明天 15:00 后 Console 核验是否计入 credits、应用内确认标识；③ 深夜若第四延：视为红利，明日报实况，预案不变。",
+        "pitfall": "收口是 UTC+8 的 7/20 下午不是今晚；'回归订阅'无时间表别当可计划依赖。验证：官方 @claudeai X、应用内标识、Console 账单。"
+      }
+    },
+    {
+      "id": "cc-v2-1-214",
+      "date": "2026-07-19",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "今天就升 + 自查 settings 的 dir/** 允许规则",
+      "deadline": null,
+      "title": "CC v2.1.214（7/18）安全修复版：dir/** 允许规则会越界放行——升级并自查 settings",
+      "brief": "安全为主：修复单段 dir/** 允许规则自动放行整棵树里任何同名嵌套目录写入（本应仅 cwd/dir）；修多个 Bash 权限绕过（fd 重定向、>10000 字符命令、不安全 help/man 放行）；docker 守护进程重定向 flag 弹提示。我们这类仓库 settings 就有 dir/** 形态规则——升级后部分此前静默放行的操作会弹提示，是修复生效非退化，借机审一遍规则面。",
+      "tags": [
+        "Claude Code",
+        "v2.1.214",
+        "安全",
+        "权限规则",
+        "dir通配"
+      ],
+      "url": "reports/2026-07-19.html#topic-cc-v2-1-214",
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://github.com/anthropics/claude-code/releases"
+      ],
+      "fields": {
+        "what": "① 修复单段 dir/** 允许规则自动放行整棵目录树里任何同名嵌套目录的写入（本应只匹配 cwd/dir）；② 修多个 Bash 权限检查绕过（文件描述符重定向、>10,000 字符超长命令、zsh 下标、不安全 help/man 自动放行）；③ docker 带守护进程重定向 flag（--url 等）弹权限提示；④ 长任务进度心跳、OTel 事件字段、后台守护进程/Windows 修复。",
+        "value": "①② 直接关系无人值守安全：settings 里 dir/** 形态允许规则在旧版可能放行了比预期更大的范围；权限绕过修复对'后台跑一晚'的信任边界实打实收紧。延续本周官方防失控主线（212 会话上限→214 权限精确化）。",
+        "deploy": "① 升级 ≥v2.1.214；② 自查 .claude/settings*.json 允许规则：凡 Write(dir/**)/Edit(dir/**) 单段通配，确认按'仅 cwd 下该目录'语义后行为符合预期；③ 升级后首跑留意新增权限提示（正常收紧）。",
+        "pitfall": "升级后部分此前静默放行的操作开始弹提示——是修复生效非退化，别习惯性点掉，借机审规则面；Windows PowerShell 用户必升。验证：对嵌套同名目录做写入测试，确认不再被旧规则放行。"
+      }
+    },
+    {
+      "id": "gemini-missed-again",
+      "date": "2026-07-19",
+      "batch": "07:31",
+      "tier": "extended",
+      "cat": "model",
+      "conf": "✅",
+      "act": "停止跟点位，只认模型卡，出现即报",
+      "deadline": null,
+      "title": "Gemini 3.5 Pro 未如传闻在 7/17 发布（第三次错过）——本雷达 7/17 勘误获验证",
+      "brief": "传闻 7/17 已过：无模型卡、无定价页、API 文档无条目——重建后第三次错过外部时间点，媒体称 Google 酝酿 stopgap 过渡版（同为转述未官宣）。验证本雷达 7/17 勘误；对你结论不变：审慎不迁、分级路由；竞品规格预告一律等模型卡再当真。",
+      "tags": [
+        "Gemini",
+        "竞品",
+        "跳票",
+        "勘误验证",
+        "后续更新"
+      ],
+      "url": "reports/2026-07-19.html#topic-gemini-missed-again",
+      "links": [
+        "https://www.techtimes.com/articles/320736/20260716/rebuilt-gemini-35-pro-misses-third-deadline-google-eyes-stopgap-release.htm",
+        "https://ai.google.dev/gemini-api/docs/changelog"
+      ],
+      "fields": {
+        "what": "传闻中的 7/17 发布日已过：无模型卡、无定价页、API 文档无 gemini-3.5-pro 条目——重建后的 3.5 Pro 第三次错过外部时间点，媒体称 Google 考虑先出 stopgap 过渡版；3.5 Flash 维持 GA。",
+        "value": "验证本雷达 7/17 勘误（'7/17 是媒体口径非官宣'）。竞品结论不变：审慎不迁、分级路由；Google 反复跳票提示——竞品规格预告一律等模型卡再当真。",
+        "deploy": "无动作。触发条件更新：等官方模型卡/定价页出现（不再跟目标日），出现后按 §9 评估是否一测。",
+        "pitfall": "'stopgap 过渡版'同为媒体转述未官宣；别把错过时间点解读为产品失败——重建中的模型跳票常态。验证：Google 官方博客与 Gemini API changelog。"
+      }
     }
   ],
   "picks": [
     {
       "cat": "cost",
       "conf": "✅",
-      "title": "Fable 5 免费窗最后一天（7/19 收口）——依赖确认+重推理清仓，7/20 核验计费",
+      "title": "Fable 5 免费窗今晚收口（=UTC+8 7/20 下午）——清仓高价值推理，切换保持可逆",
       "topicIds": [
+        "fable5-dday",
         "fable5-last-day",
-        "fable5-final-3days",
         "fable5-extend-719",
         "fable5-plan-end"
       ],
-      "url": "reports/2026-07-18.html#topic-fable5-last-day",
-      "why": "无第四延迹象；收口=UTC+8 7/20 下午；社区'不会真收'是预测不是依据，预案照做。"
+      "url": "reports/2026-07-19.html#topic-fable5-dday",
+      "why": "无第四延；官方'算力允许即回归订阅'无时间表——预案可逆、明天下午核验计费。"
     },
     {
       "cat": "marketing",
@@ -2289,13 +2379,14 @@
     {
       "cat": "tools",
       "conf": "✅",
-      "title": "Claude Code 稳定性线收口：v2.1.208 终修长会话内存泄漏 + 7× 工具性能",
+      "title": "Claude Code 一周四版（208→214）：内存泄漏终修 + 会话上限 + 权限精确化",
       "topicIds": [
-        "cc-v2-1-208",
-        "cc-week-closer"
+        "cc-v2-1-214",
+        "cc-v2-1-212",
+        "cc-v2-1-208"
       ],
-      "url": "reports/2026-07-15.html#topic-cc-v2-1-208",
-      "why": "从 7/7 后台代理到 7/14 内存泄漏终修，一条连贯的'放心跑长会话/后台代理'建设线落地——今天就升 v2.1.209。"
+      "url": "reports/2026-07-19.html#topic-cc-v2-1-214",
+      "why": "官方为无人值守长会话密集补课；升级到 ≥v2.1.214 并自查 settings 的 dir/** 允许规则。"
     },
     {
       "title": "模型退役双截止：7/24 Opus 4.7 Fast Mode · 8/5 Opus 4.1",
@@ -2380,10 +2471,10 @@
   "hot": [
     {
       "tag": "Fable 5 计费",
-      "note": "最后一天·7/19 收口转 $10/$50",
+      "note": "今晚 PT 收口·7/20 起 $10/$50",
       "topicIds": [
+        "fable5-dday",
         "fable5-last-day",
-        "fable5-final-3days",
         "fable5-extend-719",
         "fable5-plan-end"
       ],
@@ -2491,6 +2582,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-19",
+      "label": "周日 · 精选 2 条 + 本周复盘（Fable 收口日 + CC 安全版 + 四主线回顾）",
+      "url": "reports/2026-07-19.html"
+    },
     {
       "date": "2026-07-18",
       "label": "周六 · 精选 2 条（Fable 5 最后一天 + CC v2.1.212 防失控护栏）",
