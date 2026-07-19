@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-19T07:31+08:00",
+  "updated": "2026-07-20T07:30+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -2349,21 +2349,114 @@
         "deploy": "无动作。触发条件更新：等官方模型卡/定价页出现（不再跟目标日），出现后按 §9 评估是否一测。",
         "pitfall": "'stopgap 过渡版'同为媒体转述未官宣；别把错过时间点解读为产品失败——重建中的模型跳票常态。验证：Google 官方博客与 Gemini API changelog。"
       }
+    },
+    {
+      "id": "fable5-tier-split",
+      "date": "2026-07-20",
+      "batch": "07:30",
+      "tier": "featured",
+      "cat": "cost",
+      "conf": "✅",
+      "act": "今天核对档位与到账：Max 撤销切换常态化用；Pro $100 花刀刃+设提醒",
+      "deadline": null,
+      "title": "【终局】Fable 5 分层落地：Max 永久内含（50% 限额），Pro 转 credits 送 $100",
+      "brief": "官方 @claudeai 在收口前宣布第三条路：7/20 起 Fable 5 纳入所有 Max/Team Premium（周限额 50% 内，官方称永久）；Pro/Team Standard 走 usage credits（$10/$50）并一次性送 $100。四个截止点拉锯的最终落地，部分兑现'回归订阅'（按档分层）。Max：切换预案不必执行；Pro：预案生效、$100 只花高价值推理。'永久'按五周四改历史仍当'直到另行通知'。",
+      "tags": [
+        "Fable 5",
+        "分层落地",
+        "Max 内含",
+        "$100 credit",
+        "终局",
+        "计费"
+      ],
+      "url": "reports/2026-07-20.html#topic-fable5-tier-split",
+      "links": [
+        "https://x.com/claudeai/status/2078302415804379218",
+        "https://www.techtimes.com/articles/320905/20260718/claude-fable-5-ends-subscription-limbo-permanent-max-credits-only-pro.htm",
+        "https://usagebox.com/articles/claude-fable-5-usage-credits-switch-july-2026",
+        "https://fable5.app/fable-5-usage-limits/"
+      ],
+      "fields": {
+        "what": "官方 @claudeai 在收口前宣布：7/20 起 Fable 5 纳入所有 Max 与 Team Premium 计划（周限额 50% 内，官方口径为永久安排）；Pro 与 Team Standard 改经 usage credits（$10/$50）并获一次性 $100 credit。6/22→7/7→7/12→7/19 拉锯的最终落地，按档位分层兑现了'回归订阅'承诺。",
+        "value": "按档位对号：Max——Fable 5 永久保留，过去一周的切走预案不必执行（保留备用），高价值推理可长期用；Pro——预案正式生效：轻任务留 Haiku/Sonnet，$100 约可跑 200 万输入+160 万输出混合负载，只花最高价值推理。两档共同：$10/$50 计价未变，分级路由结论不变。",
+        "deploy": "① 今天确认订阅档位与应用内标识（Max 显示计划内；Pro 见 credits 余额与 $100 到账）；② Max：高价值推理常态化（50% 限额内），超限走分级路由；③ Pro：$100 当高价值推理专用金，Console 设用量提醒；④ 切换脚本保留（可逆原则）。",
+        "pitfall": "'永久'是当前口径——按五周四改历史仍当'直到另行通知'；$100 一次性、烧完按量；7/17 usage limit 事件官方仍无单独说明，公告'需求难预测'或为背景但无证据不归因。验证：应用内标识+Console 余额+官方 X 原帖。"
+      }
+    },
+    {
+      "id": "cc-v2-1-215",
+      "date": "2026-07-20",
+      "batch": "07:30",
+      "tier": "extended",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "把 /verify 显式写进发布流程模板",
+      "deadline": null,
+      "title": "CC v2.1.215（7/19）：/verify 与 /code-review 不再自动运行——行为变更",
+      "brief": "Claude 不再自动触发 /verify 与 /code-review，需显式调用。依赖'模型会自己校验'的流程假设失效——无人值守里尤其危险（自动兜底没了）；好处是行为可预测、省 token。应对：在提交/发布类 Skill 或 hook 里显式写入校验步骤（把自觉改为编码）。行为变更不报错、最易静默漏掉。",
+      "tags": [
+        "Claude Code",
+        "v2.1.215",
+        "verify",
+        "code-review",
+        "行为变更"
+      ],
+      "url": "reports/2026-07-20.html#topic-cc-v2-1-215",
+      "links": [
+        "https://code.claude.com/docs/en/changelog"
+      ],
+      "fields": {
+        "what": "行为变更：Claude 不再自动触发 /verify（端到端验证）与 /code-review（代码审查），需要时必须显式调用；此前可能在提交前被模型自主拉起。",
+        "value": "若开发/发布习惯默认'Claude 会自己校验'，该假设自 215 失效——无人值守流程尤其危险（自动兜底没了）；好处是行为更可预测、不再有未请求的审查 token 开销。",
+        "deploy": "① 在提交/发布类 Skill 或 hook 显式写入 /verify 或 /code-review 步骤（自觉改编码，同 validate.py 门禁打法）；② 复查自动化脚本是否隐含依赖自动校验。",
+        "pitfall": "行为变更不报错——只是'不再发生'，最易静默漏掉；升级后第一次真实提交流程走一遍确认校验环节仍在。验证：changelog 原文+实测提交流。"
+      }
+    },
+    {
+      "id": "gpt-live",
+      "date": "2026-07-20",
+      "batch": "07:30",
+      "tier": "extended",
+      "cat": "model",
+      "conf": "✅",
+      "act": "备档观察：等印尼语实时翻译实测",
+      "deadline": null,
+      "title": "OpenAI 发布 GPT-Live：边听边说实时语音 + 实时翻译——远期看多语招商沟通",
+      "brief": "GPT-Live 实时语音模型：边听边说（每秒多次决策说/停/打断/调工具）、九种语音、实时翻译；Live-1 付费默认、mini 免费默认。竞品观察为主；远期场景：印尼语/中文/英语实时翻译若达生产级，招商电话语言门槛显著降低。当前不建议接入，等印尼语独立实测。",
+      "tags": [
+        "OpenAI",
+        "GPT-Live",
+        "语音",
+        "实时翻译",
+        "竞品",
+        "备档"
+      ],
+      "url": "reports/2026-07-20.html#topic-gpt-live",
+      "links": [
+        "https://openai.com/news/",
+        "https://thursdai.news/releases/2026-07"
+      ],
+      "fields": {
+        "what": "OpenAI 推出 GPT-Live 实时语音模型：边听边说（每秒多次决策说话/停顿/打断/调用工具）、九种重制语音、实时翻译；GPT-Live-1 付费默认、mini 免费默认；与 GPT-5.6 家族全量 rollout 同周。",
+        "value": "竞品观察为主；值得记录的远期场景：印尼语/中文/英语实时翻译语音沟通——招商电话与加盟商答疑的语言门槛若被生产级实时翻译拉低，对你是结构性利好。当前语音场景不在 OpenAI 生态，不为此接入。",
+        "deploy": "不动手。观察：① 实时翻译对印尼语的实际质量（等第三方实测）；② Anthropic 是否跟进同类实时语音。有印尼语实测后按 §9 评估。",
+        "pitfall": "发布日宣称与真实低延迟表现常有差距；小语种翻译质量尤其要等独立评测。验证：OpenAI 官方发布页+第三方语音实测。"
+      }
     }
   ],
   "picks": [
     {
       "cat": "cost",
       "conf": "✅",
-      "title": "Fable 5 免费窗今晚收口（=UTC+8 7/20 下午）——清仓高价值推理，切换保持可逆",
+      "title": "Fable 5 终局：Max 永久内含（50% 限额）/ Pro 转 credits 送 $100——分级路由框架不变",
       "topicIds": [
+        "fable5-tier-split",
         "fable5-dday",
-        "fable5-last-day",
         "fable5-extend-719",
         "fable5-plan-end"
       ],
-      "url": "reports/2026-07-19.html#topic-fable5-dday",
-      "why": "无第四延；官方'算力允许即回归订阅'无时间表——预案可逆、明天下午核验计费。"
+      "url": "reports/2026-07-20.html#topic-fable5-tier-split",
+      "why": "一周拉锯落地：Max 撤销切换常态化用；Pro 预案生效、$100 只花高价值推理；'永久'仍当'直到另行通知'。"
     },
     {
       "cat": "marketing",
@@ -2471,14 +2564,14 @@
   "hot": [
     {
       "tag": "Fable 5 计费",
-      "note": "今晚 PT 收口·7/20 起 $10/$50",
+      "note": "终局：Max 内含 / Pro credits+$100",
       "topicIds": [
+        "fable5-tier-split",
         "fable5-dday",
-        "fable5-last-day",
         "fable5-extend-719",
         "fable5-plan-end"
       ],
-      "expire": "2026-07-19"
+      "expire": "2026-07-27"
     },
     {
       "tag": "WhatsApp 计费",
@@ -2582,6 +2675,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-20",
+      "label": "周一 · 精选 1 条（Fable 5 终局：Max 永久内含 / Pro 转 credits 送 $100）",
+      "url": "reports/2026-07-20.html"
+    },
     {
       "date": "2026-07-19",
       "label": "周日 · 精选 2 条 + 本周复盘（Fable 收口日 + CC 安全版 + 四主线回顾）",
