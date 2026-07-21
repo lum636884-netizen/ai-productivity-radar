@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-20T07:30+08:00",
+  "updated": "2026-07-22T07:31+08:00",
   "categories": {
     "model": "模型能力",
     "tools": "工具与工作流",
@@ -2442,9 +2442,144 @@
         "deploy": "不动手。观察：① 实时翻译对印尼语的实际质量（等第三方实测）；② Anthropic 是否跟进同类实时语音。有印尼语实测后按 §9 评估。",
         "pitfall": "发布日宣称与真实低延迟表现常有差距；小语种翻译质量尤其要等独立评测。验证：OpenAI 官方发布页+第三方语音实测。"
       }
+    },
+    {
+      "id": "opus47-fast-2days",
+      "date": "2026-07-22",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "pitfall",
+      "conf": "✅",
+      "act": "今天 grep 排查 opus-4-7 + fast 残留",
+      "deadline": "2026-07-24",
+      "title": "【倒计时·剩2天】Opus 4.7 Fast Mode 7/24 移除——硬错误型截止，两分钟排查",
+      "brief": "7/24 起对 claude-opus-4-7 带 speed:fast 的请求直接报错、不自动回退（Opus 4.8 fast 不受影响）。硬错误型截止：不迁移的后果是调用直接失败，无人值守脚本尤其致命。应对：grep 脚本/Skill/配置里的 opus-4-7，命中的改 4.8+fast 或去掉 fast。§9-② 截止≤3天再入选（07-05 首报）。",
+      "tags": [
+        "Opus 4.7",
+        "Fast Mode",
+        "截止",
+        "剩2天",
+        "硬错误"
+      ],
+      "url": "reports/2026-07-22.html#topic-opus47-fast-2days",
+      "links": [
+        "https://platform.claude.com/docs/en/release-notes/overview",
+        "https://code.claude.com/docs/en/fast-mode"
+      ],
+      "fields": {
+        "what": "平台 6 月底公告：7/24 起移除 Opus 4.7 的 fast mode——对 claude-opus-4-7 带 speed:'fast' 的请求直接报错、不自动回退；Opus 4.8 fast 不受影响。§9 截止≤3天再入选提醒（07-05 首报、07-11 预告）。",
+        "value": "硬错误型截止：不迁移的后果不是变慢而是调用直接失败——无人值守脚本里尤其致命（半夜报错没人看见）。你主力在 Opus 4.8/Sonnet 5，大概率不中招，但值得两分钟确认排除。",
+        "deploy": "① grep -rn 'opus-4-7' 扫脚本/Skill/配置，凡带 speed:'fast' 的改 claude-opus-4-8+fast 或去掉参数；② 无命中则到此为止；③ 7/24 后见 4xx 提及 fast/speed 先想到本截止。",
+        "pitfall": "易漏：第三方工具/旧模板硬编码的模型 ID；报错不回退是官方明确行为，别指望降级兜底。验证：7/24 后旧 ID+fast 测试请求应得明确错误，生产脚本应无此类调用。"
+      }
+    },
+    {
+      "id": "cc-budget-guardrails",
+      "date": "2026-07-22",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "tools",
+      "conf": "✅",
+      "act": "本周升 217，夜间任务加 --max-budget-usd 硬顶",
+      "deadline": null,
+      "title": "CC v2.1.216/217：预算护栏成型——并发上限 + 禁嵌套 + max-budget 真能停后台",
+      "brief": "防失控三件套齐：并发子代理上限（默认20可调）；子代理默认禁嵌套派生（掐断指数失控）；--max-budget-usd 不停后台子代理的 bug 修复——美元硬顶真正生效。另修 MCP 截断输出内存泄漏、frontmatter 大括号 OOM、worktree git 重定向。07-13→07-18 成本护栏主线第三节点：次数+并发+美元三层护栏齐备，无人值守夜间任务可放心设硬顶。",
+      "tags": [
+        "Claude Code",
+        "v2.1.217",
+        "max-budget-usd",
+        "并发上限",
+        "禁嵌套",
+        "防失控"
+      ],
+      "url": "reports/2026-07-22.html#topic-cc-budget-guardrails",
+      "links": [
+        "https://code.claude.com/docs/en/changelog",
+        "https://github.com/anthropics/claude-code/releases"
+      ],
+      "fields": {
+        "what": "两版合看防失控三件套：① 并发子代理上限（默认 20，CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS 可调）；② 子代理默认不再嵌套派生（掐断指数级失控）；③ 修复 --max-budget-usd 不停后台子代理的 bug——美元预算对后台任务真正生效。另：MCP 截断输出内存泄漏、CLAUDE.md/SKILL.md frontmatter 大括号展开 OOM、worktree 子代理 git 重定向再修、auto 模式 OAuth 过期误拒修复。",
+        "value": "07-13（Copilot 会话上限）→07-18（CC 次数上限）主线第三节点：CC 现有'次数+并发+美元'三层护栏——此前要自建的预算兜底官方补齐；无人值守雷达/营销流水线的 --max-budget-usd 终于可信，夜间任务可设硬顶。",
+        "deploy": "① 升级 ≥v2.1.217；② 无人值守脚本加 --max-budget-usd 硬顶；③ 依赖嵌套派生的并行编排注意新默认禁止（需要则显式放开）；④ CLAUDE.md/SKILL.md 有 {a,b} 大括号写法的检查语义。",
+        "pitfall": "并发 20 是新默认——重并行升级后'变慢'先查是否触顶（护栏生效非退化）；嵌套禁用可能改变既有多层编排行为。验证：低 --max-budget-usd 跑后台任务，确认到顶即停。"
+      }
+    },
+    {
+      "id": "wa-pricing-details",
+      "date": "2026-07-22",
+      "batch": "07:31",
+      "tier": "featured",
+      "cat": "marketing",
+      "conf": "✅",
+      "act": "本周完成 8/1 核算（用实数）+ 日历新增 10/1 盘点",
+      "deadline": "2026-08-01",
+      "title": "【更新】WhatsApp 计费实数：单条 AI agent 消息约 4-5 美分；10/1 第二道截止——免费窗全面终结",
+      "brief": "07-16 条目的实质更新：单条 Business Agent 消息约 2-2.5 万 token ≈4-5 美分；印尼两层成本=Meta 会话费 Rp55-460/会话+BSP 月费 Rp30-150 万；新发现 10/1 起 service messages 与窗口内 utility 模板也收费（免费窗终结，影响所有 WhatsApp Business 用户）。若资格化 bot 每线索 8-10 条消息，官方平台约 $0.4-0.5/线索纯 AI 费。压缩轮次=三重省。",
+      "tags": [
+        "WhatsApp",
+        "计费",
+        "4-5美分",
+        "10/1截止",
+        "招商漏斗",
+        "更新"
+      ],
+      "url": "reports/2026-07-22.html#topic-wa-pricing-details",
+      "links": [
+        "https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing",
+        "https://www.businesstoday.in/technology/artificial-intelligence/story/whatsapp-introduces-token-based-pricing-for-ai-agents-from-august-1-540699-2026-07-03",
+        "https://payperwa.com/blog/whatsapp-business-api-pricing-indonesia-2026",
+        "https://sleekflow.io/blog/whatsapp-business-price"
+      ],
+      "fields": {
+        "what": "§9-③ 对 07-16 的实质更新：① 单条量化——Business Agent 一条消息约 2-2.5 万 token（读题+回复），按 $2/百万折合每条约 4-5 美分；② 印尼两层成本确认：Meta 会话费 Rp 55-460/会话+BSP 月费约 Rp 30-150 万；③ 新发现第二道截止：10/1 起 service messages 与 24h 窗口内 utility 模板收费——终结 2025-07 以来的免费窗，影响所有 WhatsApp Business 用户。",
+        "value": "8/1 核算有实数可算：资格化 bot 每线索 8-10 条消息≈$0.4-0.5/线索（纯 AI 消息费），叠加会话费与 BSP 月费再对比自建。10/1 更要紧：现在免费的服务类消息（招商跟进、通知）届时成常态支出。",
+        "deploy": "① 8/1 核算照 07-16 三步、套 4-5 美分实数；② 新增 10/1 待办：盘点每月 service/utility 消息量，按 Rp55-460/会话估新增支出并写日历；③ 压缩消息轮次价值再放大——每省一轮三重省（AI token+会话费+utility 费）。",
+        "pitfall": "'2-2.5 万 token/条'是多源估算，随 prompt 复杂度浮动——用真实对话实测；印尼费率以 Meta 官方 pricing 页与 BSP 报价为准；10/1 条款细节（类目/豁免）以届时官方文档为准。验证：官方 pricing 页+BSP 的 8 月与 10 月报价单。"
+      }
+    },
+    {
+      "id": "midconv-system",
+      "date": "2026-07-22",
+      "batch": "07:31",
+      "tier": "extended",
+      "cat": "platform",
+      "conf": "✅",
+      "act": "备用：下次改造 bot 话术分支时优先用",
+      "deadline": null,
+      "title": "API 会话中途 system 消息转正（免 beta 头）——长流程动态改规则的正规通道",
+      "brief": "mid-conversation system messages 在 API/Bedrock/Vertex 全面可用免 beta 头：多轮对话中途插入 system 消息动态调整指令。对长流程自动化是正规'换挡'通道（bot 中途按打分切话术、采集中途收紧规则），替代拼 user 消息的土办法。注意与旧指令冲突时行为需实测、留意缓存断点变化。",
+      "tags": [
+        "API",
+        "system消息",
+        "长流程",
+        "平台",
+        "备用"
+      ],
+      "url": "reports/2026-07-22.html#topic-midconv-system",
+      "links": [
+        "https://platform.claude.com/docs/en/release-notes/overview"
+      ],
+      "fields": {
+        "what": "平台更新：mid-conversation system messages 在 Claude API/Bedrock/Vertex 全面可用、不再需要 beta 头——可在多轮对话中途插入 system 角色消息，动态调整指令与约束。",
+        "value": "长流程自动化的正规'换挡'通道：线索资格化 bot 中途按打分切换话术策略、雷达采集会话中途收紧信源规则——以前靠拼 user 消息模拟，现在是一等公民能力、行为更可预期。",
+        "deploy": "SDK 升近期版本后直接在 messages 数组中途插 system 角色；已有'user 消息伪装规则变更'的代码可逐步迁移。",
+        "pitfall": "中途 system 不抹掉此前上下文——新旧指令冲突时模型行为需实测；缓存断点可能受插入影响（留意命中率）。验证：官方文档+一条真实流程 A/B。"
+      }
     }
   ],
   "picks": [
+    {
+      "cat": "pitfall",
+      "conf": "✅",
+      "title": "模型退役双截止进入倒计时：7/24 Opus 4.7 Fast（剩2天·硬错误）· 8/5 Opus 4.1",
+      "topicIds": [
+        "opus47-fast-2days",
+        "opus47-fast",
+        "opus41-retire"
+      ],
+      "url": "reports/2026-07-22.html#topic-opus47-fast-2days",
+      "why": "fast 移除后直接报错不回退——今天 grep 两分钟排除；8/5 前同步确认无 4.1 残留。"
+    },
     {
       "cat": "cost",
       "conf": "✅",
@@ -2461,36 +2596,27 @@
     {
       "cat": "marketing",
       "conf": "✅",
-      "title": "Meta 改 WhatsApp Business 计费（8/1）：AI agent 按 token $2/百万——招商漏斗重算成本",
+      "title": "WhatsApp 计费双截止：8/1 AI 按 token（约4-5美分/条）· 10/1 服务消息收费",
       "topicIds": [
+        "wa-pricing-details",
         "wa-pricing-change",
         "meta-business-agent"
       ],
-      "url": "reports/2026-07-16.html#topic-wa-pricing-change",
-      "why": "WhatsApp 收线索是你漏斗第一环：8/1 前核算两种路线成本、压缩话术轮次，自建短话术 bot 优势扩大。"
+      "url": "reports/2026-07-22.html#topic-wa-pricing-details",
+      "why": "免费窗全面终结：本周用实数完成 8/1 核算、日历新增 10/1 盘点；话术压轮次=三重省。"
     },
     {
       "cat": "tools",
       "conf": "✅",
-      "title": "Claude Code 一周四版（208→214）：内存泄漏终修 + 会话上限 + 权限精确化",
+      "title": "Claude Code 两周十版收束：内存终修 + 三层防失控护栏（次数/并发/美元）+ 权限精确化",
       "topicIds": [
+        "cc-budget-guardrails",
         "cc-v2-1-214",
         "cc-v2-1-212",
         "cc-v2-1-208"
       ],
-      "url": "reports/2026-07-19.html#topic-cc-v2-1-214",
-      "why": "官方为无人值守长会话密集补课；升级到 ≥v2.1.214 并自查 settings 的 dir/** 允许规则。"
-    },
-    {
-      "title": "模型退役双截止：7/24 Opus 4.7 Fast Mode · 8/5 Opus 4.1",
-      "why": "一次全局模型 ID 体检同时清零两个硬错误风险，顺带 Fast Mode 降本 3×。最不该拖的一件事。",
-      "cat": "pitfall",
-      "conf": "✅",
-      "url": "reports/2026-07-05.html#topic-opus41-retire",
-      "topicIds": [
-        "opus47-fast",
-        "opus41-retire"
-      ]
+      "url": "reports/2026-07-22.html#topic-cc-budget-guardrails",
+      "why": "升级 ≥v2.1.217；夜间任务加 --max-budget-usd 硬顶；自查 dir/** 允许规则。"
     },
     {
       "cat": "tools",
@@ -2575,12 +2701,13 @@
     },
     {
       "tag": "WhatsApp 计费",
-      "note": "8/1 起 agent 按 token $2/百万",
+      "note": "8/1 AI 按 token · 10/1 服务消息收费",
       "topicIds": [
+        "wa-pricing-details",
         "wa-pricing-change",
         "meta-business-agent"
       ],
-      "expire": "2026-08-01"
+      "expire": "2026-10-01"
     },
     {
       "tag": "竞品与模型选择",
@@ -2675,6 +2802,11 @@
     }
   ],
   "days": [
+    {
+      "date": "2026-07-22",
+      "label": "周三 · 精选 3 条（Opus 4.7 Fast 剩2天 + CC 预算护栏 + WhatsApp 实数与 10/1 新截止）",
+      "url": "reports/2026-07-22.html"
+    },
     {
       "date": "2026-07-20",
       "label": "周一 · 精选 1 条（Fable 5 终局：Max 永久内含 / Pro 转 credits 送 $100）",
